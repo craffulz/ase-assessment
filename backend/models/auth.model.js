@@ -18,7 +18,7 @@ const getUserByEmail = async (userEmail) => {
 };
 
 const createUser = async (newUser) => {
-  console.log("NODEL", newUser);
+  console.log("MODEL", newUser);
 
   const query = {
     text: ` 
@@ -39,7 +39,25 @@ const createUser = async (newUser) => {
   }
 };
 
+const deleteUser = async (userId) => {
+  const query = {
+    text: `
+    DELETE FROM users WHERE id = $1
+    RETURNING *
+    `,
+    values: [userId],
+  };
+
+  try {
+    const { rows } = await db.query(query);
+    return rows[0];
+  } catch (error) {
+    console.log("Error deleting user: ", error);
+  }
+};
+
 export const AuthModel = {
+  deleteUser,
   createUser,
   getUserByEmail,
 };

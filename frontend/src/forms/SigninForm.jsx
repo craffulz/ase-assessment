@@ -36,7 +36,10 @@ const Signin = () => {
         }),
       });
 
-      if (!response.ok) throw new Error("No response");
+      if (!response.ok) {
+        console.log(await response.json());
+        throw new Error("No response");
+      }
 
       setSigned(true);
       setTimeout(() => {

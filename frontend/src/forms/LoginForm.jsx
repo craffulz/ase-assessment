@@ -10,7 +10,6 @@ import { login } from "./../store/user.slice.js";
 const LoginForm = () => {
   const navigateTo = useNavigate();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
-
   const dispatch = useDispatch();
 
   const {
@@ -31,7 +30,9 @@ const LoginForm = () => {
       const response = await fetch("http://localhost:3000/api/auth/login", {
         credentials: "include",
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           email: email,
           password: password,
@@ -54,7 +55,7 @@ const LoginForm = () => {
       sessionStorage.setItem("access_token", access_token);
 
       //Navigate to the home page
-      navigateTo("/");
+      navigateTo("/players");
     } catch (error) {
       console.log("Error fetching data: ", error);
     }

@@ -35,7 +35,7 @@ const updatePlayer = async (playerUpdate, playerId) => {
             appearances = $10, 
             contract_salary = $11, 
             contract_end = $12, 
-            market_value = $13,
+            market_value = $13
         WHERE id = $14
         RETURNING *
         `,

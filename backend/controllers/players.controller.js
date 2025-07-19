@@ -75,7 +75,7 @@ const createPlayer = async (req, res) => {
 
     return res.status(201).json({
       ok: true,
-      msg: "Successfuly created player!",
+      msg: "Successfully created player!",
       newPlayer: createdPlayer.name,
     });
   } catch (error) {

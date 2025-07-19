@@ -8,29 +8,31 @@ export const accessTokenMiddleware = async (req, res, next) => {
      * if not we catch the error and work in the different cases
      **/
 
-    const access_token = req.headers.authorization; //get access token
+    const bearer = req.headers.authorization; //get access token
 
-    if (!access_token) {
-      console.log("Acceso sin token? Refreshtoken flujo");
+    console.log("access_token", bearer);
+
+    if (!bearer) {
       const error = new Error("Missing access_token");
       error.name = "TokenExpiredError";
       throw error;
     }
 
-    const retrieved_access_token = access_token
-      ? await TokenUtil.retrieveToken(access_token)
-      : ""; //split the token from the 'bearer'
+    const accessToken = await TokenUtil.retrieveToken(bearer);
 
-    console.log("Access token verification...");
-    const user = TokenUtil.verifyAccessToken(retrieved_access_token);
+    const user = TokenUtil.verifyAccessToken(accessToken);
 
     res.locals.user = user;
-    console.log("Access conceeded/ \n");
-    next();
+    console.log("Access Granted!");
+    return next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      console.log("Refresh token verification... \n");
+      console.log("Token Expired");
+
       const refreshToken = req.cookies.refreshToken; //get the refresh token from cookies
+
+      console.log("refresh_token", refreshToken);
+
       try {
         const user = TokenUtil.verifyRefreshToken(refreshToken); //check if refresh token expired
 
@@ -40,10 +42,13 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         let { is_revoked, ip: dbIP } = db_refresh_token;
 
-        if (is_revoked)
+        if (is_revoked) {
+          console.log("Refresh token is revoked");
+          res.clearCookie("refreshToken");
           return res
             .status(401)
-            .json({ ok: false, msg: "Unauthorized access" }); //check if its revoked -> Deny access
+            .json({ ok: false, msg: "Unauthorized access" });
+        } //check if its revoked -> Deny access
 
         const xForwardedFor = req.headers["x-forwarded-for"]; //check ip
 
@@ -51,10 +56,13 @@ export const accessTokenMiddleware = async (req, res, next) => {
           ? xForwardedFor.split(",")[0].trim()
           : req.socket.remoteAddress;
 
-        if (clientIP !== dbIP)
+        if (clientIP !== dbIP) {
+          console.log("IP Mismatch");
+          res.clearCookie("refreshToken");
           return res
             .status(401)
-            .json({ ok: false, msg: "Unauthorized access" }); //check if ig its the same IP
+            .json({ ok: false, msg: "Unauthorized access" });
+        } //check if ig its the same IP
 
         /**
          * Once here, client ip is the same that we have stored in our DB and token is not revoked.
@@ -91,22 +99,27 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         res.setHeader("Authorization", `Bearer ${new_access_token}`); //setHeader authorization
 
-        res.locals.user = { id: user.id, email: user.email };
-
-        console.log("Token refreshed");
+        console.log("Refreshed token");
         return next();
       } catch (error) {
-        console.log(error);
+        console.log("After token expired error, another error", error);
+
         //res.clearCookie("refreshToken");
-        res.status(401).json({ ok: false, msg: "Access denied" });
+        return res.status(401).json({ ok: false, msg: "Access denied" });
       }
     }
     if (error.name === "JsonWebTokenError") {
+      console.log(error);
       return res.status(401).json({
         ok: false,
         msg: "Access JWT not provided",
       });
     }
-    console.log(error);
+
+    console.log("Y este error?: ", error);
+    //res.clearCookie("refreshToken");
+    return res
+      .status(400)
+      .json({ ok: false, msg: "Where do you think you are going?" });
   }
 };

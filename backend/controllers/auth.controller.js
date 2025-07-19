@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { AuthModel } from "./../models/auth.model.js";
 import { TokenUtil } from "../utils/token.util.js";
 import { RefreshTokenModel } from "../models/refreshToken.model.js";
+import { ScoutsModel } from "../models/scouts.model.js";
 const register = async (req, res) => {
   const errors = validationResult(req);
 
@@ -12,15 +13,30 @@ const register = async (req, res) => {
 
   try {
     const newUser = req.body;
-    console.log(newUser)
+    
     if (!newUser) throw new Error("User data not provided");
     //Hash password
     const hashedPassword = await TokenUtil.hashPassword(newUser.password);
     if (!hashedPassword) throw new Error("Error hashing password");
     newUser.password_hash = hashedPassword;
 
-    const createdUser = await AuthModel.createUser(newUser); 
+    const createdUser = await AuthModel.createUser(newUser);
     if (!createdUser) throw new Error("User not created");
+
+    const scoutProfile = {
+      userId: createdUser.id,
+      fullName: createdUser.name,
+      licenseNumber: "",
+      organization: "",
+    };
+
+    const createdScoutProfile = await ScoutsModel.createScout(scoutProfile);
+    if (!createdScoutProfile) {
+      const error = new Error();
+      error.name = "Scout profile not created";
+      error.createdUser = createdUser;
+      throw error;
+    }
 
     return res.status(201).json({
       ok: true,
@@ -29,11 +45,16 @@ const register = async (req, res) => {
     });
   } catch (error) {
     console.log("[CON] Error registering user", error);
+
+    if (error.createdUser || error.createdUser.id) {
+      await AuthModel.deleteUser(error.createdUser.id);
+    }
+
     return res.status(500).json({ ok: false, msg: "Server error" });
   }
 };
 
-const login = async (req, res) => { 
+const login = async (req, res) => {
   const auto_log = res.locals.user;
 
   if (auto_log)
@@ -44,13 +65,10 @@ const login = async (req, res) => {
 
   try {
     const loginUser = req.body;
-    console.log(loginUser)
 
     if (!loginUser) throw new Error("User not provided");
     //checking user is in DB
     const checkedUser = await AuthModel.getUserByEmail(loginUser.email);
-
-    console.log(checkedUser)
 
     if (!checkedUser) throw new Error("Incorrect email or password");
     //compare passwords
@@ -91,7 +109,7 @@ const login = async (req, res) => {
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
+    
     res.setHeader("Authorization", `Bearer ${access_token}`);
 
     return res.status(200).json({ ok: true, msg: "Successfull login" });

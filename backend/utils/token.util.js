@@ -45,7 +45,7 @@ const signAccessToken = (id, email) => {
     { id: id, email: email },
     process.env.JWT_SECRET,
     {
-      expiresIn: "1m",
+      expiresIn: "10s",
     }
   );
   return access_token;

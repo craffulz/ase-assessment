@@ -30,11 +30,9 @@ const Login = () => {
         //Take the refresh_token
         console.log("autolog", access_token);
         //Set the access token and the email(on payload) took from the resquest's response in the store
-        dispatch(login(access_token));
-        //Add access_token to session_storage
-        sessionStorage.setItem("access_token", access_token);
+        if (access_token) dispatch(login(access_token));
         //Navigate to the home page
-        navigateTo("/");
+        navigateTo("/players");
       } catch (error) {
         console.log(error);
       }
