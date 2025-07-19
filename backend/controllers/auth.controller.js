@@ -13,7 +13,7 @@ const register = async (req, res) => {
 
   try {
     const newUser = req.body;
-    
+
     if (!newUser) throw new Error("User data not provided");
     //Hash password
     const hashedPassword = await TokenUtil.hashPassword(newUser.password);
@@ -57,26 +57,30 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const auto_log = res.locals.user;
 
-  if (auto_log)
+  if (auto_log) {
+    console.log("Auto logging...");
     return res.status(200).json({
       ok: true,
       msg: "Successfully auto logged",
     });
+  }
 
   try {
     const loginUser = req.body;
-
+    console.log("Login user:  \n", loginUser);
     if (!loginUser) throw new Error("User not provided");
     //checking user is in DB
     const checkedUser = await AuthModel.getUserByEmail(loginUser.email);
 
     if (!checkedUser) throw new Error("Incorrect email or password");
     //compare passwords
+    console.log("User checked...");
     const checkedPwd = await TokenUtil.comparePasswords(
       loginUser.password,
       checkedUser.password_hash
     );
     if (!checkedPwd) throw new Error("Incorrect email or password");
+    console.log("Password checked...");
 
     const refreshToken = TokenUtil.signRefreshToken(
       checkedUser.id,
@@ -103,19 +107,23 @@ const login = async (req, res) => {
     if (!inserted_refreshToken)
       throw new Error("Error inserting refresh token");
 
+    console.log("Inserted refresh token...");
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-    
+    }); 
+
+    console.log("Refresh token cookie set...");
+
     res.setHeader("Authorization", `Bearer ${access_token}`);
+
+    console.log("Access token header set...");
 
     return res.status(200).json({ ok: true, msg: "Successfull login" });
   } catch (error) {
-    res.clearCookie("refreshToken");
-
     if (error.message === "Incorrect email or password") {
       console.log(error.message);
       return res.status(400).json({ ok: false, msg: "User not recognized" });

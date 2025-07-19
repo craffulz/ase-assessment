@@ -7,7 +7,7 @@ const PlayersTable = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { accessToken } = user;
-  console.log("Wash hadshi ki tlogga????", accessToken);
+  console.log("[PlayersTable] Access token from store...: \n", accessToken);
 
   useEffect(() => {
     const fetchPlayers = async () => {
@@ -20,7 +20,7 @@ const PlayersTable = () => {
           },
         });
 
-        console.log("Access token enviado: ", `Bearer ${accessToken}`);
+        console.log("[PlayersTable] Access token sent: \n", `Bearer ${accessToken}`);
 
         if (!response.ok) {
           console.log(await response.json());
@@ -29,9 +29,10 @@ const PlayersTable = () => {
 
         const newAcc = response.headers.get("Authorization");
 
-        if (newAcc) dispatch(updateToken(newAcc));
-
-        console.log("q es esto", response.headers.get("Authorization"));
+        if (newAcc) {
+          console.log("[PlayersTable] Updating token...");
+          dispatch(updateToken(newAcc));
+        }
       } catch (error) {
         console.log("Error fetching players: ", error);
       }

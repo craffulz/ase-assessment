@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { login } from "./../store/user.slice.js";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import LoginForm from "../forms/LoginForm";
+import LoginForm from "../forms/LoginForm.jsx";
 
 const Login = () => {
   const navigateTo = useNavigate();
@@ -23,8 +23,7 @@ const Login = () => {
 
         console.log(data);
 
-        if (!response) throw new Error("Error fetching in auto_log"); //this means that pwd and email dont match or invalid
-
+        if (!response.ok) throw new Error("Error fetching in auto_log"); //this means that pwd and email dont match or invalid
         //Take the access_token the request replies
         const access_token = response.headers.get("Authorization");
         //Take the refresh_token

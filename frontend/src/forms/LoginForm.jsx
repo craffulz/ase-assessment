@@ -1,14 +1,16 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginValidator } from "../validators/auth.validator.js";
-
+//import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { login } from "./../store/user.slice.js";
 
 const LoginForm = () => {
-  const navigateTo = useNavigate();
+  console.log("[LoginForm] RENDERS...");
+
+  //const navigateTo = useNavigate();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const dispatch = useDispatch();
 
@@ -48,14 +50,13 @@ const LoginForm = () => {
       }
 
       //Take the access_token the request replies
-      const access_token = response.headers.get("Authorization");
+      const accessToken = response.headers.get("Authorization");
       //Set the access token and the email(on payload) took from the resquest's response in the store
-      dispatch(login(access_token));
-      //Add access_token to session_storage
-      sessionStorage.setItem("access_token", access_token);
+      console.log("Access token dispatched to store...\n", accessToken);
 
+      dispatch(login(accessToken));
       //Navigate to the home page
-      navigateTo("/players");
+      //navigateTo("/");
     } catch (error) {
       console.log("Error fetching data: ", error);
     }

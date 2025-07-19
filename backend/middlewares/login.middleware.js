@@ -4,22 +4,22 @@ import { TokenUtil } from "../utils/token.util.js";
 export const loginMiddleware = async (req, res, next) => {
   console.log("LOGIN MIDDLEWARE");
 
-  const refresh_token = req.cookies.refresh_token;
+  const refreshToken = req.cookies.refreshToken;
 
-  console.log("hola", refresh_token);
-  if (!refresh_token) {
-    console.log("No refresh token found");
+  console.log("Refresh token from AUTO-LOG \n", refreshToken);
+  if (!refreshToken) {
+    console.log("No refresh token found, next()");
     return next();
   }
 
   try {
-    const user = TokenUtil.verifyRefreshToken(refresh_token);
+    const user = TokenUtil.verifyRefreshToken(refreshToken);
 
-    const db_refresh_token = await RefreshTokenModel.getToken(refresh_token); //check the refresh token in our DB
+    const db_refreshToken = await RefreshTokenModel.getToken(refreshToken); //check the refresh token in our DB
 
-    if (!db_refresh_token) throw new Error("Refresh token not found");
+    if (!db_refreshToken) throw new Error("Refresh token not found");
 
-    let { is_revoked, ip: dbIP } = db_refresh_token;
+    let { is_revoked, ip: dbIP } = db_refreshToken;
 
     if (is_revoked) throw new Error("Revoked refresh token!, Who are you?"); //check if its revoked -> Deny access
 
@@ -38,15 +38,15 @@ export const loginMiddleware = async (req, res, next) => {
      * send it in the req, sign a new access_token and send it aswell
      */
 
-    await RefreshTokenModel.revokeToken(refresh_token); //revoke old refresh_token
+    await RefreshTokenModel.revokeToken(refreshToken); //revoke old refreshToken
 
-    const new_refresh_token = TokenUtil.signRefreshToken(user.id, user.email); //sign new refresh_token
+    const new_refreshToken = TokenUtil.signRefreshToken(user.id, user.email); //sign new refreshToken
 
-    await RefreshTokenModel.insertToken(new_refresh_token, user.id, clientIP); //save new refresh_token in DB
+    await RefreshTokenModel.insertToken(new_refreshToken, user.id, clientIP); //save new refreshToken in DB
 
     const new_access_token = TokenUtil.signAccessToken(user.id, user.email); //sign new access_token
 
-    res.cookie("refresh_token", new_refresh_token, {
+    res.cookie("refreshToken", new_refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
@@ -61,7 +61,7 @@ export const loginMiddleware = async (req, res, next) => {
     return next();
   } catch (error) {
     console.log(error);
-    res.clearCookie("refresh_token");
+    res.clearCookie("refreshToken");
     return next();
   }
 };

@@ -7,43 +7,41 @@ export const accessTokenMiddleware = async (req, res, next) => {
      * This try catch block checks if the access token still active,
      * if not we catch the error and work in the different cases
      **/
+    console.log("Taking access token from the request: \n", req.headers.authorization);
 
     const bearer = req.headers.authorization; //get access token
-
-    console.log("access_token", bearer);
-
-    if (!bearer) {
-      const error = new Error("Missing access_token");
+    const accessToken = await TokenUtil.retrieveToken(bearer);
+    
+    if (!accessToken) {
+      const error = new Error("\n \n Missing access_token");
       error.name = "TokenExpiredError";
       throw error;
     }
-
-    const accessToken = await TokenUtil.retrieveToken(bearer);
-
     const user = TokenUtil.verifyAccessToken(accessToken);
-
     res.locals.user = user;
-    console.log("Access Granted!");
+    console.log("\n \n Access Granted!");
     return next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      console.log("Token Expired");
+      console.log("\n\n Token Expired");
 
       const refreshToken = req.cookies.refreshToken; //get the refresh token from cookies
 
-      console.log("refresh_token", refreshToken);
+      console.log("Taking refresh token from the request: \n", refreshToken);
 
       try {
         const user = TokenUtil.verifyRefreshToken(refreshToken); //check if refresh token expired
 
         const db_refresh_token = await RefreshTokenModel.getToken(refreshToken); //check the refresh token in our DB
 
+        console.log("\n Took refresh token from our DB...");
+
         if (!db_refresh_token) throw new Error("Refresh token not found");
 
         let { is_revoked, ip: dbIP } = db_refresh_token;
 
         if (is_revoked) {
-          console.log("Refresh token is revoked");
+          console.log("\n Refresh token is revoked");
           res.clearCookie("refreshToken");
           return res
             .status(401)
@@ -57,7 +55,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
           : req.socket.remoteAddress;
 
         if (clientIP !== dbIP) {
-          console.log("IP Mismatch");
+          console.log("\n IP Mismatch");
           res.clearCookie("refreshToken");
           return res
             .status(401)
@@ -75,6 +73,8 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         if (!revokedToken) throw new Error("Error revoking token");
 
+        console.log("Old refresh token revoked... \n", revokedToken);
+
         const new_refresh_token = TokenUtil.signRefreshToken(
           user.id,
           user.email
@@ -88,6 +88,8 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         if (!insertedToken) throw new Error("Error inserting new refreshToken");
 
+        console.log("Inserted new refresh token on DB... \n", insertedToken);
+
         const new_access_token = TokenUtil.signAccessToken(user.id, user.email); //sign new access_token
 
         res.cookie("refreshToken", new_refresh_token, {
@@ -97,7 +99,11 @@ export const accessTokenMiddleware = async (req, res, next) => {
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
+        console.log("\n Refresh token cookie set...");
+
         res.setHeader("Authorization", `Bearer ${new_access_token}`); //setHeader authorization
+
+        console.log("\n Access token header set...");
 
         console.log("Refreshed token");
         return next();

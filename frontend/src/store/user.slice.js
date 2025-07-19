@@ -10,19 +10,16 @@ const initializeData = () => {
   console.log("typeof sessionStorage:", typeof sessionStorage);
   console.log("typeof sessionStorage.getItem:", typeof sessionStorage.getItem);
 
-  const bearer = sessionStorage.getItem("access_token");
-  console.log("BEARER:", bearer);
-  console.log("BEARER TYPE:", typeof bearer);
+  const accessToken = sessionStorage.getItem("accessToken");
 
-  if (!bearer || bearer === "undefined") {
-    console.log("No bearer found");
+  if (!accessToken) {
+    console.log("[STORE] Initializing data... \n No accesstoken found");
     return { email: "", accessToken: "", connected: false };
   }
 
   try {
-    const accessToken = retrieveToken(bearer);
-    console.log("Token retrieved se supone? ", accessToken);
-    sessionStorage.setItem("access_token", accessToken);
+    console.log("[STORE] Initializind data... \n Took token ", accessToken);
+
     const { email } = jwtDecode(accessToken);
     return { email: email, accessToken: accessToken, connected: true };
   } catch (error) {
@@ -41,29 +38,38 @@ const userSlice = createSlice({
       state.connected = false;
     },
     login: (state, action) => {
+      console.log("[STORE] Store loging user...\n");
+
       const bearer = action.payload;
       const accessToken = retrieveToken(bearer);
+
+      console.log("[STORE] Access token retrieved: \n", accessToken);
+
       const { email } = jwtDecode(accessToken);
       state.email = email;
       state.accessToken = accessToken;
       state.connected = true;
-      sessionStorage.setItem("access_token", accessToken);
+
+      sessionStorage.setItem("accessToken", accessToken);
     },
+
     logout: (state) => {
       state.email = "";
       state.accessToken = "";
       state.connected = false;
-      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("accessToken");
     },
     updateToken: (state, action) => {
-      const accessToken = action.payload;
+      const bearer = action.payload;
+      const accessToken = retrieveToken(bearer);
+
       try {
         const { email } = jwtDecode(accessToken);
         state.email = email;
         state.accessToken = accessToken;
-        sessionStorage.setItem("access_token", accessToken);
+        sessionStorage.setItem("accessToken", accessToken);
       } catch (error) {
-        console.log("Error updating token, invalid: ", error);
+        console.log("[STORE] Error updating token, invalid: ", error);
       }
     },
   },
