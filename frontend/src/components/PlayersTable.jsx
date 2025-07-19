@@ -7,7 +7,7 @@ const PlayersTable = () => {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector((state) => state.user);
-  const {  players, loading, error } = useSelector((state) => state.players);
+  const { players, loading, error } = useSelector((state) => state.players);
 
   console.log("[PlayersTable] Access token from store...: \n", accessToken);
   console.log("[PlayersTable] Players from store... \n", players);
@@ -23,7 +23,7 @@ const PlayersTable = () => {
   if (!players.length) return <div>No players found</div>;
 
   return (
-    <table class="table">
+    <table className="table">
       <caption>Player Generic Data</caption>
       <thead>
         <tr>
@@ -43,54 +43,25 @@ const PlayersTable = () => {
         </tr>
       </thead>
       <tbody>
-        {players.map((player) => {
-          console.log(player);
+        {players.map((player, index) => {
+          return (
+            <tr key={index}>
+              <td>{player.name}</td>
+              <td>{player.position}</td>
+              <td>{player.team}</td>
+              <td>{player.appearances}</td>
+              <td>{player.goals}</td>
+              <td>{player.assists}</td>
+              <td>{player.height}</td>
+              <td>{player.weight}</td>
+              <td>{player.contract_end}</td>
+              <td>{player.contract_salary}</td>
+              <td>{player.market_value}</td>
+              <td>{player.nationality}</td>
+              <td>{player.age}</td>
+            </tr>
+          );
         })}
-        <tr>
-          <td>Alessandro Rodriguez</td>
-          <td>Midfielder</td>
-          <td>Real Madrid</td>
-          <td>32</td>
-          <td>7</td>
-          <td>12</td>
-          <td>175</td>
-          <td>70</td>
-          <td>2027-06-30</td>
-          <td>180,000</td>
-          <td>35,000,000</td>
-          <td>Spain</td>
-          <td>26</td>
-        </tr>
-        <tr>
-          <td>Marcus Thompson</td>
-          <td>Forward</td>
-          <td>Manchester United</td>
-          <td>28</td>
-          <td>15</td>
-          <td>5</td>
-          <td>185</td>
-          <td>78</td>
-          <td>2025-12-15</td>
-          <td>250,000</td>
-          <td>50,000,000</td>
-          <td>England</td>
-          <td>28</td>
-        </tr>
-        <tr>
-          <td>Lucas Silva</td>
-          <td>Winger</td>
-          <td>Bayern Munich</td>
-          <td>25</td>
-          <td>10</td>
-          <td>8</td>
-          <td>180</td>
-          <td>75</td>
-          <td>2026-05-20</td>
-          <td>200,000</td>
-          <td>42,000,000</td>
-          <td>Brazil</td>
-          <td>24</td>
-        </tr>
       </tbody>
     </table>
   );

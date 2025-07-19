@@ -3,15 +3,24 @@ import { updateToken } from "./user.slice.js";
 
 export const fetchPlayers = createAsyncThunk(
   "players/fetchPlayers",
-  async (accessToken, { dispatch }) => {
+  async ({ accessToken, page = 1, filters = {} }, { dispatch }) => {
     try {
-      const response = await fetch("http://localhost:3000/api/players", {
-        credentials: "include",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+      const params = new URLSearchParams({
+        page,
+        limit: 20,
+        ...filters,
       });
+
+      const response = await fetch(
+        `http://localhost:3000/api/players?${params}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -26,7 +35,7 @@ export const fetchPlayers = createAsyncThunk(
         dispatch(updateToken(newAcc));
       }
 
-      return data.players;
+      return { players: data.players, pagination: data.pagination };
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +49,19 @@ const playerSlice = createSlice({
     players: [],
     loading: false,
     error: null,
+    pagination: { 
+        currentPage: 1,
+        totalPages: 1, 
+        totalItems: 0
+    },
+
+    //nos falta aniadir todos los filtros, que seran todos los campos?
+    filters: {
+        position: '', 
+        team: '',
+        minAge: '',
+        maxAge: '',
+    }
   },
 
   reducers: {},
