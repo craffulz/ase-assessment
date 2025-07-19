@@ -1,45 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateToken } from "../store/user.slice.js";
+import { fetchPlayers } from "../store/players.slice.js";
 
 const PlayersTable = () => {
   console.log("[PlayersTable] RENDER...");
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { accessToken } = user;
+
+  const { accessToken } = useSelector((state) => state.user);
+  const {  players, loading, error } = useSelector((state) => state.players);
+
   console.log("[PlayersTable] Access token from store...: \n", accessToken);
+  console.log("[PlayersTable] Players from store... \n", players);
 
   useEffect(() => {
-    const fetchPlayers = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/players", {
-          credentials: "include",
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+    if (accessToken) {
+      dispatch(fetchPlayers(accessToken));
+    }
+  }, [accessToken, dispatch]);
 
-        console.log("[PlayersTable] Access token sent: \n", `Bearer ${accessToken}`);
-
-        if (!response.ok) {
-          console.log(await response.json());
-          throw new Error();
-        }
-
-        const newAcc = response.headers.get("Authorization");
-
-        if (newAcc) {
-          console.log("[PlayersTable] Updating token...");
-          dispatch(updateToken(newAcc));
-        }
-      } catch (error) {
-        console.log("Error fetching players: ", error);
-      }
-    };
-
-    fetchPlayers();
-  });
+  if (loading) return <div>Loading players...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!players.length) return <div>No players found</div>;
 
   return (
     <table class="table">
@@ -62,6 +43,9 @@ const PlayersTable = () => {
         </tr>
       </thead>
       <tbody>
+        {players.map((player) => {
+          console.log(player);
+        })}
         <tr>
           <td>Alessandro Rodriguez</td>
           <td>Midfielder</td>

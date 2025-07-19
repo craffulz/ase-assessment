@@ -11,7 +11,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
     const bearer = req.headers.authorization; //get access token
     const accessToken = await TokenUtil.retrieveToken(bearer);
-    
+
     if (!accessToken) {
       const error = new Error("\n \n Missing access_token");
       error.name = "TokenExpiredError";
@@ -110,7 +110,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
       } catch (error) {
         console.log("After token expired error, another error", error);
 
-        //res.clearCookie("refreshToken");
+        res.clearCookie("refreshToken");
         return res.status(401).json({ ok: false, msg: "Access denied" });
       }
     }
