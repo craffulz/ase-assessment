@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginValidator } from "../validators/auth.validator.js";
-//import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { login } from "./../store/user.slice.js";
 
 const LoginForm = () => {
   console.log("[LoginForm] RENDERS...");
 
-  //const navigateTo = useNavigate();
+  const navigateTo = useNavigate();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ const LoginForm = () => {
 
       dispatch(login(accessToken));
       //Navigate to the home page
-      //navigateTo("/");
+      navigateTo("/players");
     } catch (error) {
       console.log("Error fetching data: ", error);
     }

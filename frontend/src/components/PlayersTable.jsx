@@ -16,12 +16,11 @@ const PlayersTable = () => {
   const currentPage = pagination.currentPage;
   const limit = 20;
 
-  console.log("[PlayersTable] Access token from store...: \n", accessToken);
-  console.log("[PlayersTable] Players from store... \n", players);
+  //console.log('[PlayersTable]', sort)
 
   useEffect(() => {
     if (accessToken) {
-      console.log("Dentro del useEffect", accessToken);
+      //console.log("[PlayersTable] Accesstoken inside useEffect", accessToken);
       dispatch(
         fetchPlayers({
           accessToken: accessToken,
@@ -39,18 +38,16 @@ const PlayersTable = () => {
   if (!players.length) return <div>No players found</div>;
 
   const handleSort = (field) => {
-    console.log("FIELD: ", field);
     dispatch(setSort(field));
   };
 
-  //KHEE
   const renderHeaders = (field, label) => {
     const isActive = sort.field === field;
     const directionSymbol = isActive
       ? sort.direction === "asc"
         ? "↑"
         : "↓"
-      : "";
+      : "↑";
 
     return (
       <th onClick={() => handleSort(field)} style={{ cursor: "pointer" }}>

@@ -8,7 +8,7 @@ export const fetchPlayers = createAsyncThunk(
     { dispatch }
   ) => {
     try {
-      console.log("[PlayersSLICE] Access token: ", accessToken, page);
+      //console.log("[PlayersSLICE] Access token: ", accessToken, page);
       const params = new URLSearchParams({
         page,
         limit,
@@ -17,7 +17,7 @@ export const fetchPlayers = createAsyncThunk(
         sortOrder: sort.direction,
       });
 
-      console.log("[PlayersSLice] sort.field", sort.field);
+      console.log("[PlayersSlice] sort.field", sort.field, sort.direction);
 
       const response = await fetch(
         `http://localhost:3000/api/players/search?${params}`,
@@ -36,7 +36,7 @@ export const fetchPlayers = createAsyncThunk(
         throw new Error(data.message || "Error fetching players");
       }
 
-      console.log(data);
+      //console.log(data);
 
       //cambiar esto a user slice
       const newAcc = response.headers.get("Authorization");
@@ -91,15 +91,19 @@ const playerSlice = createSlice({
       state.pagination.currentPage = 1;
     },
     setSort: (state, action) => {
-      console.log('[PlayersSlice] Setting sort...', action.payload)
-      const  field  = action.payload;
+      console.log("[PlayersSlice] Setting sort...", action.payload);
+      const field = action.payload;
 
       if (state.sort.field === field) {
-        state.sort.field = state.sort.direction === "asc" ? "desc" : "asc";
+        console.log("[PlayerSlice] This field was already sorted by...");
+        state.sort.direction = state.sort.direction === "asc" ? "desc" : "asc";
       } else {
+        console.log("[PlayerSlice] New field to sort by...");
         state.sort.field = field;
         state.sort.direction = "asc";
       }
+
+      console.log("[PlayersSlice] sort after being setted");
     },
     resetFilters: (state) => {
       state.filters = initialState.filters;
