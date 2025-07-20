@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlayers } from "../store/players.slice.js";
 import { setSort } from "../store/players.slice.js";
+import Pagination from "../components/Pagination.jsx";
 
 const PlayersTable = () => {
   console.log("[PlayersTable] RENDER...");
@@ -20,7 +21,16 @@ const PlayersTable = () => {
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(fetchPlayers(accessToken, currentPage, limit, filters, sort));
+      console.log("Dentro del useEffect", accessToken);
+      dispatch(
+        fetchPlayers({
+          accessToken: accessToken,
+          page: currentPage,
+          limit: limit,
+          filters: filters,
+          sort: sort,
+        })
+      );
     }
   }, [dispatch, accessToken, currentPage, filters, sort]);
 
@@ -29,6 +39,7 @@ const PlayersTable = () => {
   if (!players.length) return <div>No players found</div>;
 
   const handleSort = (field) => {
+    console.log("FIELD: ", field);
     dispatch(setSort(field));
   };
 
@@ -44,7 +55,7 @@ const PlayersTable = () => {
     return (
       <th onClick={() => handleSort(field)} style={{ cursor: "pointer" }}>
         {label}
-        {isActive && directionSymbol}
+        {directionSymbol}
       </th>
     );
   };

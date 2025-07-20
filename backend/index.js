@@ -9,7 +9,7 @@ import { db } from "./database/connection.database.js";
 import { sequelize } from "./database/connection.database.js";
 
 import authRouter from "./routes/auth.router.js";
-import playersRouter from "./routes/players.router.js";
+import playersRouter from "./routes/players.router.js"; 
 import reportsRouter from "./routes/reports.router.js";
 //import dashboardRouter from "./routes/dashboard.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
@@ -35,7 +35,7 @@ app.use(
 );
 
 app.use("/api/auth", authRouter);
-app.use("/api/players", accessTokenMiddleware, playersRouter);
+app.use("/api/players", playersRouter);
 app.use("/api/reports", accessTokenMiddleware, reportsRouter);
 //app.use("/api/dashboard", accessTokenMiddleware, dashboardRouter);
 

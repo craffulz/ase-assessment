@@ -4,10 +4,11 @@ import { updateToken } from "./user.slice.js";
 export const fetchPlayers = createAsyncThunk(
   "players/fetchPlayers",
   async (
-    { accessToken, page = 1, limit = 20, filters = {}, sort = {} },
+    { accessToken, page, limit = 20, filters = {}, sort = {} },
     { dispatch }
   ) => {
     try {
+      console.log("[PlayersSLICE] Access token: ", accessToken, page);
       const params = new URLSearchParams({
         page,
         limit,
@@ -15,6 +16,8 @@ export const fetchPlayers = createAsyncThunk(
         sortBy: sort.field,
         sortOrder: sort.direction,
       });
+
+      console.log("[PlayersSLice] sort.field", sort.field);
 
       const response = await fetch(
         `http://localhost:3000/api/players/search?${params}`,
@@ -88,7 +91,8 @@ const playerSlice = createSlice({
       state.pagination.currentPage = 1;
     },
     setSort: (state, action) => {
-      const { field } = action.payload;
+      console.log('[PlayersSlice] Setting sort...', action.payload)
+      const  field  = action.payload;
 
       if (state.sort.field === field) {
         state.sort.field = state.sort.direction === "asc" ? "desc" : "asc";
