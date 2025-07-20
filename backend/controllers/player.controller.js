@@ -1,5 +1,5 @@
-import {PlayersModel} from "./../models/players.model.js";
 import { validationResult } from "express-validator";
+import { PlayerService } from "../services/player.service.js";
 
 const deletePlayer = async (req, res) => {
   const playerId = req.params;
@@ -8,7 +8,7 @@ const deletePlayer = async (req, res) => {
     return res.status(400).json({ ok: false, msg: "Id not provided" });
 
   try {
-    const deletedPlayer = await PlayersModel.deletePlayer(playerId);
+    const deletedPlayer = await PlayerService.deletePlayer(playerId);
 
     if (!deletedPlayer) throw new Error("Error deleting player");
 
@@ -40,7 +40,7 @@ const updatePlayer = async (req, res) => {
   }
 
   try {
-    const updatedPlayer = await PlayersModel.updatePlayer(
+    const updatedPlayer = await PlayerService.updatePlayer(
       playerUpdate,
       playerId
     );
@@ -69,7 +69,7 @@ const createPlayer = async (req, res) => {
   const newPlayer = req.body;
 
   try {
-    const createdPlayer = await PlayersModel.createPlayer(newPlayer);
+    const createdPlayer = await PlayerService.createPlayer(newPlayer);
 
     if (!createdPlayer) throw new Error("Error creating player");
 
@@ -92,7 +92,7 @@ const getPlayerDetails = async (req, res) => {
   if (!playerId)
     return res.status(400).json({ ok: false, msg: "Player ID not provided" });
   try {
-    const playerDetails = await PlayersModel.getPlayerDetails();
+    const playerDetails = await PlayerService.getPlayerById(playerId);
 
     if (!playerDetails)
       return res.status(404).json({ ok: false, msg: "Player not found" });
@@ -106,7 +106,7 @@ const getPlayerDetails = async (req, res) => {
 
 const getPlayers = async (req, res) => {
   try {
-    const players = await PlayersModel.getAllPlayers();
+    const players = await PlayerService.getAllPlayers();
 
     if (players.length === 0)
       return res.status(404).json({ ok: false, msg: "Players not found" });
@@ -118,7 +118,27 @@ const getPlayers = async (req, res) => {
   }
 };
 
-export const PlayersController = {
+const searchPlayers = async (req, res) => {
+  try {
+    const result = await PlayerService.findPlayers({
+      page: req.query.page || 1,
+      limit: req.query.limit || 20,
+      filters: req.query,
+      sortBy: req.query.sortBy,
+      sortOrder: req.query.sortOrder,
+    });
+
+    res.json({
+      players: result.players,
+      pagination: result.pagination,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const PlayerController = {
+  searchPlayers,
   getPlayers,
   getPlayerDetails,
   updatePlayer,

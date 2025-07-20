@@ -7,16 +7,21 @@ const PlayersTable = () => {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector((state) => state.user);
-  const { players, loading, error } = useSelector((state) => state.players);
+  const { players, loading, error, pagination, filters, sort } = useSelector(
+    (state) => state.players
+  );
+
+  const currentPage = pagination.currentPage;
+  const limit = 20;
 
   console.log("[PlayersTable] Access token from store...: \n", accessToken);
   console.log("[PlayersTable] Players from store... \n", players);
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(fetchPlayers(accessToken));
+      dispatch(fetchPlayers(accessToken, currentPage, limit, filters, sort));
     }
-  }, [accessToken, dispatch]);
+  }, [dispatch, accessToken, currentPage, filters, sort]);
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>Error: {error}</div>;

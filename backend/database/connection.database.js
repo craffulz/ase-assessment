@@ -8,7 +8,7 @@ const { Pool } = pkg;
 
 console.log(process.env.DB_PORT);
 
-const db = new Pool({
+export const db = new Pool({
   user: process.env.DB_USER,
   host: "localhost",
   database: process.env.DB_NAME,
@@ -17,7 +17,7 @@ const db = new Pool({
   ssl: false,
 });
 
-const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
   process.env.DB_PASSWORD,
@@ -39,21 +39,6 @@ const sequelize = new Sequelize(
   }
 );
 
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Sequelize: Conexión a DB establecida correctamente");
-  } catch (error) {
-    console.error("Sequelize: Error al conectar a la DB:", error);
-  }
-})();
 
-db.query("SELECT NOW()", (err) => {
-  if (err) {
-    console.log("ERROR CONNECTING DATABASE", err);
-  } else {
-    console.log(" DATABASE CONNECTION SUCCESS!");
-  }
-});
 
-export default { db, sequelize };
+

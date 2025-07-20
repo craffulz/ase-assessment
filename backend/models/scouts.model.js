@@ -1,4 +1,4 @@
-import db from "./../database/connection.database.js";
+import {db} from "./../database/connection.database.js";
 
 const createScout = async (scout) => {
   console.log(scout);

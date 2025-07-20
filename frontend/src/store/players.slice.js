@@ -3,16 +3,21 @@ import { updateToken } from "./user.slice.js";
 
 export const fetchPlayers = createAsyncThunk(
   "players/fetchPlayers",
-  async ({ accessToken, page = 1, filters = {} }, { dispatch }) => {
+  async (
+    { accessToken, page = 1, limit = 20, filters = {}, sort = {} },
+    { dispatch }
+  ) => {
     try {
       const params = new URLSearchParams({
         page,
-        limit: 20,
+        limit,
         ...filters,
+        sortBy: sort.field,
+        sortOrder: sort.direction,
       });
 
       const response = await fetch(
-        `http://localhost:3000/api/players?${params}`,
+        `http://localhost:3000/api/players/search?${params}`,
         {
           credentials: "include",
           method: "GET",
@@ -30,6 +35,7 @@ export const fetchPlayers = createAsyncThunk(
 
       console.log(data);
 
+      //cambiar esto a user slice
       const newAcc = response.headers.get("Authorization");
       if (newAcc) {
         dispatch(updateToken(newAcc));
@@ -42,29 +48,61 @@ export const fetchPlayers = createAsyncThunk(
   }
 );
 
+const initialState = {
+  players: [],
+  loading: false,
+  error: null,
+  pagination: {
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
+  },
+  filters: {
+    position: "",
+    team: "",
+    minAge: "",
+    maxAge: "",
+    nationality: "",
+    marketValue: "",
+    goals: "",
+    assists: "",
+  },
+
+  sort: {
+    field: "name",
+    direction: "asc",
+  },
+};
+
 const playerSlice = createSlice({
   name: "players",
 
-  initialState: {
-    players: [],
-    loading: false,
-    error: null,
-    pagination: { 
-        currentPage: 1,
-        totalPages: 1, 
-        totalItems: 0
+  initialState: initialState,
+
+  reducers: {
+    setPage: (state, action) => {
+      state.pagination.currentPage = action.payload;
     },
+    setFilters: (state, action) => {
+      state.filters = { ...state.filters, ...action.payload };
+      state.pagination.currentPage = 1;
+    },
+    setSort: (state, action) => {
+      const { field } = action.payload;
 
-    //nos falta aniadir todos los filtros, que seran todos los campos?
-    filters: {
-        position: '', 
-        team: '',
-        minAge: '',
-        maxAge: '',
-    }
+      if (state.sort.field === field) {
+        state.sort.field = state.sort.direction === "asc" ? "desc" : "asc";
+      } else {
+        state.sort.field = field;
+        state.sort.direction = "asc";
+      }
+    },
+    resetFilters: (state) => {
+      state.filters = initialState.filters;
+      state.sort = initialState.sort;
+      state.pagination.currentPage = 1;
+    },
   },
-
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchPlayers.pending, (state) => {
@@ -73,7 +111,11 @@ const playerSlice = createSlice({
       })
       .addCase(fetchPlayers.fulfilled, (state, action) => {
         state.loading = false;
-        state.players = action.payload;
+        state.players = action.payload.players;
+        state.pagination = {
+          ...state.pagination,
+          ...action.payload.pagination,
+        };
       })
       .addCase(fetchPlayers.rejected, (state, action) => {
         state.loading = false;
@@ -82,4 +124,6 @@ const playerSlice = createSlice({
   },
 });
 
+export const { setPage, setFilters, setSort, resetFilters } =
+  playerSlice.actions;
 export default playerSlice.reducer;

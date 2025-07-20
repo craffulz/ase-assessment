@@ -1,12 +1,13 @@
 import { Router } from "express";
-import { PlayersController } from "./../controllers/players.controller.js";
-import { accessTokenMiddleware } from "../middlewares/accessToken.middleware.js";
+import { PlayerController } from "./../controllers/player.controller.js";
+
 const router = Router();
 
-router.get("/", accessTokenMiddleware, PlayersController.getPlayers);
-router.get("/:id", PlayersController.getPlayerDetails);
-router.post("/", PlayersController.createPlayer);
-router.put("/:id", PlayersController.updatePlayer);
-router.delete("/:id", PlayersController.deletePlayer);
+router.get("/", PlayerController.getPlayers);
+router.get("/:id", PlayerController.getPlayerDetails);
+router.get("/search", PlayerController.searchPlayers);
+router.post("/", PlayerController.createPlayer);
+router.put("/:id", PlayerController.updatePlayer);
+router.delete("/:id", PlayerController.deletePlayer);
 
 export default router;

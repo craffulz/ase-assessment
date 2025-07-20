@@ -1,4 +1,4 @@
-import db from "../database/connection.database.js";
+import {db} from "../database/connection.database.js";
 
 const deleteReport = async (reportId) => {
   const query = {

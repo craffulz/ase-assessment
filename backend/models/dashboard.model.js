@@ -1,4 +1,4 @@
-import db from "../database/connection.database.js";
+import {db} from "../database/connection.database.js";
 
 const getStats = async () => {
   const query = {

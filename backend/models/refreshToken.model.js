@@ -1,7 +1,6 @@
-import db from "../database/connection.database.js";
+import { db } from "../database/connection.database.js";
 
 const getToken = async (token) => {
-  
   const query = {
     text: `
     SELECT * from refresh_tokens
