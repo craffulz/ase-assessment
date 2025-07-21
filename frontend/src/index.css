@@ -169,6 +169,14 @@
 }
 
 /* GLOBAL STYLES */
+:root{
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden
+}
 
 body {
   font-family: url("/frontend/src/assets/fonts/Inter-VariableFont_opsz,wght.ttf");
@@ -177,6 +185,11 @@ body {
   color: #111827;
   background-color: var(--color-neutral-white);
   margin: 0;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 0;
 }
 

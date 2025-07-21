@@ -33,7 +33,6 @@ const PlayersTable = () => {
     }
   }, [dispatch, accessToken, currentPage, filters, sort]);
 
-  if (loading) return <div>Loading players...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!players.length) return <div>No players found</div>;
 
@@ -47,7 +46,7 @@ const PlayersTable = () => {
       ? sort.direction === "asc"
         ? "↑"
         : "↓"
-      : "↑";
+      : "";
 
     return (
       <th onClick={() => handleSort(field)} style={{ cursor: "pointer" }}>
@@ -78,27 +77,31 @@ const PlayersTable = () => {
             {renderHeaders("age", "Age")}
           </tr>
         </thead>
-        <tbody>
-          {players.map((player, index) => {
-            return (
-              <tr key={index}>
-                <td>{player.name}</td>
-                <td>{player.position}</td>
-                <td>{player.team}</td>
-                <td>{player.appearances}</td>
-                <td>{player.goals}</td>
-                <td>{player.assists}</td>
-                <td>{player.height}</td>
-                <td>{player.weight}</td>
-                <td>{player.contract_end}</td>
-                <td>{player.contract_salary}</td>
-                <td>{player.market_value}</td>
-                <td>{player.nationality}</td>
-                <td>{player.age}</td>
-              </tr>
-            );
-          })}
-        </tbody>
+        {loading ? (
+          <h2>Loading Players...</h2>
+        ) : (
+          <tbody>
+            {players.map((player, index) => {
+              return (
+                <tr key={index}>
+                  <td>{player.name}</td>
+                  <td>{player.position}</td>
+                  <td>{player.team}</td>
+                  <td>{player.appearances}</td>
+                  <td>{player.goals}</td>
+                  <td>{player.assists}</td>
+                  <td>{player.height}</td>
+                  <td>{player.weight}</td>
+                  <td>{player.contract_end}</td>
+                  <td>{player.contract_salary}</td>
+                  <td>{player.market_value}</td>
+                  <td>{player.nationality}</td>
+                  <td>{player.age}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        )}
       </table>
 
       <Pagination />

@@ -14,6 +14,7 @@ const initializeData = () => {
 
   if (!accessToken) {
     console.log("[STORE] Initializing data... \n No accesstoken found");
+
     return { email: "", accessToken: "", connected: false };
   }
 
