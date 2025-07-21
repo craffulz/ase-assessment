@@ -7,7 +7,10 @@ export const accessTokenMiddleware = async (req, res, next) => {
      * This try catch block checks if the access token still active,
      * if not we catch the error and work in the different cases
      **/
-    console.log("Taking access token from the request: \n", req.headers.authorization);
+    console.log(
+      "Taking access token from the request: \n",
+      req.headers.authorization
+    );
 
     const bearer = req.headers.authorization; //get access token
     const accessToken = await TokenUtil.retrieveToken(bearer);
@@ -23,7 +26,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
     return next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      console.log("\n\n Token Expired");
+      console.log("\n\n Token Expired", req.cookies);
 
       const refreshToken = req.cookies.refreshToken; //get the refresh token from cookies
 
@@ -34,7 +37,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         const db_refresh_token = await RefreshTokenModel.getToken(refreshToken); //check the refresh token in our DB
 
-        console.log("\n Took refresh token from our DB...");
+        console.log("\n Took refresh token from our DB...", db_refresh_token);
 
         if (!db_refresh_token) throw new Error("Refresh token not found");
 
@@ -42,7 +45,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
 
         if (is_revoked) {
           console.log("\n Refresh token is revoked");
-          res.clearCookie("refreshToken");
+          //res.clearCookie("refreshToken");
           return res
             .status(401)
             .json({ ok: false, msg: "Unauthorized access" });
@@ -99,7 +102,7 @@ export const accessTokenMiddleware = async (req, res, next) => {
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
-        console.log("\n Refresh token cookie set...");
+        console.log("\n Refresh token cookie set...", new_refresh_token);
 
         res.setHeader("Authorization", `Bearer ${new_access_token}`); //setHeader authorization
 
@@ -109,7 +112,6 @@ export const accessTokenMiddleware = async (req, res, next) => {
         return next();
       } catch (error) {
         console.log("After token expired error, another error", error);
-
         res.clearCookie("refreshToken");
         return res.status(401).json({ ok: false, msg: "Access denied" });
       }

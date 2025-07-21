@@ -31,7 +31,12 @@ const verifyRefreshToken = (refresh_token) => {
 
 const signRefreshToken = (id, email) => {
   const refresh_token = jwt.sign(
-    { id: id, email: email },
+    {
+      id: id,
+      email: email,
+      iat: Math.floor(Date.now() / 1000), // ¡Timestamp actual único!
+      rand: Math.random().toString(36).slice(2),
+    },
     process.env.JWT_SECRET,
     {
       expiresIn: "6d",

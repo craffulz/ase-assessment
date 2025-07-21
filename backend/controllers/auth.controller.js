@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { AuthModel } from "./../models/auth.model.js";
-import { TokenUtil } from "../utils/token.util.js";
+import { TokenUtil } from "../utils/token.util.js"; 
 import { RefreshTokenModel } from "../models/refreshToken.model.js";
 import { ScoutsModel } from "../models/scouts.model.js";
 const register = async (req, res) => {
