@@ -47,7 +47,9 @@ const ResumeCard = () => {
   return (
     <>
       <div className="flex flex-col text-center bg-green-200 p-4 rounded-md shadow-md gap-3">
-        <h1 className="text-5xl">Overview</h1>
+        <h1 className="flex justify-center items-center bg-green-300 text-5xl p-2 rounded-md shadow-md">
+          Overview
+        </h1>
         <div className="h-14 flex flex-row gap-6 justify-center items-center bg-green-300 p-2 rounded-md shadow-md">
           <p className="text-2xl">
             Total players: <span>{totalPlayers}</span>
@@ -62,7 +64,10 @@ const ResumeCard = () => {
             className="flex flex-col w-[250px] justify-between  shadow-md rounded-md text-sm p-2 bg-green-300"
           >
             <h2 className="text-xl font-bold">Top Scorers</h2>
-            <div id="table titles" className="grid grid-cols-2 py-2">
+            <div
+              id="table titles"
+              className="grid grid-cols-2 py-2  rounded-md"
+            >
               <div className="flex-grow text-xl">Name</div>
               <div className="flex-grow text-xl">Goals</div>
             </div>
@@ -94,7 +99,7 @@ const ResumeCard = () => {
               <div className="flex-grow text-xl">Name</div>
               <div className="flex-grow text-xl">Assists</div>
             </div>
-            {topScorers.map(({ name, assists }, index) => {
+            {topAssistants.map(({ name, assists }, index) => {
               return (
                 <div
                   id="row"
@@ -122,7 +127,7 @@ const ResumeCard = () => {
               <div className="flex-grow text-xl">Name</div>
               <div className="flex-grow text-xl">Appears</div>
             </div>
-            {topScorers.map(({ name, appearances }, index) => {
+            {topAppearances.map(({ name, appearances }, index) => {
               return (
                 <div
                   id="row"

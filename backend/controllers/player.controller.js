@@ -119,21 +119,24 @@ const getPlayers = async (req, res) => {
 };
 
 const searchPlayers = async (req, res) => {
+  console.log("[CON] limit: ", typeof req.query.limit);
   try {
     const result = await PlayerService.findPlayers({
       page: req.query.page || 1,
-      limit: req.query.limit || 20,
+      limit: req.query.limit,
       filters: req.query,
       sortBy: req.query.sortBy,
       sortOrder: req.query.sortOrder,
     });
 
-    res.json({
+    console.log("probando probandopoo", result.players);
+
+    return res.status(200).json({
       players: result.players,
       pagination: result.pagination,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 };
 

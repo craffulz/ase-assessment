@@ -4,10 +4,12 @@ import { updateToken } from "./user.slice.js";
 export const fetchPlayers = createAsyncThunk(
   "players/fetchPlayers",
   async (
-    { accessToken, page = 1, limit, filters = {}, sort = {} },
+    { accessToken, page = 1, limit = 1, filters = {}, sort = {} },
     { dispatch }
   ) => {
     console.log(
+      "acctok",
+      accessToken,
       "[PlayerSlice] \npage: ",
       page,
       "\nlimit: ",
@@ -26,16 +28,17 @@ export const fetchPlayers = createAsyncThunk(
         sortBy: sort.field,
         sortOrder: sort.direction,
       });
-      const url = limit === null ? "" : `/search?${params}`;
 
-      console.log("LAA FOOKIN URL", url);
-      const response = await fetch(`http://localhost:3000/api/players${url}`, {
-        credentials: "include",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/players/search?${params}`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       const data = await response.json();
 
@@ -62,6 +65,7 @@ const initialState = {
   players: [],
   loading: false,
   error: null,
+
   pagination: {
     currentPage: 1,
     totalPages: 1,
@@ -76,6 +80,7 @@ const initialState = {
     marketValue: "",
     goals: "",
     assists: "",
+    contract_end: "",
   },
 
   sort: {

@@ -30,11 +30,12 @@ const getAllPlayers = async () => {
 
 const findPlayers = async ({
   page = 1,
-  limit = 20,
+  limit,
   filters = {},
   sortBy = "name",
   sortOrder = "ASC",
 }) => {
+  console.log("[service]", filters);
   const where = {};
 
   if (filters.position) where.position = filters.position;
@@ -53,10 +54,21 @@ const findPlayers = async ({
     if (filters.maxSalary) where.contract_salary[Op.lte] = filters.maxSalary;
   }
 
-  if (filters.minValue || filters.maxValue) {
+  if (filters.minValue || filters.maxValue || filters.excludeNullMarketValue) {
+    console.log("leyendo filtro null", filters.excludeNullMarketValue);
     where.market_value = {};
+    if (filters.excludeNullMarketValue) where.market_value[Op.ne] = null;
     if (filters.minValue) where.market_value[Op.gte] = filters.minValue;
     if (filters.maxValue) where.market_value[Op.lte] = filters.maxValue;
+  }
+
+  if (filters.minContractEnd || filters.maxContractEnd) {
+    console.log("Applying contract filters...");
+    where.contract_end = {};
+    if (filters.maxContractEnd)
+      where.contract_end[Op.lte] = filters.maxContractEnd;
+    if (filters.minContractEnd)
+      where.contract_end[Op.gte] = filters.minContractEnd;
   }
 
   const validSortFields = [
@@ -82,21 +94,33 @@ const findPlayers = async ({
     ? sortOrder.toUpperCase()
     : "ASC";
 
-  const result = await Player.findAndCountAll({
+  const query = {
     where,
     order: [[sortField, sortDirection]],
-    limit: parseInt(limit),
-    offset: (page - 1) * limit,
+  };
+
+  if (limit !== "null") {
+    console.log("djoly")((query.limit = limit)),
+      (query.offset = (page - 1) * limit);
+  }
+
+  const result = await Player.findAndCountAll({
+    ...query,
   });
 
-  return {
+  const players = {
     players: result.rows,
-    pagination: {
+  };
+
+  if (limit !== "null") {
+    players.pagination = {
       currentPage: parseInt(page),
       totalPages: Math.ceil(result.count / limit),
       totalItems: result.count,
-    },
-  };
+    };
+  }
+
+  return players;
 };
 
 export const PlayerService = {
