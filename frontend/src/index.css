@@ -183,7 +183,7 @@ body {
   font-size: var(--font-base);
   line-height: var(--lh-normal);
   color: #111827;
-  background-color: var(--color-neutral-white);
+  background-color: #38bdf8;
   margin: 0;
   max-width: 1200px;
   display: flex;
