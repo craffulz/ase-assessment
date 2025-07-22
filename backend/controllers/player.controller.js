@@ -129,8 +129,6 @@ const searchPlayers = async (req, res) => {
       sortOrder: req.query.sortOrder,
     });
 
-    console.log("probando probandopoo", result.players);
-
     return res.status(200).json({
       players: result.players,
       pagination: result.pagination,

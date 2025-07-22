@@ -1,10 +1,29 @@
 //import ResumeCard from "../components/ResumeCard.jsx";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPlayers } from "../store/players.slice.js";
 import MarketInsights from "../components/MarketInsights.jsx";
+import PlayersFilters from "../components/PlayersFilters.jsx";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { accessToken } = useSelector((state) => state.user);
+  const { filters, sort } = useSelector((state) => state.players);
+
+  useEffect(() => {
+    dispatch(
+      fetchPlayers({
+        accessToken: accessToken,
+        limit: null,
+        filters: filters,
+        sort: sort,
+      })
+    );
+  }, []);
   //todos los componentes de aqui abajo actuaran bajo los mismo filtros
   return (
     <>
+      <PlayersFilters />
       <MarketInsights />
     </>
   );

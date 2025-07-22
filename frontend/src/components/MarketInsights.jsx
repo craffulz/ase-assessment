@@ -1,58 +1,30 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchPlayers } from "../store/players.slice.js";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const MarketInsights = () => {
   const { players, loading, error } = useSelector((state) => state.players);
 
-  const { accessToken } = useSelector((state) => state.user);
+  console.log(players);
 
-  const dispatch = useDispatch();
-
+  //Get most valuable players => where market_value not null and sort (a, b)(b-a)
+  const topValuables = [...players]
+    .filter(({ market_value }) => market_value !== null)
+    .sort((a, b) => b.market_value - a.market_value)
+    .slice(0, 3);
+  //Get players with close contract end, calculate today date and in 6 months?
   const today = new Date();
-  const in6months = new Date(today);
+  const in6months = new Date();
   in6months.setMonth(today.getMonth() + 6);
 
-  const formatedToday = today.toISOString().split("T")[0];
-  const formatedIn6 = in6months.toISOString().split("T")[0];
-  console.log("date", formatedIn6);
+  console.log(in6months.toISOString().split("T")[0]);
 
-  //cuando hago el componente de filtro toda la logica de busqueda de players estara ahi
-  useEffect(() => {
-    // const fetchTopValuables = async () => {
-    //   await dispatch(
-    //     fetchPlayers({
-    //       accessToken: accessToken,
-    //       limit: null,
-    //       filters: { excludeNullMarketValue: true },
-    //       sort: { field: "market_value", direction: "desc" },
-    //     })
-    //   );
+  const closeEndContract = [...players].filter(({ contract_end }) => {
+    const contractEnd = new Date(contract_end);
+    return contractEnd <= in6months && contractEnd >= today;
+  });
 
-    //   return players.slice(0, 3);
-    // };
+  console.log(topValuables, closeEndContract);
 
-    const fetchCloseEndContract = async () => {
-      await dispatch(
-        fetchPlayers({
-          accessToken: accessToken,
-          limit: null,
-          filters: {
-            minContractEnd: formatedToday,
-            maxContractEnd: formatedIn6,
-          },
-        })
-      );
-
-      return players;
-    };
-
-    //const topValuables = fetchTopValuables();
-    const closeEndContract = fetchCloseEndContract();
-
-    //console.log(topValuables);
-    console.log(closeEndContract);
-  }, []);
 
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log("Error: ", error.message);

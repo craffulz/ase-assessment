@@ -35,7 +35,7 @@ const findPlayers = async ({
   sortBy = "name",
   sortOrder = "ASC",
 }) => {
-  console.log("[service]", filters);
+  console.log("[SER] Filters:", filters);
   const where = {};
 
   if (filters.position) where.position = filters.position;
@@ -55,7 +55,7 @@ const findPlayers = async ({
   }
 
   if (filters.minValue || filters.maxValue || filters.excludeNullMarketValue) {
-    console.log("leyendo filtro null", filters.excludeNullMarketValue);
+    console.log("[SER]Is null??", filters.excludeNullMarketValue);
     where.market_value = {};
     if (filters.excludeNullMarketValue) where.market_value[Op.ne] = null;
     if (filters.minValue) where.market_value[Op.gte] = filters.minValue;
@@ -63,7 +63,7 @@ const findPlayers = async ({
   }
 
   if (filters.minContractEnd || filters.maxContractEnd) {
-    console.log("Applying contract filters...");
+    console.log("[SER]Applying contract filters...");
     where.contract_end = {};
     if (filters.maxContractEnd)
       where.contract_end[Op.lte] = filters.maxContractEnd;
@@ -100,8 +100,8 @@ const findPlayers = async ({
   };
 
   if (limit !== "null") {
-    console.log("djoly")((query.limit = limit)),
-      (query.offset = (page - 1) * limit);
+    query.limit = limit;
+    query.offset = (page - 1) * limit;
   }
 
   const result = await Player.findAndCountAll({
