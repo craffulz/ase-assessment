@@ -43,7 +43,7 @@ const MarketInsights = () => {
   positionsSet.forEach((value) => {
     const playersInPosition = [...players].filter(
       ({ position }) => position === value
-    );
+    ).length;
     playersPerPosition.push({ name: value, value: playersInPosition });
   });
 
@@ -87,9 +87,9 @@ const MarketInsights = () => {
         })}
       </div>
       <div className="flex flex-row col-span-2 p-2">
-        <div className="flex flex-col flex-grow items-center justify-center" >
+        <div className="flex flex-col flex-grow items-center justify-center">
           <h2 className="text-center text-xl font-bold">Players/Position</h2>
-          <PiePlayerTeam data={playersPerTeams} />
+          <PiePlayerPosition data={playersPerPosition} />
         </div>
         <div className="flex flex-col flex-grow items-center justify-center">
           <h2 className="text-center text-xl font-bold">Players/Team</h2>
