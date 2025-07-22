@@ -35,7 +35,6 @@ const findPlayers = async ({
   sortBy = "name",
   sortOrder = "ASC",
 }) => {
-  console.log("[SER] Filters:", filters);
   const where = {};
 
   if (filters.position) where.position = filters.position;

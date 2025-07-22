@@ -119,7 +119,6 @@ const getPlayers = async (req, res) => {
 };
 
 const searchPlayers = async (req, res) => {
-  console.log("[CON] limit: ", typeof req.query.limit);
   try {
     const result = await PlayerService.findPlayers({
       page: req.query.page || 1,

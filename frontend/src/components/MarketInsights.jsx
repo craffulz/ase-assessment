@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ChartPie from "./ChartPie.jsx";
+import ChartPie from "./charts/PiePlayerTeam.jsx";
+import PiePlayerTeam from "./charts/PiePlayerTeam.jsx";
+import PiePlayerPosition from "./charts/PiePlayerPosition.jsx";
 
 const MarketInsights = () => {
   const { players, loading, error } = useSelector((state) => state.players);
@@ -51,7 +53,7 @@ const MarketInsights = () => {
   if (error) console.log("Error: ", error.message);
 
   return (
-    <div id="market-insights" className="flex flex-row rounded-md gap-3">
+    <div id="market-insights" className="grid grid-cols-2 rounded-md gap-3">
       <div className="bg-primary-200 p-2 rounded-md">
         <h2 className="text-center text-xl font-bold">Most valuable players</h2>
         {topValuables.map(({ market_value, name }, index) => {
@@ -84,7 +86,16 @@ const MarketInsights = () => {
           );
         })}
       </div>
-      <ChartPie data={playersPerTeams} />
+      <div className="flex flex-row col-span-2 p-2">
+        <div className="flex flex-col flex-grow items-center justify-center" >
+          <h2 className="text-center text-xl font-bold">Players/Position</h2>
+          <PiePlayerTeam data={playersPerTeams} />
+        </div>
+        <div className="flex flex-col flex-grow items-center justify-center">
+          <h2 className="text-center text-xl font-bold">Players/Team</h2>
+          <PiePlayerTeam data={playersPerTeams} />
+        </div>
+      </div>
     </div>
   );
 };
