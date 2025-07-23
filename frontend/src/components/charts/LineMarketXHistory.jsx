@@ -15,29 +15,53 @@ const LineMarketXHistory = () => {
     )
   );
   const marketValues = [];
-  [...Object.values(filteredData)].forEach(({ basicInfo, marketData }) => {
+  Object.values(filteredData).forEach(({ basicInfo, marketData }) => {
     marketValues.push({
       name: basicInfo.name,
       ...marketData.valueHistory,
     });
   });
 
-  console.log(marketValues);
+  console.log("MARKETVALUERS ", marketValues);
+
+  const showData = marketValues.slice(0, 3);
+
+  const colors = [
+    "#0ea5e9",
+    "#10b981",
+    "#f59e0b",
+    "#ef4444",
+    "#8b5cf6",
+    "#f97316",
+    "#06b6d4",
+    "#84cc16",
+  ];
+
+  console.log(showData);
 
   return (
     <LineChart
       width={300}
       height={300}
-      data={marketValues}
+      data={showData}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
+      {showData.map((player, index) => {
+        return (
+          <Line
+            key={index}
+            type="monotone"
+            dataKey={player.name}
+            stroke={colors[index]}
+            strokeWidth={3}
+          />
+        );
+      })}
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="" />
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
     </LineChart>
   );
 };

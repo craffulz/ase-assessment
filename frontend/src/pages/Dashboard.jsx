@@ -6,15 +6,15 @@ import { fetchAttributes } from "../store/playersAttributes.slice.js";
 import MarketInsights from "../components/MarketInsights.jsx";
 import PlayersFilters from "../components/PlayersFilters.jsx";
 import ResumeCard from "../components/ResumeCard.jsx";
-import InteractivePanel from "../components/InteractivePanel.jsx";
 import LineMarketXHistory from "../components/charts/LineMarketXHistory.jsx";
 import RadarPlayersAtt from "../components/charts/RadarPlayersAtt.jsx";
+import BarGoalsAssistsXPosi from "../components/charts/BarGoalsAssistsXPosi.jsx";
+import InteractivePanel from "../components/InteractivePanel.jsx";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
   const { players, filters, sort } = useSelector((state) => state.players);
-  
 
   useEffect(() => {
     dispatch(
