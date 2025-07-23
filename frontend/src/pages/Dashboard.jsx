@@ -2,16 +2,19 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlayers } from "../store/players.slice.js";
+import { fetchAttributes } from "../store/playersAttributes.slice.js";
 import MarketInsights from "../components/MarketInsights.jsx";
 import PlayersFilters from "../components/PlayersFilters.jsx";
 import ResumeCard from "../components/ResumeCard.jsx";
 import InteractivePanel from "../components/InteractivePanel.jsx";
 import LineMarketXHistory from "../components/charts/LineMarketXHistory.jsx";
+import RadarPlayersAtt from "../components/charts/RadarPlayersAtt.jsx";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
-  const { filters, sort } = useSelector((state) => state.players);
+  const { players, filters, sort } = useSelector((state) => state.players);
+  
 
   useEffect(() => {
     dispatch(
@@ -22,15 +25,18 @@ const Dashboard = () => {
         sort: sort,
       })
     );
+
+    dispatch(fetchAttributes({ accessToken: accessToken }));
   }, [accessToken, dispatch, filters, sort]);
   //todos los componentes de aqui abajo actuaran bajo los mismo filtros
   return (
     <div className="flex flex-col bg-primary-100 p-4 gap-4">
       <PlayersFilters />
-      <ResumeCard/>
+      <ResumeCard data={players} />
       <MarketInsights />
-      <InteractivePanel/>
-      <LineMarketXHistory/>
+      <InteractivePanel />
+      <LineMarketXHistory />
+      <RadarPlayersAtt />
     </div>
   );
 };

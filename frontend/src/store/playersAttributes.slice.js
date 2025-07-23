@@ -4,13 +4,17 @@ export const fetchAttributes = createAsyncThunk(
   "dashboard/fetchAttributes",
   async ({ accessToken }, { dispatch }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/players/`, {
-        credentials: "include",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      console.log("[PlayerAtt]", accessToken);
+      const response = await fetch(
+        `http://localhost:3000/api/playerAttributes/`,
+        {
+          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       if (!response) throw new Error("Error fetching attributes");
 
@@ -20,9 +24,10 @@ export const fetchAttributes = createAsyncThunk(
         dispatch(updateToken(newAcc));
       }
 
-      const playerAttributes = await response.json();
+      const playersAttributes = await response.json();
 
-      return playerAttributes;
+      console.log("[PlayerAtt]", playersAttributes);
+      return playersAttributes;
     } catch (error) {
       console.log(error);
     }
@@ -33,27 +38,19 @@ const playersAttributesSlice = createSlice({
   name: "playersAttributes",
 
   initialState: {
-    playerAttributes: {
-      playerId: "",
-      pace: "",
-      shooting: "",
-      passing: "",
-      defending: "",
-      dribbling: "",
-      physicality: "",
-    },
+    playersAttributes: [],
     loading: false,
     error: null,
   },
   reducers: {
     setPlayerAttributes: async (state, action) => {
       const { playerId } = action.payload;
-      const { playerAttributes } = action.payload;
+      const { playersAttributes } = action.payload;
 
-      state.playerAttributes.playerId = playerId;
-      state.playerAttributes = {
-        ...state.playerAttributes,
-        ...playerAttributes,
+      state.playersAttributes.playerId = playerId;
+      state.playersAttributes = {
+        ...state.playersAttributes,
+        ...playersAttributes,
       };
     },
   },
@@ -65,7 +62,7 @@ const playersAttributesSlice = createSlice({
       })
       .addCase(fetchAttributes.fulfilled, (state, action) => {
         state.loading = false;
-        state.playerAttributes = action.payload.playerAttributes;
+        state.playersAttributes = action.payload.playersAttributes;
       })
       .addCase(fetchAttributes.rejected, (state, action) => {
         state.loading = false;

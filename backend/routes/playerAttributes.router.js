@@ -4,6 +4,7 @@ import { PlayerAttributesController } from "../controllers/playerAttributes.cont
 const router = Router();
 
 router.get("/", PlayerAttributesController.getPlayersAttributes);
+
 router.get("/:id", PlayerAttributesController.getPlayerAttributesById);
 router.put("/", PlayerAttributesController.updatePlayerAttributes);
 

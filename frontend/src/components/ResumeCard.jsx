@@ -1,29 +1,14 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchPlayers } from "../store/players.slice.js";
+import { useSelector } from "react-redux";
+
 const ResumeCard = () => {
-  const dispatch = useDispatch();
   const { players, loading, error } = useSelector((state) => state.players);
-  const { accessToken } = useSelector((state) => state.user);
-
-  //this useEffect will be in the 'dashboard'
-  useEffect(() => {
-    console.log("entro al useEffect");
-    if (accessToken) {
-      dispatch(fetchPlayers({ accessToken: accessToken, limit: null }));
-    }
-  }, [accessToken, dispatch]);
-
-  console.log(players);
   //calculate total players
   const totalPlayers = players.length;
-
   //calculate age
   const allAges = players.map(({ age }) => age);
   const averageAge = parseFloat(
     allAges.reduce((sum, age) => sum + age, 0) / totalPlayers
   ).toFixed(0);
-
   //calculate some perfomances top-goal top-assist top-appearances
   const topScorers = [...players].sort((a, b) => b.goals - a.goals).slice(0, 3);
   const topAssistants = [...players]
@@ -40,10 +25,8 @@ const ResumeCard = () => {
     parseFloat(averageAge).toFixed(0),
     totalPlayers
   );
-
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log(error);
-
   return (
     <>
       <div className="flex flex-col text-center bg-primary-100 gap-3">
