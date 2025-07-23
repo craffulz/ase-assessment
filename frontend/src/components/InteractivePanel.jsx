@@ -25,7 +25,7 @@ const InteractivePanel = () => {
   //get ages range per team: <21, 21>x<28, >28
   const ageXTeams = [];
   const teams = new Set([...players].map(({ team }) => team));
-  console.log("teams", teams);
+ 
   teams.forEach((value) => {
     const under21 = [...players].filter(({ team, age }) => {
       if (team === value) return age <= 21;
@@ -45,8 +45,6 @@ const InteractivePanel = () => {
     });
   });
 
-  //get martketvalue through history
-  console.log('yemakawedel9ehba',players, goalsAssistsXPosi, ageXTeams);
   return (
     <div>
       <BarGoalsAssistsXPosi data={goalsAssistsXPosi} />

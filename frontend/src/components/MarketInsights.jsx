@@ -7,8 +7,6 @@ import PiePlayerPosition from "./charts/PiePlayerPosition.jsx";
 const MarketInsights = () => {
   const { players, loading, error } = useSelector((state) => state.players);
 
-  console.log(players);
-
   //Get most valuable players => where market_value not null and sort (a, b)(b-a)
   const topValuables = [...players]
     .filter(({ market_value }) => market_value !== null)
@@ -46,8 +44,6 @@ const MarketInsights = () => {
     ).length;
     playersPerPosition.push({ name: value, value: playersInPosition });
   });
-
-  console.log(playersPerTeams, playersPerPosition);
 
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log("Error: ", error.message);

@@ -5,7 +5,7 @@ import { RefreshTokenModel } from "../models/refreshToken.model.js";
 import { ScoutsModel } from "../models/scouts.model.js";
 const register = async (req, res) => {
   const errors = validationResult(req);
-
+ 
   if (!errors.isEmpty())
     return res
       .status(401)

@@ -1,7 +1,7 @@
 import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from "recharts";
 import { User } from "lucide-react";
 const PiePlayerTeam = ({ data }) => {
-  console.log("[PiePlayerTeam]", data);
+  
   const colors = [
     "#f0f9ff",
     "#e0f2fe",

@@ -9,7 +9,6 @@ import {
 } from "recharts";
 
 const BarGoalsAssistsXPosi = ({ data }) => {
-  console.log("showw", data);
   return (
     <BarChart width={300} height={300} data={data}>
       <Bar

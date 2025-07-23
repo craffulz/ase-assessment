@@ -22,7 +22,6 @@ const LineMarketXHistory = () => {
     });
   });
 
-  console.log("MARKETVALUERS ", marketValues);
 
   const showData = marketValues.slice(0, 3);
 
@@ -37,7 +36,7 @@ const LineMarketXHistory = () => {
     "#84cc16",
   ];
 
-  console.log(showData);
+ 
 
   return (
     <LineChart

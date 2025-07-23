@@ -5,7 +5,6 @@ import { setSort } from "../store/players.slice.js";
 import Pagination from "../components/Pagination.jsx";
 
 const PlayersTable = () => {
-  console.log("[PlayersTable] RENDER...");
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector((state) => state.user);

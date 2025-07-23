@@ -18,13 +18,6 @@ const ResumeCard = () => {
     .sort((a, b) => b.appearances - a.appearances)
     .slice(0, 3);
 
-  console.log(
-    topScorers,
-    topAssistants,
-    topAppearances,
-    parseFloat(averageAge).toFixed(0),
-    totalPlayers
-  );
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log(error);
   return (

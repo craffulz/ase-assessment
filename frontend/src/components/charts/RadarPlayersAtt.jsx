@@ -13,8 +13,6 @@ const RadarPlayersAtt = () => {
   const { playersAttributes } = useSelector((state) => state.playersAttributes);
   const { players } = useSelector((state) => state.players);
 
-  console.log(playersAttributes, players);
-
   const matched = [];
   const playerMatched = [];
   players.forEach((player) => {
@@ -27,7 +25,6 @@ const RadarPlayersAtt = () => {
       playerMatched.push(player);
     }
   });
-  console.log("wa dryem", matched, playerMatched);
 
   if (!matched || matched.length === 0) {
     return <div>No player data available</div>;
@@ -47,19 +44,33 @@ const RadarPlayersAtt = () => {
     radarData.push(dataPoint);
   }
 
-  
+  const generateColorPalette = (count) => {
+    const colors = [];
+    const goldenRatio = 0.618033988749895; // Ángulo áureo para distribución óptima
+
+    for (let i = 0; i < count; i++) {
+      const hue = (i * goldenRatio * 360) % 360;
+      const saturation = 70 + (i % 15); // Varía entre 70-85%
+      const lightness = 50 + (i % 11); // Varía entre 50-60%
+
+      colors.push(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
+    }
+
+    return colors;
+  };
+
+  const playerColors = generateColorPalette(playerMatched.length);
 
   return (
     <RadarChart outerRadius={90} width={730} height={250} data={radarData}>
       {radarData.map((player, index) => {
-        console.log("khee", player);
         return (
           <Radar
             key={index}
             name={`${playerMatched[index].name}`}
             dataKey={`${Object.keys(player)[index]}`}
-            stroke="#38bdf8"
-            fill="#7dd3fc"
+            stroke={playerColors[index]}
+            fill={playerColors[index]}
             fillOpacity={0.6}
           />
         );

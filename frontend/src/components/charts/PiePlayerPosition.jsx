@@ -8,7 +8,6 @@ import {
 } from "recharts";
 import { User } from "lucide-react";
 const PiePlayerPosition = ({ data }) => {
-  console.log("[PiePlayerPosition]", data);
   const colors = [
     "#0ea5e9",
     "#10b981",
