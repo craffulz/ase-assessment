@@ -30,7 +30,7 @@ const Dashboard = () => {
   }, [accessToken, dispatch, filters, sort]);
   //todos los componentes de aqui abajo actuaran bajo los mismo filtros
   return (
-    <div className="flex flex-col bg-primary-100 p-4 gap-4">
+    <div id="dashboard" className="flex flex-col w-full bg-primary-100 p-4 gap-4">
       <PlayersFilters />
       <ResumeCard data={players} />
       <MarketInsights />
