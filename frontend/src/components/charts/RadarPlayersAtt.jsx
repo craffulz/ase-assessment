@@ -66,8 +66,8 @@ const RadarPlayersAtt = () => {
         return (
           <Radar
             dataKey={`${Object.keys(data)[index]}`}
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#38bdf8"
+            fill="#7dd3fc"
             fillOpacity={0.6}
           />
         );
