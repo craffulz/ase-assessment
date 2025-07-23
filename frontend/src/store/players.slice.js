@@ -87,6 +87,8 @@ const initialState = {
     field: "name",
     direction: "asc",
   },
+
+  marketData: [],
 };
 
 const playerSlice = createSlice({
@@ -95,6 +97,9 @@ const playerSlice = createSlice({
   initialState: initialState,
 
   reducers: {
+    setMarketData: (state, action) => {
+      state.marketData = action.payload;
+    },
     setPage: (state, action) => {
       state.pagination.currentPage = action.payload;
     },
@@ -144,6 +149,6 @@ const playerSlice = createSlice({
   },
 });
 
-export const { setPage, setFilters, setSort, resetFilters } =
+export const { setMarketData, setPage, setFilters, setSort, resetFilters } =
   playerSlice.actions;
 export default playerSlice.reducer;

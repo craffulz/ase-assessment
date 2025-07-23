@@ -6,6 +6,7 @@ import MarketInsights from "../components/MarketInsights.jsx";
 import PlayersFilters from "../components/PlayersFilters.jsx";
 import ResumeCard from "../components/ResumeCard.jsx";
 import InteractivePanel from "../components/InteractivePanel.jsx";
+import LineMarketXHistory from "../components/charts/LineMarketXHistory.jsx";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Dashboard = () => {
       <ResumeCard/>
       <MarketInsights />
       <InteractivePanel/>
+      <LineMarketXHistory/>
     </div>
   );
 };
