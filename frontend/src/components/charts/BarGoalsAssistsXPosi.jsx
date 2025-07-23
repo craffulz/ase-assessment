@@ -6,6 +6,7 @@ import {
   YAxis,
   Tooltip,
   Rectangle,
+  Legend,
 } from "recharts";
 
 const BarGoalsAssistsXPosi = ({ data }) => {
@@ -13,17 +14,18 @@ const BarGoalsAssistsXPosi = ({ data }) => {
     <BarChart width={300} height={300} data={data}>
       <Bar
         dataKey="goals"
-        fill="#10b981"
-        activeBar={<Rectangle fill="gold" stroke="purple" />}
+        fill="#0284c7"
+        activeBar={<Rectangle fill="#0284c7" stroke="purple" />}
       />
       <Bar
         dataKey="assists"
-        fill="#f97316"
-        activeBar={<Rectangle fill="pink" stroke="purple" />}
+        fill="#7dd3fc"
+        activeBar={<Rectangle fill="#7dd3fc" stroke="purple" />}
       />
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="position" />
       <YAxis />
+      <Legend/>
       <Tooltip cursor={{ fill: "transparent" }} />
     </BarChart>
   );

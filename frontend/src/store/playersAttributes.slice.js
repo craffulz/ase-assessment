@@ -4,7 +4,6 @@ export const fetchAttributes = createAsyncThunk(
   "dashboard/fetchAttributes",
   async ({ accessToken }, { dispatch }) => {
     try {
-      console.log("[PlayerAtt]", accessToken);
       const response = await fetch(
         `http://localhost:3000/api/playerAttributes/`,
         {
@@ -26,7 +25,6 @@ export const fetchAttributes = createAsyncThunk(
 
       const playersAttributes = await response.json();
 
-      console.log("[PlayerAtt]", playersAttributes);
       return playersAttributes;
     } catch (error) {
       console.log(error);

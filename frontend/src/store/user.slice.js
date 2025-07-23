@@ -19,7 +19,7 @@ const initializeData = () => {
   }
 
   try {
-    console.log("[STORE] Initializing data... \n Took token ", accessToken);
+    //console.log("[STORE] Initializing data... \n Took token ", accessToken);
 
     const { email } = jwtDecode(accessToken);
     return { email: email, accessToken: accessToken, connected: true };

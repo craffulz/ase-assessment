@@ -7,19 +7,6 @@ export const fetchPlayers = createAsyncThunk(
     { accessToken, page = 1, limit = 1, filters = {}, sort = {} },
     { dispatch }
   ) => {
-    console.log(
-      "acctok",
-      accessToken,
-      "[PlayerSlice] \npage: ",
-      page,
-      "\nlimit: ",
-      limit,
-      "\nfilters: ",
-      filters,
-      "\nsort: ",
-      sort
-    );
-
     try {
       const params = new URLSearchParams({
         page,
