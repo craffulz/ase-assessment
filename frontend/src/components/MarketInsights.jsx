@@ -54,7 +54,7 @@ const MarketInsights = () => {
 
   return (
     <div id="market-insights" className="grid grid-cols-2 rounded-md gap-3">
-      <div className="bg-primary-200 p-2 rounded-md">
+      <div className="bg-primary-200 p-2 rounded-md shadow-md">
         <h2 className="text-center text-xl font-bold">Most valuable players</h2>
         {topValuables.map(({ market_value, name }, index) => {
           return (
@@ -62,15 +62,16 @@ const MarketInsights = () => {
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
-               bg-primary-300 hover:bg-primary-400 font-bold text-sm"
+               bg-primary-300 hover:bg-primary-400
+               font-bold text-sm"
             >
               <p>{name}</p> <p>{market_value}$</p>
             </div>
           );
         })}
       </div>
-      <div className="bg-primary-200 p-2 rounded-md">
-        <h2 className="text-center text-xl font-bold p-">
+      <div className="bg-primary-200 p-2 rounded-md shadow-md">
+        <h2 className="text-center text-xl font-bold">
           Contract end &lt;6months
         </h2>
         {closeEndContract.map(({ contract_end, name }, index) => {

@@ -5,6 +5,7 @@ import { fetchPlayers } from "../store/players.slice.js";
 import MarketInsights from "../components/MarketInsights.jsx";
 import PlayersFilters from "../components/PlayersFilters.jsx";
 import ResumeCard from "../components/ResumeCard.jsx";
+import InteractivePanel from "../components/InteractivePanel.jsx";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Dashboard = () => {
       <PlayersFilters />
       <ResumeCard/>
       <MarketInsights />
+      <InteractivePanel/>
     </div>
   );
 };
