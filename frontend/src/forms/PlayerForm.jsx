@@ -78,13 +78,8 @@ const PlayerForm = () => {
           />
         </div>
         {submittedData ? (
-          <div
-            className="flex items-center justify-center px-8 py-6 text-sm rounded-md shadow-xl  border-1 border-diale
-                  w-[300px] sm:w-[500px]
-                 bg-secondary-900 text-neutral-100  font-semibold "
-          >
+           <div className="flex flex-col p-8 text-green-500 items-center justify-center font-bold text-3xl">
             <p>Submitted player!</p>
-            <CheckCheck color="B6F500" />
           </div>
         ) : (
           <form
