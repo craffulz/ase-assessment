@@ -17,10 +17,10 @@ const MarketInsights = () => {
   const in6months = new Date();
   in6months.setMonth(today.getMonth() + 6);
 
-  // const closeEndContract = [...players].filter(({ contract_end }) => {
-  //   const contractEnd = new Date(contract_end);
-  //   return contractEnd <= in6months && contractEnd >= today;
-  // });
+  const closeEndContract = [...players].filter(({ contract_end }) => {
+    const contractEnd = new Date(contract_end);
+    return contractEnd <= in6months && contractEnd >= today;
+  });
 
   //Get teams
   //const playerDistribution = {};
@@ -49,34 +49,47 @@ const MarketInsights = () => {
   if (error) console.log("Error: ", error.message);
 
   return (
-    <div id="market-insights" className="col-span-8 grid grid-cols-8 rounded-md gap-3 text-neutral-100 bg-secondary-700">
-
+    <div
+      id="market-insights"
+      className="col-span-8 grid grid-cols-8 rounded-md gap-3 text-neutral-100 bg-secondary-700 p-2"
+    >
       <div
         id="table"
         className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
                     sm:col-span-4
-                      md:col-span-2
-                        xl:col-span-1"
+                      md:col-span-3
+                        xl:col-span-2"
       >
-
-        <h2 className="text-xl font-bold text-center ">Most valuable players</h2>
+        <h2 className="text-xl font-bold text-center ">
+          Most valuable players
+        </h2>
         {topValuables.map(({ market_value, name }, index) => {
           return (
             <div
               key={index}
               id="most-valuable"
-              className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
-               bg-secondary-700 hover:bg-secondary-800
+              className="flex flex-row justify-between items-center gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
+               bg-secondary-700 hover:bg-secondary-800 
                font-bold text-sm"
             >
-              <p>{name}</p> <p>{market_value}$</p>
+              <p>{name}</p>
+              <p className="text-diale ">
+                {new Intl.NumberFormat("es-ES", {
+                  style: "currency",
+                  currency: "EUR",
+                }).format(market_value)}
+              </p>
             </div>
           );
         })}
       </div>
-      {/* <div className="bg-primary-200 p-2 rounded-md shadow-md">
+      <div className="col-span-8 bg-secondary-900 p-2 rounded-md shadow-md
+                        sm:col-span-4
+                        md:col-span-2
+                        xl:col-span-1
+                        ">
         <h2 className="text-center text-xl font-bold">
-          Contract end &lt;6months
+          Contract end &lt;6 months
         </h2>
         {closeEndContract.map(({ contract_end, name }, index) => {
           return (
@@ -86,12 +99,14 @@ const MarketInsights = () => {
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
                bg-secondary-700 hover:bg-secondary-800 font-bold text-sm"
             >
-              <p>{name}</p> <p>{contract_end}</p>
+              <p>{name}</p> <p className="text-diale">{contract_end}</p>
             </div>
           );
         })}
       </div>
-      <div className="flex flex-row col-span-2 p-2">
+      <div className="flex flex-col col-span-8 p-2 bg-secondary-900 rounded-md
+                        md:flex md:flex-row
+                          xl:col-span-4 xl:row-start-">
         <div className="flex flex-col flex-grow items-center justify-center">
           <h2 className="text-center text-xl font-bold">Players/Position</h2>
           <PiePlayerPosition data={playersPerPosition} />
@@ -100,7 +115,7 @@ const MarketInsights = () => {
           <h2 className="text-center text-xl font-bold">Players/Team</h2>
           <PiePlayerTeam data={playersPerTeams} />
         </div>
-      </div> */}
+      </div> 
     </div>
   );
 };

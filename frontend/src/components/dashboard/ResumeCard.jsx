@@ -21,7 +21,8 @@ const ResumeCard = () => {
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log(error);
   return (
-    <div className="col-span-8 grid grid-cols-8 text-center gap-3 p-2 rounded-md bg-secondary-700 text-neutral-100">
+    <div id="resume-card"
+     className="col-span-8 grid grid-cols-8 text-center gap-3 p-2 rounded-md bg-secondary-700 text-neutral-100">
       <div
         id="totalPlayersAverageAge"
         className="col-span-8 flex flex-row items-center justify-around h-full p-2 gap-x-4 rounded-md bg-secondary-900 font-semibold text-lg
@@ -59,14 +60,14 @@ const ResumeCard = () => {
                       md:col-span-2
                         xl:col-span-1"
       >
-        <h2 className="text-xl font-bold">Top Scorers</h2>
-        <div
+        <h2 className="text-xl font-bold mb-2 ">Top Goals</h2>
+        {/* <div
           id="table titles"
           className="grid grid-cols-2 py-2 bg-secondary rounded-md"
         >
           <div className="flex-grow text-lg">Name</div>
           <div className="flex-grow text-lg">Goals</div>
-        </div>
+        </div> */}
         {topScorers.map(({ name, goals }, index) => {
           return (
             <div
@@ -92,11 +93,11 @@ const ResumeCard = () => {
                             sm:col-span-4
                               md:col-span-2
                                 xl:col-span-1"      >
-        <h2 className="text-xl font-bold">Top Assists</h2>
-        <div id="table titles" className="grid grid-cols-2 py-2">
+        <h2 className="text-xl font-bold mb-2">Top Assists</h2>
+        {/* <div id="table titles" className="grid grid-cols-2 py-2">
           <div className="flex-grow text-lg">Name</div>
           <div className="flex-grow text-lg">Assists</div>
-        </div>
+        </div> */}
         {topAssistants.map(({ name, assists }, index) => {
           return (
             <div
@@ -123,11 +124,11 @@ const ResumeCard = () => {
                       md:col-span-2
                         xl:col-span-1"
       >
-        <h2 className="text-xl font-bold">Top Appearances</h2>
-        <div id="table titles" className="grid grid-cols-2 py-2">
+        <h2 className="text-xl font-bold mb-2">Top Appearances</h2>
+        {/* <div id="table titles" className="grid grid-cols-2 py-2">
           <div className="flex-grow text-lg">Name</div>
           <div className="flex-grow text-lg">Appears</div>
-        </div>
+        </div> */}
         {topAppearances.map(({ name, appearances }, index) => {
           return (
             <div
