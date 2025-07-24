@@ -9,6 +9,8 @@ import ProfileButton from "./buttons/ProfileButton.jsx";
 import { LogoutButton } from "./buttons/LogoutButton.jsx";
 import { Menu } from "lucide-react";
 
+import { logout } from "../store/user.slice.js";
+
 import { setPlayerForm, setReportForm } from "./../store/playerView.slice.js";
 
 const Sidebar = () => {
@@ -68,7 +70,7 @@ const Sidebar = () => {
 
         <div className="hidden sm:flex sm:flex-row gap-12 grow items-end">
           <ProfileButton width={40} height={40} />
-          <LogoutButton width={40} height={40} />
+          <LogoutButton onClick={() => logout()} width={40} height={40} />
         </div>
       </div>
     </div>

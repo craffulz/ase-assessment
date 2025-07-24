@@ -75,6 +75,7 @@ const userSlice = createSlice({
       state.accessToken = "";
       state.connected = false;
       sessionStorage.removeItem("accessToken");
+      
     },
     updateToken: (state, action) => {
       const bearer = action.payload;
