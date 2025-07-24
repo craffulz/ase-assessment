@@ -63,6 +63,7 @@ const playerViewSlice = createSlice({
     },
     setPlayerView: (state, action) => {
       const player = action.payload;
+      state.playerView = true;
       state.player = player;
     },
     closePlayerView: (state) => {

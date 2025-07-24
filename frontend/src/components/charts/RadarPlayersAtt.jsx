@@ -76,7 +76,9 @@ const RadarPlayersAtt = () => {
             return (
               <Radar
                 key={index}
-                name={`${playerMatched[index].name}`}
+                name={`${
+                  playerMatched[index] ? playerMatched[index].name : ""
+                }`}
                 dataKey={`${Object.keys(player)[index]}`}
                 stroke={playerColors[index]}
                 fill={playerColors[index]}

@@ -11,18 +11,9 @@ const GlobalModals = () => {
     playerForm,
     attributesForm,
     reportForm,
-    modalAttributes,
-    sureAboutDelete,
     attributesAsk,
   } = useSelector((state) => state.playerView);
-  console.log(
-    playerView,
-    playerForm,
-    attributesForm,
-    reportForm,
-    modalAttributes,
-    sureAboutDelete
-  );
+
   return (
     <div>
       {playerView && <PlayerView />}

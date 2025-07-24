@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPlayers } from "../store/players.slice.js";
 import { setSort } from "../store/players.slice.js";
 import Pagination from "../components/Pagination.jsx";
+import { setPlayerView } from "../store/playerView.slice.js";
 
 const PlayersTable = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ const PlayersTable = () => {
       </th>
     );
   };
+  const handleClick = (player) => {
+    console.log(player);
+    dispatch(setPlayerView(player));
+  };
 
   return (
     <div className="flex flex-col w-full bg-secondary-900 p-2 h-[100vh] overflow-hidden">
@@ -101,6 +106,7 @@ const PlayersTable = () => {
             {players.map((player) => {
               return (
                 <tr
+                  onClick={() => handleClick(player)}
                   id="tablerow"
                   key={player.index}
                   className="

@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import BarGoalsAssistsXPosi from "../charts/BarGoalsAssistsXPosi.jsx";
 import PieAgeXTeam from "../charts/PieAgeXTeam.jsx";
 
+
 const InteractivePanel = () => {
+
   const { players } = useSelector((state) => state.players);
 
   //get goals, assists per position

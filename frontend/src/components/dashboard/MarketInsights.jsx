@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 import ChartPie from "../charts/PiePlayerTeam.jsx";
 import PiePlayerTeam from "../charts/PiePlayerTeam.jsx";
 import PiePlayerPosition from "../charts/PiePlayerPosition.jsx";
+import { useDispatch } from "react-redux";
+import { setPlayerView } from "../../store/playerView.slice.js";
 
 const MarketInsights = () => {
+  const dispatch = useDispatch();
   const { players, loading, error } = useSelector((state) => state.players);
 
   //Get most valuable players => where market_value not null and sort (a, b)(b-a)
@@ -63,21 +66,22 @@ const MarketInsights = () => {
         <h2 className="text-xl font-bold text-center text-neutral-100">
           Most valuable players
         </h2>
-        {topValuables.map(({ market_value, name }, index) => {
+        {topValuables.map((player, index) => {
           return (
             <div
+              onClick={() => dispatch(setPlayerView(player))}
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between items-center gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
                bg-secondary-700 hover:bg-secondary-800 
                font-bold text-sm text-neutral-100"
             >
-              <p>{name}</p>
+              <p>{player.name}</p>
               <p className="text-diale ">
                 {new Intl.NumberFormat("es-ES", {
                   style: "currency",
                   currency: "EUR",
-                }).format(market_value)}
+                }).format(player.market_value)}
               </p>
             </div>
           );
@@ -93,7 +97,7 @@ const MarketInsights = () => {
         <h2 className="text-center text-xl font-bold text-neutral-100">
           Contract end &lt;6 months
         </h2>
-        {closeEndContract.map(({ contract_end, name }, index) => {
+        {closeEndContract.map((player, index) => {
           return (
             <div
               key={index}
@@ -101,7 +105,8 @@ const MarketInsights = () => {
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
                bg-secondary-700 hover:bg-secondary-800 font-bold text-sm text-neutral-100"
             >
-              <p>{name}</p> <p className="text-diale">{contract_end}</p>
+              <p>{player.name}</p>{" "}
+              <p className="text-diale">{player.contract_end}</p>
             </div>
           );
         })}
@@ -112,11 +117,15 @@ const MarketInsights = () => {
                           xl:col-span-4 xl:row-start-"
       >
         <div className="flex flex-col flex-grow items-center justify-center">
-          <h2 className="text-center text-xl font-bold text-neutral-100">Players/Position</h2>
+          <h2 className="text-center text-xl font-bold text-neutral-100">
+            Players/Position
+          </h2>
           <PiePlayerPosition data={playersPerPosition} />
         </div>
         <div className="flex flex-col flex-grow items-center justify-center">
-          <h2 className="text-center text-xl font-bold text-neutral-100 ">Players/Team</h2>
+          <h2 className="text-center text-xl font-bold text-neutral-100 ">
+            Players/Team
+          </h2>
           <PiePlayerTeam data={playersPerTeams} />
         </div>
       </div>
