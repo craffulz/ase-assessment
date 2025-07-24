@@ -8,7 +8,6 @@ import {
 } from "recharts";
 import { User } from "lucide-react";
 const PiePlayerPosition = ({ data }) => {
-  console.log(data);
   const colors = [
     "#0ea5e9",
     "#10b981",
@@ -37,7 +36,7 @@ const PiePlayerPosition = ({ data }) => {
           return <Cell key={index} fill={colors[index]} />;
         })}
       </Pie>
-      
+
       <Tooltip content={customTooltip}></Tooltip>
     </PieChart>
   );

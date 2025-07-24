@@ -3,10 +3,10 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { User } from "lucide-react";
 
 const PieAgeXTeam = ({ data }) => {
-  console.log(data);
+  
   const ages = [];
   const ageXteams = [...data];
-  console.log(ageXteams);
+  
   data.forEach((entry, index) => {
     const totalPlayers = data.reduce(
       (sum, { team, under21, between, over28 }) => {
@@ -29,7 +29,7 @@ const PieAgeXTeam = ({ data }) => {
     });
   });
 
-  console.log(ageXteams, ages);
+  
 
   const teamColors = ages.map((_, index) => {
     const hue = (index * 137.5) % 360;
@@ -39,11 +39,11 @@ const PieAgeXTeam = ({ data }) => {
   const colors = ["#075985", "#ef4444", "#10b981"];
 
   const customTooltip = ({ active, payload }) => {
-    active && console.log("payload0", payload[0].payload);
-    console.log(payload);
+    
+    
     if (active && payload && payload.length) {
       if (payload[0].payload.team) {
-        console.log("sisi");
+       
         return (
           <div className="flex p-2 rounded-md items-center justify-center font-bold text-sm bg-white">
             {payload[0].payload.team}: {payload[0].payload.total}
@@ -51,7 +51,7 @@ const PieAgeXTeam = ({ data }) => {
           </div>
         );
       }
-      console.log("no no", payload[0].payload);
+      
       return (
         <div className="flex p-2 rounded-md items-center justify-center font-bold text-sm bg-white">
           {payload[0].name}: {payload[0].value}

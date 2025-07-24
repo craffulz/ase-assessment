@@ -1,6 +1,8 @@
 import { validationResult } from "express-validator";
 import { PlayerService } from "../services/player.service.js";
 
+
+
 const deletePlayer = async (req, res) => {
   const playerId = req.params;
 
@@ -76,7 +78,7 @@ const createPlayer = async (req, res) => {
     return res.status(201).json({
       ok: true,
       msg: "Successfully created player!",
-      newPlayer: createdPlayer.name,
+      newPlayer: createdPlayer,
     });
   } catch (error) {
     console.log("[CON] Error creating player: ", error);

@@ -1,16 +1,15 @@
 //import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import {  RouterProvider } from "react-router";
+import { RouterProvider } from "react-router";
 import "./index.css";
 import Router from "./components/Router.jsx";
 import { Provider } from "react-redux";
-import store from './store/store.js'
+import store from "./store/store.js";
+import GlobalModals from "./components/modals/GlobalModals.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
- 
-    <Provider store ={store}>
-      <RouterProvider router={Router} />
-      <GlobalModals />
-    </Provider>
-  
+  <Provider store={store}>
+    <RouterProvider router={Router} />
+    <GlobalModals />
+  </Provider>
 );

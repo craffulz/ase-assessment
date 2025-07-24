@@ -40,11 +40,4 @@ const PlayerAttributes = sequelize.define(
   }
 );
 
-PlayerAttributes.associate = function (models) {
-  PlayerAttributes.belongsTo(models.Player, {
-    foreignKey: "player_id",
-    as: "player",
-  });
-};
-
 export default PlayerAttributes;

@@ -5,7 +5,7 @@ export const fetchAttributes = createAsyncThunk(
   async ({ accessToken }, { dispatch }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/playerAttributes/`,
+        `http://localhost:3000/api/playerAttributes`,
         {
           credentials: "include",
           method: "GET",

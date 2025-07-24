@@ -8,6 +8,9 @@ import { Table2 } from "lucide-react";
 import ProfileButton from "./buttons/ProfileButton.jsx";
 import { LogoutButton } from "./buttons/LogoutButton.jsx";
 import { Menu } from "lucide-react";
+
+import { setPlayerForm, setReportForm } from "./../store/playerView.slice.js";
+
 const Sidebar = () => {
   const [sidebarActive, setSidebar] = useState(false);
   return (
@@ -54,11 +57,11 @@ const Sidebar = () => {
           <Users />
           Matchup
         </ButtonSidebar>
-        <ButtonSidebar to="/newPlayer">
+        <ButtonSidebar onClick={setPlayerForm}>
           <UserRoundPlus />
           Add Player
         </ButtonSidebar>
-        <ButtonSidebar to="/newReport">
+        <ButtonSidebar onClick={() => setReportForm()}>
           <ClipboardPlus />
           Add Report
         </ButtonSidebar>

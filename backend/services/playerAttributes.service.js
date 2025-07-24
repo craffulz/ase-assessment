@@ -1,6 +1,7 @@
 import PlayerAttributes from "../models/playerAttributes.model.js";
 
 const createPlayerAttributes = async (playerAttributes) => {
+  console.log('[service]', playerAttributes)
   try {
     return await PlayerAttributes.create(playerAttributes);
   } catch (error) {

@@ -1,24 +1,28 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import {
+  setAttributesForm,
+  closeAttributesAsk,
+} from "../../store/playerView.slice";
+const FormModal = () => {
+  const dispatch = useDispatch();
 
-const FormModal = ({ setShowAtts, message, setModalActive }) => {
-  console.log("holaaa", setShowAtts);
   return (
     <div
       id="modal"
-      className="fixed w-full h-full z-50
-       flex flex-col items-center justify-center
-    backdrop-blur-xl"
+      className="fixed top-0 right-0 bottom-0 left-0 z-50 inset-14  flex items-center justify-center backdrop-blur-md"
     >
       <div
-        className="flex flex-col w-[200px] gap-3 p-4 items-center justify-center
-      rounded-md bg-primary-300 "
+        className=" items-center justify-center px-8 py-6 text-sm rounded-md shadow-xl text-center border-1 border-diale
+                  w-[300px] sm:w-[500px]
+                 bg-secondary-900 text-neutral-100  font-semibold "
       >
-        {message}
-        <div className="flex flex-row justify-between p-2 gap-4">
+        Do you want to fill player attributes now?
+        <div className="flex flex-row justify-around p-2 gap-4">
           <button
             onClick={() => {
-              setModalActive(false);
-              setShowAtts(true);
+              dispatch(setAttributesForm());
+              dispatch(closeAttributesAsk());
             }}
             className="btn-primary"
           >
@@ -26,7 +30,7 @@ const FormModal = ({ setShowAtts, message, setModalActive }) => {
           </button>
           <button
             onClick={() => {
-              setModalActive(false);
+              dispatch(closeAttributesAsk());
             }}
             className="btn-danger"
           >

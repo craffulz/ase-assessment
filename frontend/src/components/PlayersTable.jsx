@@ -50,9 +50,12 @@ const PlayersTable = () => {
       : "";
     return (
       <th
+        key={field}
         id="tableheader"
         onClick={() => handleSort(field)}
-        className={`cursor-pointer  ${sortedBy === field ? "text-diale" : ""} px-4`}
+        className={`cursor-pointer  ${
+          sortedBy === field ? "text-diale" : ""
+        } px-4`}
       >
         {label}
         {directionSymbol}
@@ -125,9 +128,8 @@ const PlayersTable = () => {
           </tbody>
         </table>
       </div>
-      
-        <Pagination />
-      
+
+      <Pagination />
     </div>
   );
 };

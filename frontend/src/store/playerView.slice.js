@@ -28,34 +28,42 @@ const playerViewSlice = createSlice({
     reportForm: false,
 
     modalAttributes: false,
+    attributesAsk: false,
 
     sureAboutDelete: false,
     sureAboutAdd: false,
   },
 
   reducers: {
+    setAttributesAsk: (state) => {
+      state.attributesAsk = true;
+    },
+    closeAttributesAsk: (state) => {
+      state.attributesAsk = false;
+    },
     closeReportForm: (state) => {
-      state.reportForm = true;
+      state.reportForm = false;
     },
     setReportForm: (state) => {
       state.reportForm = true;
     },
     closeAttributesForm: (state) => {
-      state.sureAboutAdd = false;
+      state.attributesForm = false;
     },
     setAttributesForm: (state) => {
       state.attributesForm = true;
     },
     closePlayerForm: (state) => {
+      console.log("player form faalso");
       state.playerForm = false;
     },
     setPlayerForm: (state) => {
+      console.log("Player form TRUe");
       state.playerForm = true;
     },
     setPlayerView: (state, action) => {
       const player = action.payload;
       state.player = player;
-      state.playerView = true;
     },
     closePlayerView: (state) => {
       state.playerView = false;
@@ -70,6 +78,8 @@ const playerViewSlice = createSlice({
 });
 
 export const {
+  setAttributesAsk,
+  closeAttributesAsk,
   setPlayer,
   setReportForm,
   closeReportForm,

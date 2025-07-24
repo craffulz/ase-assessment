@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const PlayerCard = () => {
+const PlayerView = () => {
   const player = useSelector((state) => state.player);
   console.log(player);
   return (
@@ -143,4 +143,4 @@ const PlayerCard = () => {
   );
 };
 
-export default PlayerCard;
+export default PlayerView;
