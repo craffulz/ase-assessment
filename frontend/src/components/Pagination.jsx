@@ -31,6 +31,7 @@ const Pagination = () => {
     <div className="flex flex-col text-neutral-100 font-semibold p-2">
       <div className="flex flex-row text-2xl gap-2 items-center justify-center">
         <button
+          className="cursor-pointer"
           onClick={() => handlePageChange(1)}
           disabled={currentPage === 1}
         >
@@ -38,6 +39,7 @@ const Pagination = () => {
         </button>
 
         <button
+          className="cursor-pointer"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -48,13 +50,14 @@ const Pagination = () => {
           <button
             key={page}
             onClick={() => handlePageChange(page)}
-            className={currentPage === page ? "active" : ""}
+            className={`cursor-pointer ${currentPage === page ? "active" : ""}`}
           >
             {page}
           </button>
         ))}
 
         <button
+          className="cursor-pointer"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
@@ -62,6 +65,7 @@ const Pagination = () => {
         </button>
 
         <button
+          className="cursor-pointer"
           onClick={() => handlePageChange(totalPages)}
           disabled={currentPage === totalPages}
         >
