@@ -26,7 +26,7 @@ const InteractivePanel = () => {
   //get ages range per team: <21, 21>x<28, >28
   const ageXTeams = [];
   const teams = new Set([...players].map(({ team }) => team));
- 
+
   teams.forEach((value) => {
     const under21 = [...players].filter(({ team, age }) => {
       if (team === value) return age <= 21;
@@ -47,9 +47,23 @@ const InteractivePanel = () => {
   });
 
   return (
-    <div>
-      <PieAgeXTeam data ={ageXTeams}/>
-      <BarGoalsAssistsXPosi data={goalsAssistsXPosi} />
+    <div
+      className="flex flex-col col-span-8 p-2 bg-secondary-700 rounded-md gap-2 
+                        md:flex md:flex-row
+                          xl:col-span-4"
+    >
+      <div className="flex flex-col flex-grow items-center justify-center bg-secondary-900 p-2 rounded-md ">
+        <h2 className="text-center text-xl font-bold mb-2 text-neutral-100">
+          Age demographics across teams
+        </h2>
+        <PieAgeXTeam data={ageXTeams} />
+      </div>
+      <div className="flex flex-col flex-grow items-center justify-center bg-secondary-900 p-2 rounded-md ">
+        <h2 className="text-center text-xl font-bold text-neutral-100">
+          Goals/assists distribution by position
+        </h2>
+        <BarGoalsAssistsXPosi data={goalsAssistsXPosi} />
+      </div>
     </div>
   );
 };

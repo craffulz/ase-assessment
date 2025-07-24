@@ -51,7 +51,7 @@ const MarketInsights = () => {
   return (
     <div
       id="market-insights"
-      className="col-span-8 grid grid-cols-8 rounded-md gap-3 text-neutral-100 bg-secondary-700 p-2"
+      className="col-span-8 grid grid-cols-8 rounded-md gap-3  bg-secondary-700 p-2"
     >
       <div
         id="table"
@@ -60,7 +60,7 @@ const MarketInsights = () => {
                       md:col-span-3
                         xl:col-span-2"
       >
-        <h2 className="text-xl font-bold text-center ">
+        <h2 className="text-xl font-bold text-center text-neutral-100">
           Most valuable players
         </h2>
         {topValuables.map(({ market_value, name }, index) => {
@@ -70,7 +70,7 @@ const MarketInsights = () => {
               id="most-valuable"
               className="flex flex-row justify-between items-center gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
                bg-secondary-700 hover:bg-secondary-800 
-               font-bold text-sm"
+               font-bold text-sm text-neutral-100"
             >
               <p>{name}</p>
               <p className="text-diale ">
@@ -83,12 +83,14 @@ const MarketInsights = () => {
           );
         })}
       </div>
-      <div className="col-span-8 bg-secondary-900 p-2 rounded-md shadow-md
+      <div
+        className="col-span-8 bg-secondary-900 p-2 rounded-md shadow-md
                         sm:col-span-4
-                        md:col-span-2
-                        xl:col-span-1
-                        ">
-        <h2 className="text-center text-xl font-bold">
+                        md:col-span-3 
+                        xl:col-span-2
+                        "
+      >
+        <h2 className="text-center text-xl font-bold text-neutral-100">
           Contract end &lt;6 months
         </h2>
         {closeEndContract.map(({ contract_end, name }, index) => {
@@ -97,25 +99,27 @@ const MarketInsights = () => {
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
-               bg-secondary-700 hover:bg-secondary-800 font-bold text-sm"
+               bg-secondary-700 hover:bg-secondary-800 font-bold text-sm text-neutral-100"
             >
               <p>{name}</p> <p className="text-diale">{contract_end}</p>
             </div>
           );
         })}
       </div>
-      <div className="flex flex-col col-span-8 p-2 bg-secondary-900 rounded-md
+      <div
+        className="flex flex-col col-span-8 p-2 bg-secondary-900 rounded-md
                         md:flex md:flex-row
-                          xl:col-span-4 xl:row-start-">
+                          xl:col-span-4 xl:row-start-"
+      >
         <div className="flex flex-col flex-grow items-center justify-center">
-          <h2 className="text-center text-xl font-bold">Players/Position</h2>
+          <h2 className="text-center text-xl font-bold text-neutral-100">Players/Position</h2>
           <PiePlayerPosition data={playersPerPosition} />
         </div>
         <div className="flex flex-col flex-grow items-center justify-center">
-          <h2 className="text-center text-xl font-bold">Players/Team</h2>
+          <h2 className="text-center text-xl font-bold text-neutral-100 ">Players/Team</h2>
           <PiePlayerTeam data={playersPerTeams} />
         </div>
-      </div> 
+      </div>
     </div>
   );
 };

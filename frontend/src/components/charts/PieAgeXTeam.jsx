@@ -62,7 +62,7 @@ const PieAgeXTeam = ({ data }) => {
   };
 
   return (
-    <PieChart width={300} height={300}>
+    <PieChart width={300} height={300} >
       <Tooltip content={customTooltip} />
 
       <Pie

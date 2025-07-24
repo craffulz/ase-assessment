@@ -8,7 +8,10 @@ import ProfileButton from "./buttons/ProfileButton.jsx";
 import { LogoutButton } from "./buttons/LogoutButton.jsx";
 const Sidebar = () => {
   return (
-    <div className="flex flex-col gap-4 items-center w-[275px] box-border text-neutral-100 h-[100vh] p-4 bg-secondary-800">
+    <div className="flex flex-col gap-4 items-center w-[300px] box-border text-neutral-100 h-[100vh] p-4 bg-secondary-800
+                      sm:w-[275px]
+    ">
+      
       <div id="logo" className="font-bold text-4xl">
         ASE Football Metrica
       </div>

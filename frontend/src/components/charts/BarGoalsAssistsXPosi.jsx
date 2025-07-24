@@ -25,7 +25,7 @@ const BarGoalsAssistsXPosi = ({ data }) => {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="position" />
       <YAxis />
-      <Legend/>
+      <Legend />
       <Tooltip cursor={{ fill: "transparent" }} />
     </BarChart>
   );
