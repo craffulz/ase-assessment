@@ -3,6 +3,7 @@ import { PlayerAttributesValidator } from "../validators/playerAttributes.valida
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
+import { X } from "lucide-react";
 const PlayerAttributesForm = () => {
   const [submittedData, setSubmittedData] = useState(false);
   const { accessToken } = useSelector((state) => state.user);
@@ -47,7 +48,15 @@ const PlayerAttributesForm = () => {
   };
 
   return (
-    <div id="playerAttributesForm" className="">
+    <div
+      id="playerAttributesForm"
+      className="
+      w-[300px] sm:w-[500px] 
+      bg-secondary-900 text-neutral-100 px-8 py-6 rounded-md font-semibold text-sm"
+    >
+      <div className="flex flex-grow items-end justify-end mb-2">
+        <X className="cursor-pointer" />
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className="grid grid-cols-3 gap-4"

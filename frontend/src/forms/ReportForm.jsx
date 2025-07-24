@@ -3,6 +3,7 @@ import { ScoutReportsValidator } from "../validators/report.validator.js";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
+import { X } from "lucide-react";
 const ReportForm = () => {
   const { accessToken } = useSelector((state) => state.user);
   const [submittedData, setSubmittedData] = useState(false);
@@ -45,7 +46,15 @@ const ReportForm = () => {
   };
 
   return (
-    <div id="playerForm" className="">
+    <div
+      id="playerForm"
+      className="
+    w-[300px] sm:w-[500px] 
+    bg-secondary-900 text-neutral-100 font-semibold text-sm px-8 py-6 rounded-md"
+    >
+      <div className="flex flex-grow items-end justify-end mb-2">
+        <X className="cursor-pointer" />
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className="grid grid-cols-2 gap-8"

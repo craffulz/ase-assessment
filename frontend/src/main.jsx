@@ -10,6 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
  
     <Provider store ={store}>
       <RouterProvider router={Router} />
+      <GlobalModals />
     </Provider>
   
 );

@@ -310,8 +310,8 @@ small {
 }
 
 .input {
-  background-color: var(--color-neutral-white);
-  border: 1px solid var(--color-neutral-gray300);
+  background-color: var(--color-secondary-800);
+  border: 1px solid var(--color-secondary-700);
   border-radius: var(--radius-md);
   padding: 12px 6px;
 
