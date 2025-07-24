@@ -1,23 +1,24 @@
-import React from "react";
-import { PlayerValidator } from "../validators/player.validator.jsx";
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers";
+import { useState } from "react";
+import { ScoutReportsValidator } from "../validators/report.validator.js";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
-const PlayerForm = () => {
-  const { accessToken } = useSelector((state) => state.users);
+const ReportForm = () => {
+  const { accessToken } = useSelector((state) => state.user);
+  const [submittedData, setSubmittedData] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    resolver: zodResolver(PlayerValidator.schema),
-    defaultValues: PlayerValidator.defaultValues,
+    resolver: zodResolver(ScoutReportsValidator.schema),
+    defaultValues: ScoutReportsValidator.defaultValues,
   });
 
   const onError = (error) => console.log("Error: ", error);
   const onSubmit = async (data) => {
-    const player = { ...data };
+    const report = { ...data };
 
     try {
       const response = await fetch("http://localhost:3000/api/reports/", {
@@ -27,13 +28,15 @@ const PlayerForm = () => {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(...player),
+        body: JSON.stringify(report),
       });
 
       if (!response.ok) {
         console.log(await response.json());
         throw new Error("No response");
       }
+
+      setSubmittedData(true);
 
       console.log(response);
     } catch (error) {
@@ -45,160 +48,96 @@ const PlayerForm = () => {
     <div id="playerForm" className="">
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-y-2 "
+        className="grid grid-cols-2 gap-8"
       >
-        <label>Name</label>
-        <input
-          {...register("name")}
-          type="text"
-          name="name"
-          placeholder="Enter name"
-          className="input"
-        />
-        {errors.name?.message && (
-          <small className="text-red-500">{errors.name.message}</small>
-        )}
-        <label>Position</label>
-        <input
-          {...register("position")}
-          type="text"
-          name="position"
-          placeholder="Position"
-          className="input"
-        />
-        {errors.position?.message && (
-          <small className="text-red-500">{errors.position.message}</small>
-        )}
-        <label>Age</label>
-        <input
-          {...register("age")}
-          type="text"
-          name="age"
-          placeholder="Age"
-          className="input"
-        />
-        {errors.age?.message && (
-          <small className="text-red-500">{errors.age.message}</small>
-        )}
-        <label>Team</label>
-        <input
-          {...register("team")}
-          type="text"
-          name="team"
-          placeholder="team"
-          className="input"
-        />
-        {errors.team?.message && (
-          <small className="text-red-500">{errors.team.message}</small>
-        )}
-        <label>Nationality</label>
-        <input
-          {...register("nationality")}
-          type="text"
-          name="nationality"
-          placeholder="nationality"
-          className="input"
-        />
-        {errors.nationality?.message && (
-          <small className="text-red-500">{errors.nationality.message}</small>
-        )}
-        <label>Height</label>
-        <input
-          {...register("height")}
-          type="text"
-          name="height"
-          placeholder="height"
-          className="input"
-        />
-        {errors.height?.message && (
-          <small className="text-red-500">{errors.height.message}</small>
-        )}
-        <label>Weight</label>
-        <input
-          {...register("weight")}
-          type="text"
-          name="weight"
-          placeholder="weight"
-          className="input"
-        />
-        {errors.weight?.message && (
-          <small className="text-red-500">{errors.weight.message}</small>
-        )}
-        <label>Goals</label>
-        <input
-          {...register("goals")}
-          type="text"
-          name="goals"
-          placeholder="goals"
-          className="input"
-        />
-        {errors.goals?.message && (
-          <small className="text-red-500">{errors.goals.message}</small>
-        )}
-        <label>Assists</label>
-        <input
-          {...register("assists")}
-          type="text"
-          name="assists"
-          placeholder="assists"
-          className="input"
-        />
-        {errors.assists?.message && (
-          <small className="text-red-500">{errors.assists.message}</small>
-        )}
-        <label>Appearances</label>
-        <input
-          {...register("appearances")}
-          type="text"
-          name="appearances"
-          placeholder="appearances"
-          className="input"
-        />
-        {errors.appearances?.message && (
-          <small className="text-red-500">{errors.appearances.message}</small>
-        )}
-        <label>Contract Salary</label>
-        <input
-          {...register("contract_salary")}
-          type="text"
-          name="contract_salary"
-          placeholder="contract_salary"
-          className="input"
-        />
-        {errors.contract_salary?.message && (
-          <small className="text-red-500">
-            {errors.contract_salary.message}
-          </small>
-        )}
-        <label>Contract End</label>
-        <input
-          {...register("contract_end")}
-          type="text"
-          name="contract_end"
-          placeholder="contract_end"
-          className="input"
-        />
-        {errors.contract_end?.message && (
-          <small className="text-red-500">{errors.contract_end.message}</small>
-        )}
-        <label>Martket Value</label>
-        <input
-          {...register("market_value")}
-          type="text"
-          name="market_value"
-          placeholder="market_value"
-          className="input"
-        />
-        {errors.market_value?.message && (
-          <small className="text-red-500">{errors.market_value.message}</small>
-        )}
+        <label>
+          Match Date
+          <input
+            readOnly={submittedData ? true : false}
+            {...register("match_date")}
+            type="date"
+            name="match_date"
+            placeholder="Enter match_date"
+            className="input"
+          />
+          {errors.match_date?.message && (
+            <small className="text-red-500">{errors.match_date.message}</small>
+          )}
+        </label>
 
-        <button type="submit" className="btn-primary">
-          Sign in
-        </button>
+        <label>
+          Overall Rating
+          <input
+            readOnly={submittedData ? true : false}
+            {...register("overall_rating")}
+            type="text"
+            name="overall_rating"
+            className="input"
+          />
+          {errors.overall_rating?.message && (
+            <small className="text-red-500">
+              {errors.overall_rating.message}
+            </small>
+          )}
+        </label>
+
+        <label>
+          Strengths
+          <input
+            {...register("strengths")}
+            type="text"
+            name="strengths"
+            className="input"
+            readOnly={submittedData ? true : false}
+          />
+          {errors.strengths?.message && (
+            <small className="text-red-500">{errors.strengths.message}</small>
+          )}
+        </label>
+
+        <label>
+          Weaknesses
+          <input
+            {...register("weaknesses")}
+            type="text"
+            name="weaknesses"
+            className="input"
+            readOnly={submittedData ? true : false}
+          />
+          {errors.weaknesses?.message && (
+            <small className="text-red-500">{errors.weaknesses.message}</small>
+          )}
+        </label>
+
+        <label>
+          Recommendation
+          <input
+            {...register("recommendation")}
+            type="text"
+            name="recommendation"
+            className="input"
+            readOnly={submittedData ? true : false}
+          />
+          {errors.recommendation?.message && (
+            <small className="text-red-500">
+              {errors.recommendation.message}
+            </small>
+          )}
+        </label>
+
+        <div className="flex flex-col  justify-end">
+          <button
+            disabled={submittedData ? true : false}
+            type="submit"
+            className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+          >
+            Add
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default PlayerForm;
+export default ReportForm;

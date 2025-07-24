@@ -6,26 +6,37 @@ const retrieveToken = (bearer) => {
   return access_token;
 };
 
+const isValidToken = (token) => {
+  if (!token) return false;
+
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    return decoded.exp > currentTime;
+  } catch (error) {
+    console.log("[Error validating accessToken]", error);
+    return false;
+  }
+};
 const initializeData = () => {
   //console.log("typeof sessionStorage:", typeof sessionStorage);
   //console.log("typeof sessionStorage.getItem:", typeof sessionStorage.getItem);
 
   const accessToken = sessionStorage.getItem("accessToken");
 
-  if (!accessToken) {
+  if (!accessToken || !isValidToken(accessToken)) {
     console.log("[STORE] Initializing data... \n No accesstoken found");
-
+    sessionStorage.removeItem("accessToken");
     return { email: "", accessToken: "", connected: false };
   }
 
   try {
     //console.log("[STORE] Initializing data... \n Took token ", accessToken);
-
     const { email } = jwtDecode(accessToken);
     return { email: email, accessToken: accessToken, connected: true };
   } catch (error) {
     console.log("Error decoding: ", error);
-    return { email: "", accessToken: "", connected: false };
+    return { email: "", accessToken: null, connected: false };
   }
 };
 
@@ -43,6 +54,11 @@ const userSlice = createSlice({
 
       const bearer = action.payload;
       const accessToken = retrieveToken(bearer);
+
+      if (!isValidToken(accessToken)) {
+        console.log("Invalid token during login");
+        return;
+      }
 
       console.log("[STORE] Access token retrieved: \n", accessToken);
 

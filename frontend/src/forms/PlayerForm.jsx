@@ -1,10 +1,12 @@
-import React from "react";
-import { PlayerValidator } from "../validators/player.validator.jsx";
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers";
-import {useSelector} from 'react-redux'
-const PlayerForm = () => {
-    const {accessToken} = useSelector((state) => state.users)
+import { PlayerValidator } from "../validators/player.validator.js";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+const PlayerForm = ({ setModalActive }) => {
+  const { accessToken } = useSelector((state) => state.user);
+  console.log(accessToken);
+  const [submittedData, setSubmittedData] = useState(false);
 
   const {
     handleSubmit,
@@ -19,22 +21,26 @@ const PlayerForm = () => {
   const onError = (error) => console.log("Error: ", error);
   const onSubmit = async (data) => {
     const player = { ...data };
+    console.log(player, data);
 
     try {
       const response = await fetch("http://localhost:3000/api/players/", {
         credentials: "include",
         method: "POST",
         headers: {
-            Authorization : `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(...player),
+        body: JSON.stringify(player),
       });
 
       if (!response.ok) {
         console.log(await response.json());
         throw new Error("No response");
       }
+
+      setModalActive(true);
+      setSubmittedData(true);
 
       console.log(response);
     } catch (error) {
@@ -43,162 +49,213 @@ const PlayerForm = () => {
   };
 
   return (
-    <div id="reportForm" className="">
-      <form
-        onSubmit={handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-y-2 "
-      >
-        <label>Name</label>
+    <form
+      id="playerForm"
+      onSubmit={handleSubmit(onSubmit, onError)}
+      className="grid gap-x-3 gap-y-8 
+      grid-cols-4 sm:grid-cols-7"
+    >
+      <label className="col-span-2">
+        Name
         <input
           {...register("name")}
           type="text"
           name="name"
-          placeholder="Enter name"
+          placeholder="Name"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.name?.message && (
           <small className="text-red-500">{errors.name.message}</small>
         )}
-        <label>Position</label>
+      </label>
+      <label className="col-span-2">
+        Nationality
+        <input
+          {...register("nationality")}
+          type="text"
+          name="nationality"
+          placeholder="Nationality"
+          className="input"
+          readOnly={submittedData ? true : false}
+        />
+        {errors.nationality?.message && (
+          <small className="text-red-500">{errors.nationality.message}</small>
+        )}
+      </label>
+
+      <label className="sm:col-span-1">
+        Age
+        <input
+          {...register("age")}
+          type="number"
+          name="age"
+          className="input"
+          readOnly={submittedData ? true : false}
+        />
+        {errors.age?.message && (
+          <small className="text-red-500">{errors.age.message}</small>
+        )}
+      </label>
+
+      <label>
+        Height
+        <input
+          {...register("height")}
+          type="number"
+          name="height"
+          placeholder="cms"
+          className="input"
+          readOnly={submittedData ? true : false}
+        />
+        {errors.height?.message && (
+          <small className="text-red-500">{errors.height.message}</small>
+        )}
+      </label>
+
+      <label>
+        Weight
+        <input
+          {...register("weight")}
+          type="number"
+          name="weight"
+          placeholder="kgs"
+          className="input"
+          readOnly={submittedData ? true : false}
+        />
+        {errors.weight?.message && (
+          <small className="text-red-500">{errors.weight.message}</small>
+        )}
+      </label>
+
+      <label className="col-span-2">
+        Team
+        <input
+          {...register("team")}
+          type="text"
+          name="team"
+          placeholder="Team"
+          className="input"
+          readOnly={submittedData ? true : false}
+        />
+        {errors.team?.message && (
+          <small className="text-red-500">{errors.team.message}</small>
+        )}
+      </label>
+      <label className="col-span-2">
+        Position
         <input
           {...register("position")}
           type="text"
           name="position"
           placeholder="Position"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.position?.message && (
           <small className="text-red-500">{errors.position.message}</small>
         )}
-        <label>Age</label>
-        <input
-          {...register("age")}
-          type="text"
-          name="age"
-          placeholder="Age"
-          className="input"
-        />
-        {errors.age?.message && (
-          <small className="text-red-500">{errors.age.message}</small>
-        )}
-        <label>Team</label>
-        <input
-          {...register("team")}
-          type="text"
-          name="team"
-          placeholder="team"
-          className="input"
-        />
-        {errors.team?.message && (
-          <small className="text-red-500">{errors.team.message}</small>
-        )}
-        <label>Nationality</label>
-        <input
-          {...register("nationality")}
-          type="text"
-          name="nationality"
-          placeholder="nationality"
-          className="input"
-        />
-        {errors.nationality?.message && (
-          <small className="text-red-500">{errors.nationality.message}</small>
-        )}
-        <label>Height</label>
-        <input
-          {...register("height")}
-          type="text"
-          name="height"
-          placeholder="height"
-          className="input"
-        />
-        {errors.height?.message && (
-          <small className="text-red-500">{errors.height.message}</small>
-        )}
-        <label>Weight</label>
-        <input
-          {...register("weight")}
-          type="text"
-          name="weight"
-          placeholder="weight"
-          className="input"
-        />
-        {errors.weight?.message && (
-          <small className="text-red-500">{errors.weight.message}</small>
-        )}
-        <label>Goals</label>
+      </label>
+
+      <label>
+        Goals
         <input
           {...register("goals")}
-          type="text"
+          type="number"
           name="goals"
-          placeholder="goals"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.goals?.message && (
           <small className="text-red-500">{errors.goals.message}</small>
         )}
-        <label>Assists</label>
+      </label>
+
+      <label>
+        Assists
         <input
           {...register("assists")}
-          type="text"
+          type="number"
           name="assists"
-          placeholder="assists"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.assists?.message && (
           <small className="text-red-500">{errors.assists.message}</small>
         )}
-        <label>Appearances</label>
+      </label>
+
+      <label>
+        Apps
         <input
           {...register("appearances")}
-          type="text"
+          type="number"
           name="appearances"
-          placeholder="appearances"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.appearances?.message && (
           <small className="text-red-500">{errors.appearances.message}</small>
         )}
-        <label>Contract Salary</label>
+      </label>
+
+      <label className="col-span-2">
+        Contract Salary
         <input
           {...register("contract_salary")}
-          type="text"
+          type="number"
           name="contract_salary"
-          placeholder="contract_salary"
+          placeholder="Salary"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.contract_salary?.message && (
           <small className="text-red-500">
             {errors.contract_salary.message}
           </small>
         )}
-        <label>Contract End</label>
+      </label>
+
+      <label className="col-span-2">
+        Contract End
         <input
           {...register("contract_end")}
-          type="text"
+          type="date"
           name="contract_end"
-          placeholder="contract_end"
+          placeholder="Contract End"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.contract_end?.message && (
           <small className="text-red-500">{errors.contract_end.message}</small>
         )}
-        <label>Martket Value</label>
+      </label>
+
+      <label className="col-span-2">
+        Martket Value
         <input
           {...register("market_value")}
-          type="text"
+          type="number"
           name="market_value"
-          placeholder="market_value"
+          placeholder="Market Value"
           className="input"
+          readOnly={submittedData ? true : false}
         />
         {errors.market_value?.message && (
           <small className="text-red-500">{errors.market_value.message}</small>
         )}
-
-        <button type="submit" className="btn-primary">
-          Sign in
+      </label>
+      <div className="flex flex-col  justify-end">
+        <button
+          disabled={submittedData ? true : false}
+          type="submit"
+          className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+        >
+          Add
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

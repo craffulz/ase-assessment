@@ -6,9 +6,13 @@ import Signin from "../pages/Signin.jsx";
 import Players from "../pages/Players.jsx";
 import Dashboard from "../pages/Dashboard.jsx";
 import Tries from "../pages/Tries.jsx";
+import NewPlayer from "../pages/NewPlayer.jsx";
+import NewReport from "../pages/NewReport.jsx";
 
 export const router = createBrowserRouter([
-  {path: '/tries', element: <Tries/>},
+  { path: "/newPlayer", element: <NewPlayer /> },
+  { path: "/newReport", element: <NewReport /> },
+  { path: "/tries", element: <Tries /> },
   { path: "/dashboard", element: <Dashboard /> },
   { path: "/players", element: <Players /> },
   { path: "/", element: <Home /> },
