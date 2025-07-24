@@ -8,11 +8,11 @@ import ProfileButton from "./buttons/ProfileButton.jsx";
 import { LogoutButton } from "./buttons/LogoutButton.jsx";
 const Sidebar = () => {
   return (
-    <div className="sidebar flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4 items-center w-[275px] box-border text-neutral-100 h-[100vh] p-4 bg-secondary-800">
       <div id="logo" className="font-bold text-4xl">
         ASE Football Metrica
       </div>
-      <div className="h-1 w-full bg-[#FFB22C]"></div>
+      <div className="h-1 w-full bg-diale"></div>
 
       <ButtonSidebar to="/">
         <ChartColumn />

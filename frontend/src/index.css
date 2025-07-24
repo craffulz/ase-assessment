@@ -54,6 +54,8 @@
 }
 
 @theme {
+
+  --color-diale: #FFB22C;
   /* Primary colors */
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
@@ -183,7 +185,7 @@ body {
   font-size: var(--font-base);
   line-height: var(--lh-normal);
   color: #111827;
-  background-color: #38bdf8;
+  background-color: #475569;
   margin: 0;
 
   overflow-x: hidden;

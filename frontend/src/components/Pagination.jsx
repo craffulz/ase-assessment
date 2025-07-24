@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../store/players.slice.js";
+import { ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { ArrowRightToLine } from "lucide-react";
+import { ArrowLeftToLine } from "lucide-react";
 
 const Pagination = () => {
   const dispatch = useDispatch();
@@ -24,43 +28,48 @@ const Pagination = () => {
   };
 
   return (
-    <div className="pagination">
-      <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-        &laquo;
-      </button>
-
-      <button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &lsaquo;
-      </button>
-
-      {getPageRange().map((page) => (
+    <div className="flex flex-col text-neutral-100 font-semibold p-2">
+      <div className="flex flex-row text-2xl gap-2 items-center justify-center">
         <button
-          key={page}
-          onClick={() => handlePageChange(page)}
-          className={currentPage === page ? "active" : ""}
+          onClick={() => handlePageChange(1)}
+          disabled={currentPage === 1}
         >
-          {page}
+          <ArrowLeftToLine />
         </button>
-      ))}
 
-      <button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &rsaquo;
-      </button>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          <ArrowLeft />
+        </button>
 
-      <button
-        onClick={() => handlePageChange(totalPages)}
-        disabled={currentPage === totalPages}
-      >
-        &raquo;
-      </button>
+        {getPageRange().map((page) => (
+          <button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={currentPage === page ? "active" : ""}
+          >
+            {page}
+          </button>
+        ))}
 
-      <div className="page-info">
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <ArrowRight />
+        </button>
+
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          <ArrowRightToLine />
+        </button>
+      </div>
+
+      <div className="flex flex-row text-xl items-center justify-center">
         Page {currentPage} of {totalPages}
       </div>
     </div>
