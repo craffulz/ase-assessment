@@ -15,7 +15,7 @@ const RadarPlayersAtt = () => {
 
   const matched = [];
   const playerMatched = [];
-  players.forEach((player) => {
+  [...players].forEach((player) => {
     const playerAttrs = playersAttributes.filter(
       (attr) => attr.player_id === player.id
     );

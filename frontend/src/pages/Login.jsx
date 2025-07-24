@@ -31,7 +31,7 @@ const Login = () => {
         //Set the access token and the email(on payload) took from the resquest's response in the store
         if (access_token) dispatch(login(access_token));
         //Navigate to the home page
-        navigateTo("/players");
+        navigateTo("/home");
       } catch (error) {
         console.log(error);
       }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import BarGoalsAssistsXPosi from "./charts/BarGoalsAssistsXPosi.jsx";
-import PieAgeXTeam from "./charts/PieAgeXTeam.jsx";
+import BarGoalsAssistsXPosi from "../charts/BarGoalsAssistsXPosi.jsx";
+import PieAgeXTeam from "../charts/PieAgeXTeam.jsx";
 
 const InteractivePanel = () => {
   const { players } = useSelector((state) => state.players);

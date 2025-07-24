@@ -1,8 +1,9 @@
 import PlayersTable from "../components/PlayersTable.jsx";
-
+import Sidebar from "../components/Sidebar.jsx";
 const Players = () => {
   return (
-    <div className="w-full p-2">
+    <div className="flex flex-row bg-[slate-700] w-[100vw]">
+      <Sidebar />
       <PlayersTable />
     </div>
   );

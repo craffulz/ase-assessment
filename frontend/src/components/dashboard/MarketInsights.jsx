@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ChartPie from "./charts/PiePlayerTeam.jsx";
-import PiePlayerTeam from "./charts/PiePlayerTeam.jsx";
-import PiePlayerPosition from "./charts/PiePlayerPosition.jsx";
+import ChartPie from "../charts/PiePlayerTeam.jsx";
+import PiePlayerTeam from "../charts/PiePlayerTeam.jsx";
+import PiePlayerPosition from "../charts/PiePlayerPosition.jsx";
 
 const MarketInsights = () => {
   const { players, loading, error } = useSelector((state) => state.players);
