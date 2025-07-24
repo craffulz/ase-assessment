@@ -31,14 +31,14 @@ const Dashboard = () => {
   return (
     <div
       id="dashboard"
-      className="flex flex-col grow bg-primary-100 p-4 gap-4 h-[100vh] overflow-y-scroll"
+      className="grid grid-cols-8 w-full bg-secondary-900 p-4 gap-4  h-[100vh]  overflow-y-scroll"
     >
       {/*<PlayersFilters />*/}
       <ResumeCard data={players} />
       <MarketInsights />
-      <InteractivePanel />
+      {/* <InteractivePanel />
       <LineMarketXHistory />
-      <RadarPlayersAtt />
+      <RadarPlayersAtt /> */}
     </div>
   );
 };

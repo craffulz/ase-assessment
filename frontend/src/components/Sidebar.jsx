@@ -24,7 +24,7 @@ const Sidebar = () => {
       </ButtonSidebar>
       <ButtonSidebar to="/">
         <Users />
-        Match Up
+        Matchup
       </ButtonSidebar>
       <ButtonSidebar to="/newPlayer">
         <UserRoundPlus />

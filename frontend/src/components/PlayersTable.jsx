@@ -49,74 +49,85 @@ const PlayersTable = () => {
         : "↓"
       : "";
     return (
-      <div
+      <th
         id="tableheader"
         onClick={() => handleSort(field)}
-        className={`flex  cursor-pointer ${
-          sortedBy === field ? "text-diale" : ""
-        } `}
+        className={`cursor-pointer  ${sortedBy === field ? "text-diale" : ""} px-4`}
       >
         {label}
         {directionSymbol}
-      </div>
+      </th>
     );
   };
 
   return (
-    <div
-      id="playersTable"
-      className="bg-secondary-600 flex flex-col grow items-center justify-center p-4 h-[100vh] overflow-hidden"
-    >
-      <div
-        className="grid grid-cols-13 justify-center items-center p-8  w-full rounded-md mb-2
-         bg-secondary-700 text-neutral-100 font-bold"
-      >
-        {renderHeaders("name", "Name")}
-        {renderHeaders("position", "Position")}
-        {renderHeaders("team", "Team")}
-        {renderHeaders("appearances", "Appearances")}
-        {renderHeaders("goals", "Goals")}
-        {renderHeaders("assists", "Assists")}
-        {renderHeaders("height", "Height (cm)")}
-        {renderHeaders("weight", "Weight (kg)")}
-        {renderHeaders("contract_end", "Contract End")}
-        {renderHeaders("contract_salary", "Salary (€)")}
-        {renderHeaders("market_value", "Market Value (€)")}
-        {renderHeaders("nationality", "Nationality")}
-        {renderHeaders("age", "Age")}
-      </div>
-      <div
-        id="tableContainer"
-        className="bg-secondary-800 rounded-md p-4 border-y-4 border-secondary-800 overflow-y-scroll"
-      >
-        <div id="tablebody" className="flex flex-col gap-4">
-          {players.map((player) => {
-            return (
-              <div
-                key={player.index}
-                className="grid grid-cols-13 p-4 items-center justify-between w-full rounded-md cursor-pointer hover:bg-secondary-900
-                bg-secondary-600  text-neutral-100 font-semibold transition-all transition-duration-300"
-              >
-                <div>{player.name}</div>
-                <div>{player.position}</div>
-                <div>{player.team}</div>
-                <div>{player.appearances}</div>
-                <div>{player.goals}</div>
-                <div>{player.assists}</div>
-                <div>{player.height}</div>
-                <div>{player.weight}</div>
-                <div>{player.contract_end}</div>
-                <div>{player.contract_salary}</div>
-                <div>{player.market_value}</div>
-                <div>{player.nationality}</div>
-                <div>{player.age}</div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="flex flex-col w-full bg-secondary-900 p-2 h-[100vh] overflow-hidden">
+      <div className="overflow-auto h-full  rounded-md bg-secondary-800">
+        <table
+          id="playersTable"
+          className="min-w-full border-separate border-spacing-y-4 break-words"
+        >
+          <thead
+            id="theader"
+            className="h-12 sticky top-0 bg-secondary-900 border-spacing-x-12
+         bg-secondary-00 text-neutral-100 font-bold 
+          md:overflow-hidden"
+          >
+            <tr className="text-center ">
+              {renderHeaders("name", "Name")}
+              {renderHeaders("position", "Position")}
+              {renderHeaders("team", "Team")}
+              {renderHeaders("appearances", "Appearances")}
+              {renderHeaders("goals", "Goals")}
+              {renderHeaders("assists", "Assists")}
+              {renderHeaders("height", "Height (cm)")}
+              {renderHeaders("weight", "Weight (kg)")}
+              {renderHeaders("contract_end", "Contract End")}
+              {renderHeaders("contract_salary", "Salary (€)")}
+              {renderHeaders("market_value", "Market Value (€)")}
+              {renderHeaders("nationality", "Nationality")}
+              {renderHeaders("age", "Age")}
+            </tr>
+          </thead>
+          <tbody
+            id="tableContainer"
+            className="
 
-      <Pagination />
+          bg-secondary-800 rounded-md border-secondary-800"
+          >
+            {players.map((player) => {
+              return (
+                <tr
+                  id="tablerow"
+                  key={player.index}
+                  className="
+                h-12 text-center
+                bg-secondary-700 text-neutral-100 transition-all transition-duration-300
+                rounded-md cursor-pointer hover:bg-secondary-900 
+                "
+                >
+                  <td>{player.name}</td>
+                  <td>{player.position}</td>
+                  <td>{player.team}</td>
+                  <td>{player.appearances}</td>
+                  <td>{player.goals}</td>
+                  <td>{player.assists}</td>
+                  <td>{player.height}</td>
+                  <td>{player.weight}</td>
+                  <td>{player.contract_end}</td>
+                  <td>{player.contract_salary}</td>
+                  <td>{player.market_value}</td>
+                  <td>{player.nationality}</td>
+                  <td>{player.age}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      
+        <Pagination />
+      
     </div>
   );
 };

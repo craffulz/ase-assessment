@@ -17,10 +17,10 @@ const MarketInsights = () => {
   const in6months = new Date();
   in6months.setMonth(today.getMonth() + 6);
 
-  const closeEndContract = [...players].filter(({ contract_end }) => {
-    const contractEnd = new Date(contract_end);
-    return contractEnd <= in6months && contractEnd >= today;
-  });
+  // const closeEndContract = [...players].filter(({ contract_end }) => {
+  //   const contractEnd = new Date(contract_end);
+  //   return contractEnd <= in6months && contractEnd >= today;
+  // });
 
   //Get teams
   //const playerDistribution = {};
@@ -49,16 +49,24 @@ const MarketInsights = () => {
   if (error) console.log("Error: ", error.message);
 
   return (
-    <div id="market-insights" className="grid grid-cols-2 rounded-md gap-3">
-      <div className="bg-primary-200 p-2 rounded-md shadow-md">
-        <h2 className="text-center text-xl font-bold">Most valuable players</h2>
+    <div id="market-insights" className="col-span-8 grid grid-cols-8 rounded-md gap-3 text-neutral-100 bg-secondary-700">
+
+      <div
+        id="table"
+        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                    sm:col-span-4
+                      md:col-span-2
+                        xl:col-span-1"
+      >
+
+        <h2 className="text-xl font-bold text-center ">Most valuable players</h2>
         {topValuables.map(({ market_value, name }, index) => {
           return (
             <div
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
-               bg-primary-300 hover:bg-primary-400
+               bg-secondary-700 hover:bg-secondary-800
                font-bold text-sm"
             >
               <p>{name}</p> <p>{market_value}$</p>
@@ -66,7 +74,7 @@ const MarketInsights = () => {
           );
         })}
       </div>
-      <div className="bg-primary-200 p-2 rounded-md shadow-md">
+      {/* <div className="bg-primary-200 p-2 rounded-md shadow-md">
         <h2 className="text-center text-xl font-bold">
           Contract end &lt;6months
         </h2>
@@ -76,7 +84,7 @@ const MarketInsights = () => {
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
-               bg-primary-300 hover:bg-primary-400 font-bold text-sm"
+               bg-secondary-700 hover:bg-secondary-800 font-bold text-sm"
             >
               <p>{name}</p> <p>{contract_end}</p>
             </div>
@@ -92,7 +100,7 @@ const MarketInsights = () => {
           <h2 className="text-center text-xl font-bold">Players/Team</h2>
           <PiePlayerTeam data={playersPerTeams} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

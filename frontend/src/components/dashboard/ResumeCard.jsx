@@ -21,110 +21,133 @@ const ResumeCard = () => {
   if (loading) return <h2>Loading...</h2>;
   if (error) console.log(error);
   return (
-    <>
-      <div className="flex flex-col text-center bg-primary-100 gap-3">
-        <h1 className="flex justify-center items-center bg-primary-200 text-5xl p-2 rounded-md shadow-md">
-          Overview
-        </h1>
-        <div className="h-14 flex flex-row gap-6 justify-center items-center bg-primary-200 p-2 rounded-md shadow-md">
-          <p className="text-2xl">
-            Total players: <span>{totalPlayers}</span>
-          </p>
-          <p className="text-2xl">
-            Average age: <span>{averageAge}</span>
-          </p>
-        </div>
-        <div id="tops" className="flex flex-row gap-3">
-          <div
-            id="table"
-            className="flex flex-col w-[250px] justify-between  shadow-md rounded-md text-sm p-2 bg-primary-200"
+    <div className="col-span-8 grid grid-cols-8 text-center gap-3 p-2 rounded-md bg-secondary-700 text-neutral-100">
+      <div
+        id="totalPlayersAverageAge"
+        className="col-span-8 flex flex-row items-center justify-around h-full p-2 gap-x-4 rounded-md bg-secondary-900 font-semibold text-lg
+                    sm:text-2xl  sm:col-span-4 sm:flex sm:flex-col 
+                      md:flex md:flex-col md:text-2xl md:col-span-2  
+                        xl:col-span-1
+       "
+      >
+        <p className="flex flex-col items-center justify-center">
+          <span>Total players </span>
+          <span
+            className="text-diale text-xl 
+                          sm:text-2xl
+                              md:text-2xl"
           >
-            <h2 className="text-xl font-bold">Top Scorers</h2>
-            <div
-              id="table titles"
-              className="grid grid-cols-2 py-2  rounded-md"
-            >
-              <div className="flex-grow text-xl">Name</div>
-              <div className="flex-grow text-xl">Goals</div>
-            </div>
-            {topScorers.map(({ name, goals }, index) => {
-              return (
-                <div
-                  id="row"
-                  className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
-                   bg-primary-300 hover:bg-primary-400 cursor-pointer font-bold overflow-hidden
-                   "
-                  key={index}
-                >
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {name}
-                  </div>
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {goals}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div
-            id="table"
-            className="flex flex-col w-[250px] justify-between  shadow-md rounded-md text-sm p-2 bg-primary-200"
+            {totalPlayers}
+          </span>
+        </p>
+        <p className="flex flex-col items-center justify-center">
+          <span>Average age </span>
+          <span
+            className="text-diale text-xl 
+                          sm:text-2xl
+                            md:text-2xl"
           >
-            <h2 className="text-xl font-bold">Top Assists</h2>
-            <div id="table titles" className="grid grid-cols-2 py-2">
-              <div className="flex-grow text-xl">Name</div>
-              <div className="flex-grow text-xl">Assists</div>
-            </div>
-            {topAssistants.map(({ name, assists }, index) => {
-              return (
-                <div
-                  id="row"
-                  className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
-                   bg-primary-300 hover:bg-primary-400 cursor-pointer font-bold overflow-hidden
-                   "
-                  key={index}
-                >
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {name}
-                  </div>
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {assists}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div
-            id="table"
-            className="flex flex-col w-[250px] justify-between  shadow-md rounded-md text-sm p-2 bg-primary-200"
-          >
-            <h2 className="text-xl font-bold">Top Appearances</h2>
-            <div id="table titles" className="grid grid-cols-2 py-2">
-              <div className="flex-grow text-xl">Name</div>
-              <div className="flex-grow text-xl">Appears</div>
-            </div>
-            {topAppearances.map(({ name, appearances }, index) => {
-              return (
-                <div
-                  id="row"
-                  className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
-                   bg-primary-300 hover:bg-primary-400 cursor-pointer font-bold overflow-hidden
-                   "
-                  key={index}
-                >
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {name}
-                  </div>
-                  <div className="flex-grow items-center justify-center overflow-hidden">
-                    {appearances}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+            {averageAge}
+          </span>
+        </p>
       </div>
-    </>
+
+      <div
+        id="table"
+        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                    sm:col-span-4
+                      md:col-span-2
+                        xl:col-span-1"
+      >
+        <h2 className="text-xl font-bold">Top Scorers</h2>
+        <div
+          id="table titles"
+          className="grid grid-cols-2 py-2 bg-secondary rounded-md"
+        >
+          <div className="flex-grow text-lg">Name</div>
+          <div className="flex-grow text-lg">Goals</div>
+        </div>
+        {topScorers.map(({ name, goals }, index) => {
+          return (
+            <div
+              id="row"
+              className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
+                   bg-secondary-700 hover:bg-secondary-800 cursor-pointer font-bold overflow-hidden
+                   "
+              key={index}
+            >
+              <div className="flex-grow items-center justify-center overflow-hidden">
+                {name}
+              </div>
+              <div className="flex-grow items-center justify-center overflow-hidden text-diale">
+                {goals}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        id="table"
+        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                            sm:col-span-4
+                              md:col-span-2
+                                xl:col-span-1"      >
+        <h2 className="text-xl font-bold">Top Assists</h2>
+        <div id="table titles" className="grid grid-cols-2 py-2">
+          <div className="flex-grow text-lg">Name</div>
+          <div className="flex-grow text-lg">Assists</div>
+        </div>
+        {topAssistants.map(({ name, assists }, index) => {
+          return (
+            <div
+              id="row"
+              className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
+                  bg-secondary-700 hover:bg-secondary-800 cursor-pointer font-bold overflow-hidden
+                   "
+              key={index}
+            >
+              <div className="flex-grow items-center justify-center overflow-hidden">
+                {name}
+              </div>
+              <div className="flex-grow items-center justify-center overflow-hidden text-diale">
+                {assists}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        id="table"
+        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                    sm:col-span-4
+                      md:col-span-2
+                        xl:col-span-1"
+      >
+        <h2 className="text-xl font-bold">Top Appearances</h2>
+        <div id="table titles" className="grid grid-cols-2 py-2">
+          <div className="flex-grow text-lg">Name</div>
+          <div className="flex-grow text-lg">Appears</div>
+        </div>
+        {topAppearances.map(({ name, appearances }, index) => {
+          return (
+            <div
+              id="row"
+              className="grid grid-cols-2 justify-center items-center my-1 px-1 min-h-8 rounded-md
+                   bg-secondary-700 hover:bg-secondary-800 cursor-pointer font-bold overflow-hidden
+                   "
+              key={index}
+            >
+              <div className="flex-grow items-center justify-center overflow-hidden">
+                {name}
+              </div>
+              <div className="flex-grow items-center justify-center overflow-hidden text-diale">
+                {appearances}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
