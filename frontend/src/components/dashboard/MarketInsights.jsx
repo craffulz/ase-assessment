@@ -100,12 +100,13 @@ const MarketInsights = () => {
         {closeEndContract.map((player, index) => {
           return (
             <div
+              onClick={() => dispatch(setPlayerView(player))}
               key={index}
               id="most-valuable"
               className="flex flex-row justify-between gap-3 m-2 min-h-8 cursor-pointer rounded-md p-2
                bg-secondary-700 hover:bg-secondary-800 font-bold text-sm text-neutral-100"
             >
-              <p>{player.name}</p>{" "}
+              <p>{player.name}</p>
               <p className="text-diale">{player.contract_end}</p>
             </div>
           );
