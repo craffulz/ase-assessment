@@ -10,6 +10,7 @@ import NewPlayer from "../pages/NewPlayer.jsx";
 import NewReport from "../pages/NewReport.jsx";
 
 export const router = createBrowserRouter([
+  {path: '/signin', element:<Signin/>},
   { path: "/newPlayer", element: <NewPlayer /> },
   { path: "/newReport", element: <NewReport /> },
   { path: "/tries", element: <Tries /> },

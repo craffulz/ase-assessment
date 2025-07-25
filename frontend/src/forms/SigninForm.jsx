@@ -53,18 +53,18 @@ const Signin = () => {
   };
 
   return (
-    <div id="login" className="flex flex-col items-center justify-center">
+    <div id="login" className="flex flex-col items-center justify-center text-neutral-100">
       <header className="flex flex-col justify-center items-center">
         <h1 className="">Sign in</h1>
         <h3 className="">ASE Athletics Metrica</h3>
       </header>
       {signed ? (
-        <h1>Successfully signed in!</h1>
+        <h1 className="text-green-500">Successfully signed in!</h1>
       ) : (
         <FormProvider>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="flex flex-col gap-y-2 "
+            className="flex flex-col gap-y-2 text-neutral-100"
           >
             <label>Name</label>
             <input

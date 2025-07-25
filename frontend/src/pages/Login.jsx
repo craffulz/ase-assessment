@@ -40,7 +40,11 @@ const Login = () => {
     auto_log();
   }, []);
 
-  return <LoginForm />;
+  return (
+    <div className="flex w-full h-[100vh] flex-col items-center justify-center">
+      <LoginForm />
+    </div>
+  );
 };
 
 export default Login;

@@ -67,8 +67,8 @@ const LoginForm = () => {
       id="loginForm"
       className="flex flex-col items-center justify-center w-[300px] rounded-md p-2 "
     >
-      <header className="flex flex-col justify-center items-center">
-        <h1 className="">Login</h1>
+      <header className="flex flex-col justify-center items-center text-neutral-100">
+        <h1 className="text-neutral-100">Login</h1>
         <h3 className="">ASE Athletics Metrica</h3>
       </header>
 
@@ -77,7 +77,7 @@ const LoginForm = () => {
         className="flex flex-col gap-y-2"
       >
         <div id="email" className="flex flex-col ">
-          <label htmlFor="email">E-mail</label>
+          <label className="text-neutral-100">E-mail</label>
           <input
             {...register("email")}
             type="text"
@@ -89,7 +89,7 @@ const LoginForm = () => {
           )}
         </div>
         <div className="flex flex-col gap-y-3 ">
-          <label htmlFor="password" className="relative flex flex-col">
+          <label htmlFor="password" className="relative flex flex-col text-neutral-100">
             Password
             <input
               id="password"
@@ -126,7 +126,7 @@ const LoginForm = () => {
         <button type="submit" className="btn-primary">
           Log in
         </button>
-        <p className="text-sm text-center font-secondary">
+        <p className="text-sm text-neutral-100 text-center font-secondary">
           No account?{" "}
           <Link className="text-accent-green  font-semibold" to={"/signin"}>
             sign in
