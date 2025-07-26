@@ -1,54 +1,5 @@
 import { validationResult } from "express-validator";
 import { PlayerAttributesService } from "../services/playerAttributes.service.js";
-/**
- * @swagger
- * /players/{id}/attributes:
- *   post:
- *     summary: Create attributes for a specific player.
- *     description: Adds a new set of attributes for the player identified by the given ID.
- *     tags:
- *       - Player Attributes
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: The ID of the player.
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               pace:
- *                 type: integer
- *                 example: 85
- *               shooting:
- *                 type: integer
- *                 example: 78
- *               passing:
- *                 type: integer
- *                 example: 82
- *               dribbling:
- *                 type: integer
- *                 example: 80
- *               defending:
- *                 type: integer
- *                 example: 70
- *               physical:
- *                 type: integer
- *                 example: 88
- *     responses:
- *       201:
- *         description: Player attributes successfully created.
- *       400:
- *         description: Invalid data provided.
- *       500:
- *         description: Server error during attribute creation.
- */
-router.post('/players/:id/attributes', createPlayerAttributes);
 
 const createPlayerAttributes = async (req, res) => {
   const error = validationResult(req);
