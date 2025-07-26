@@ -59,7 +59,7 @@ const Sidebar = () => {
           <Users />
           Matchup
         </ButtonSidebar>
-        <ButtonSidebar onClick={setPlayerForm}>
+        <ButtonSidebar onClick={() => setPlayerForm()}>
           <UserRoundPlus />
           Add Player
         </ButtonSidebar>

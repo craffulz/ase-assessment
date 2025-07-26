@@ -21,11 +21,11 @@ const insertToken = async (token, user_id, ip) => {
   const query = {
     text: `
     INSERT INTO refresh_tokens
-    (user_id, token, expires_at, ip)
-    VALUES ($1, $2, $3, $4)
+    (user_id, token, ip)
+    VALUES ($1, $2, $3)
     RETURNING *
     `,
-    values: [user_id, token, token.expires_at, ip],
+    values: [user_id, token, ip],
   };
 
   try {

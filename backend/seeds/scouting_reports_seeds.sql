@@ -1,4 +1,4 @@
-BEGIN;
+
 
 -- Crear usuarios para scouts
 -- Creando usuario para: John Mitchell
