@@ -126,7 +126,7 @@ const ResumeCard = () => {
                 {player.name}
               </div>
               <div className="flex-grow items-center justify-center overflow-hidden text-diale">
-                {player.assits}
+                {player.assists}
               </div>
             </div>
           );
