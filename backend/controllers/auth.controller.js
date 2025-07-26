@@ -136,6 +136,31 @@ const login = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /auth/logout/{userId}:
+ *   post:
+ *     summary: Log out user by revoking their refresh token.
+ *     description: Revokes the user's refresh token and clears the refresh token cookie.
+ *     tags:
+ *       - Authentication
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of the user to log out.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Token successfully revoked and cookie cleared.
+ *       400:
+ *         description: User ID not provided.
+ *       500:
+ *         description: Server error while revoking token.
+ */
+router.post('/logout/:userId', logout); // <- adjust method/path if needed
+
 const logout = async (req, res) => {
   const user_id = req.params;
 

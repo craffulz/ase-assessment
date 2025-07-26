@@ -20,9 +20,12 @@
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "fs": "0.0.1-security",
+    "jsdoc": "^4.0.4",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
+    "swagger": "^0.7.5",
+    "swagger-ui-express": "^5.0.1",
     "tls": "^0.0.1",
     "url": "^0.11.4"
   },

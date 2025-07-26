@@ -1,3 +1,6 @@
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swager-jsdoc";
+
 import e from "express";
 import { config } from "dotenv";
 import path from "path";
@@ -20,6 +23,22 @@ console.log(process.env.DB_HOST);
 
 const app = e();
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'ASE Athletics API',
+      version: '1.0.0',
+      description: 'ASE Football Metrica API Documentation',
+    },
+  },
+  apis: ['./routes/*.js'], // aquí defines dónde pones tus rutas con comentarios swagger
+};
+
+const specs = swaggerJsdoc(options)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(e.static(path.join(__dirname, "public")));
 
@@ -29,7 +48,11 @@ app.use(e.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["https://ase-assessment.vercel.app","https://ase-assessment-git-main-craffulzs-projects.vercel.app", "http://localhost:5173"],
+    origin: [
+      "https://ase-assessment.vercel.app",
+      "https://ase-assessment-git-main-craffulzs-projects.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
