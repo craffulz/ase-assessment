@@ -55,7 +55,7 @@ const Sidebar = () => {
           <Table2 />
           Players
         </ButtonSidebar>
-        <ButtonSidebar to="/">
+        <ButtonSidebar>
           <Users />
           Matchup
         </ButtonSidebar>

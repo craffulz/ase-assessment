@@ -7,7 +7,7 @@ export const fetchAttributes = createAsyncThunk(
   "dashboard/fetchAttributes",
   async ({ accessToken }, { dispatch }) => {
     try {
-      const response = await fetch(`${URL}/playerAttributes`, {
+      const response = await fetch(`${URL}/api/playerAttributes`, {
         credentials: "include",
         method: "GET",
         headers: {
