@@ -75,7 +75,7 @@ const LoginForm = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-y-8"
+        className="relative flex flex-col gap-y-8"
       >
        
         {invalidCredentials && (
