@@ -30,7 +30,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      const response = await fetch(`${URL}/auth/login`, {
+      const response = await fetch(`${URL}/api/auth/login`, {
         credentials: "include",
         method: "POST",
         headers: {

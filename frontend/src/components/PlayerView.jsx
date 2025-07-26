@@ -35,7 +35,7 @@ const PlayerView = () => {
     console.log(player, data);
 
     try {
-      const response = await fetch(`${URL}/players/`, {
+      const response = await fetch(`${URL}/api/players/`, {
         credentials: "include",
         method: "POST",
         headers: {

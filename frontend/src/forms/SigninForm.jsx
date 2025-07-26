@@ -26,7 +26,7 @@ const Signin = () => {
     const { name, email, password } = data;
 
     try {
-      const response = await fetch(`${URL}/auth/register`, {
+      const response = await fetch(`${URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

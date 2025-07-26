@@ -11,7 +11,7 @@ export const LogoutButton = ({ onClick, width, height }) => {
   const navigateTo = useNavigate();
   const handleClick = async () => {
     try {
-      const response = await fetch(`${URL}/auth/logout`, {
+      const response = await fetch(`${URL}/api/auth/logout`, {
         credentials: "include",
         method: "POST",
         headers: {

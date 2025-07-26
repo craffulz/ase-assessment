@@ -33,7 +33,7 @@ const PlayerAttributesForm = () => {
 
     try {
       const response = await fetch(
-        `${URL}/playerAttributes/${player_id}`,
+        `${URL}/api/playerAttributes/${player_id}`,
         {
           credentials: "include",
           method: "POST",
