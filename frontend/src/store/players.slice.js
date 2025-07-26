@@ -18,7 +18,7 @@ export const fetchPlayers = createAsyncThunk(
         sortOrder: sort.direction,
       });
 
-      const response = await fetch(`${URL}/players/search?${params}`, {
+      const response = await fetch(`${URL}/api/players/search?${params}`, {
         credentials: "include",
         method: "GET",
         headers: {
