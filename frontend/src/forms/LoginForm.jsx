@@ -77,7 +77,7 @@ const LoginForm = () => {
         onSubmit={handleSubmit(onSubmit, onError)}
         className="flex flex-col gap-y-8"
       >
-        <div id="email" className="flex flex-col ">
+        <div id="email" className="relative flex flex-col ">
           <label className="text-neutral-100">E-mail</label>
           <input
             {...register("email")}
@@ -89,7 +89,7 @@ const LoginForm = () => {
             <small className="text-red-500">{errors.email.message}</small>
           )}
         </div>
-        <div className="flex flex-col gap-y-3 ">
+        <div className="relative flex flex-col gap-y-3 ">
           <label
             htmlFor="password"
             className="relative flex flex-col text-neutral-100"
