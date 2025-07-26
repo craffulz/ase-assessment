@@ -71,7 +71,7 @@ const RadarPlayersAtt = () => {
         <h2 className="text-center text-xl font-bold mb-2 text-neutral-100">
           Player attribute comparisons
         </h2>
-        <RadarChart outerRadius={90} width={730} height={250} data={radarData}>
+        <RadarChart outerRadius={90} width={730} height={450} data={radarData}>
           {radarData.map((player, index) => {
             return (
               <Radar

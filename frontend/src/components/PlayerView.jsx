@@ -12,7 +12,7 @@ const PlayerView = () => {
 
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(true);
   const { player } = useSelector((state) => state.playerView);
   const {
     register,
