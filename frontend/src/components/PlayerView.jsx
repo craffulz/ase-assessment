@@ -9,7 +9,7 @@ import { closePlayerView } from "../store/playerView.slice.js";
 import { API_URL } from "../config/config.js";
 const PlayerView = () => {
   const URL = API_URL;
-
+  const [submittedData, setSubmittedData] = useState()
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
   const [editing, setEditing] = useState(true);
@@ -32,7 +32,7 @@ const PlayerView = () => {
     console.log(player, data);
 
     try {
-      const response = await fetch(`${URL}/api/players/`, {
+      const response = await fetch(`${URL}/api/players/updatePlayer/${player.id}`, {
         credentials: "include",
         method: "POST",
         headers: {
@@ -52,7 +52,8 @@ const PlayerView = () => {
 
       // dispatch(setPlayerView(createdPlayer))
       // dispatch(setAttributesAsk());
-       setEditing(false);
+      setSubmittedData(true)
+      setEditing(false);
 
       console.log(response);
     } catch (error) {
@@ -70,7 +71,9 @@ const PlayerView = () => {
             onClick={() => dispatch(closePlayerView())}
           />
         </div>
-        <form
+        {submittedData ? <div className="flex flex-col p-8 text-green-500 items-center justify-center font-bold text-3xl">
+            <p>Submitted player!</p>
+          </div> : <form
           onSubmit={handleSubmit(onSubmit, onError)}
           id="playerForm"
           className="grid gap-x-3 gap-y-8 
@@ -277,14 +280,6 @@ const PlayerView = () => {
           <div className="flex flex-col  justify-end">
             {editing ? (
               <button
-                type="submit"
-                className="btn-primary flex items-center justify-center
-           h-2/3 border-3 border-primary-800"
-              >
-                Submit
-              </button>
-            ) : (
-              <button
                 type="button"
                 onClick={() => setEditing(false)}
                 className="btn-primary flex items-center justify-center
@@ -292,9 +287,19 @@ const PlayerView = () => {
               >
                 Edit
               </button>
+            ) : (
+              <button
+                type="submit"
+                className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+              >
+                Submit
+              </button>
             )}
           </div>
-        </form>
+        </form>}
+       
+        
       </div>
     </div>
   );

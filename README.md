@@ -1,88 +1,76 @@
-# ASE Athletics - Plataforma de Análisis de Fútbol
-## Demostración en Vivo
-- **Aplicación Frontend:** [\[Tu URL de frontend desplegado\]](https://ase-assessment.vercel.app/)
-- **API Backend:** [\[Tu URL de backend desplegado\]](https://mi-app-7069258062.europe-southwest1.run.app/)
-- **Documentación de API:** [Swagger UI o URL de documentación]
-## Resumen del Proyecto
-[Breve descripción de tu implementación y características clave]
-## Stack Tecnológico
+# ASE Athletics - Football Analysis Platform
+## Live Demo
+- **Frontend Application:** [\[Your deployed frontend URL\]](https://ase-assessment.vercel.app/)
+- **Backend API:** [\[Your deployed backend URL\]](https://mi-app-7069258062.europe-southwest1.run.app/)
+- **API Documentation:** [\[Swagger UI or documentation URL\]](https://mi-app-7069258062.europe-southwest1.run.app/api-docs/) Must be authenticated
+
+## Project Overview
+[A brief description of your implementation and key features]
+
+## Technology Stack
 ### Frontend
 - Framework: React.js
-- Gestión de Estado: Redux 
-- Estilos: Tailwind CSS / CSS
-- Gráficos: Recharts
-- Librerías adicionales: Vite, Zod
+- State Management: Redux 
+- Styling: Tailwind CSS / CSS
+- Charts: Recharts
+- Additional Libraries: Vite, Zod
 ### Backend
 - Runtime: Node.js
 - Framework: Express 
-- Base de Datos: PostgreSQL 
-- Autenticación: JWT con bcrypt
-- Validación: express-validator 
-- Documentación: Swagger
-### DevOps y Despliegue
-- Host Frontend:  Vercel
-- Host Backend: Google Cloud
-- Host Base de Datos: Google Cloud
-- Control de Versiones: Git con GitHub
-## Configuración de Desarrollo Local
-### Prerequisitos
+- Database: PostgreSQL 
+- Authentication: JWT with bcrypt
+- Validation: express-validator 
+- Documentation: Swagger
+### DevOps and Deployment
+- Frontend Hosting: Vercel
+- Backend Hosting: Google Cloud
+- Database Hosting: Google Cloud
+- Version Control: Git with GitHub
+## Local Development Setup
+### Prerequisites
 ```bash
-Node.js (v16 o superior)
+Node.js (v16 or higher)
 PostgreSQL
 Git
 
-# Clonar y navegar
+# Clone and navigate
 git clone https://github.com/craffulz/ase-assessment
 
 cd backend
 
-# Instalar dependencias
+# Install dependencies
 pnpm install
 
-# Configuración de entorno
+# Environment setup
 cp .env.example .env
 
-# Editar .env con tus credenciales de base de datos
+# Edit .env with your database credentials
 
-# Configuración de base de datos
+# Database setup
 pnpm run db:create
 pnpm run db:migrate
 pnpm run db:seed
 
-# Iniciar servidor de desarrollo
+# Start development server
 pnpm run dev
 
-# Servidor corre en 
+# Server runs at
 http://localhost:8080
 
-# Navegar a frontend
+# Navigate to frontend
 cd frontend
 
-# Instalar dependencias
+# Install dependencies
 pnpm install
 
-# Configuración de entorno
+# Environment setup
 cp .env.example .env
 
-# Establecer 
+# Set
 REACT_APP_API_URL=http://localhost:3000
 
-# Iniciar servidor de desarrollo
+# Start development server
 pnpm start
 
-# Aplicación corre en 
+# App runs at
 http://localhost:5173
-
-### Backend
-- Runtime: Node.js
-- Framework: Express
-- Database: PostgreSQL
-- Authentication: JWT with bcrypt
-- Validation: express-validator 
-- Documentation: Swagger 
-
-### DevOps & Deployment
-- Frontend Host: Vercel
-- Backend Host: Google Cloud
-- Database Host: Google Cloud
-- Version Control: Git with GitHub
