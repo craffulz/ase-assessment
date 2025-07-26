@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,9 +8,7 @@ import { closePlayerView } from "../store/playerView.slice.js";
 
 import { API_URL } from "../config/config.js";
 const PlayerView = () => {
-  
-
-  const URL = API_URL
+  const URL = API_URL;
 
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
@@ -278,25 +275,26 @@ const PlayerView = () => {
             )}
           </label>
           <div className="flex flex-col  justify-end">
-            {editing && (
+            {editing ? (
               <button
+                type="submit"
                 className="btn-primary flex items-center justify-center
            h-2/3 border-3 border-primary-800"
               >
                 Submit
               </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setEditing(true)}
+                className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+              >
+                Edit
+              </button>
             )}
           </div>
         </form>
-        {!editing && (
-          <button
-            onClick={() => setEditing(true)}
-            className="btn-primary flex items-center justify-center
-           h-2/3 border-3 border-primary-800"
-          >
-            Edit
-          </button>
-        )}
       </div>
     </div>
   );
