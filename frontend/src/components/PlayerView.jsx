@@ -52,7 +52,7 @@ const PlayerView = () => {
 
       // dispatch(setPlayerView(createdPlayer))
       // dispatch(setAttributesAsk());
-      // setediting(true);
+       setEditing(false);
 
       console.log(response);
     } catch (error) {
@@ -286,7 +286,7 @@ const PlayerView = () => {
             ) : (
               <button
                 type="button"
-                onClick={() => setEditing(true)}
+                onClick={() => setEditing(false)}
                 className="btn-primary flex items-center justify-center
            h-2/3 border-3 border-primary-800"
               >

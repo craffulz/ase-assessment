@@ -66,7 +66,7 @@ const Signin = () => {
         <FormProvider>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="flex flex-col gap-y-2 text-neutral-100"
+            className="flex flex-col gap-y-8 text-neutral-100"
           >
             <label>Name</label>
             <input

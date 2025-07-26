@@ -75,7 +75,7 @@ const LoginForm = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-y-2"
+        className="flex flex-col gap-y-8"
       >
         <div id="email" className="flex flex-col ">
           <label className="text-neutral-100">E-mail</label>
