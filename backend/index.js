@@ -16,7 +16,7 @@ import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
 config();
 
-console.log(process.env.DB_HOST)
+console.log(process.env.DB_HOST);
 
 const app = e();
 
@@ -29,19 +29,20 @@ app.use(e.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["https://ase-assessment.vercel.app/", "http://localhost:5173"],
+    origin: ["https://ase-assessment.vercel.app", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Authorization"],
   })
 );
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
-    status: 'success',
-    message: '¡Backend funcionando correctamente!',
+    status: "success",
+    message: "¡Backend funcionando correctamente!",
     environment: process.env.NODE_ENV,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
@@ -57,19 +58,17 @@ app.use((err, req, res, next) => {
 
 app.listen(process.env.PORT, async () => {
   console.log("Server listening on port:", process.env.PORT);
-  
+
   try {
-    
     await sequelize.authenticate();
     console.log("Conexión a DB establecida con Sequelize");
-    
-   
+
     const client = await db.connect();
     await client.query("SELECT 1");
-   client.release();
+    client.release();
     console.log("Conexión a DB establecida con Pool");
   } catch (error) {
     console.error(" Error de conexión a DB:", error);
-    process.exit(1); 
+    process.exit(1);
   }
 });
