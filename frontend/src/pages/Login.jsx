@@ -13,7 +13,7 @@ const Login = () => {
   useEffect(() => {
     const auto_log = async () => {
       try {
-        const response = await fetch(`${URL}/login`, {
+        const response = await fetch(`${URL}/auth/login`, {
           credentials: "include",
           method: "POST",
           headers: {
