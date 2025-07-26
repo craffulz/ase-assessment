@@ -2,10 +2,10 @@
 ## Live Demo
 - **Frontend Application:** [\[Your deployed frontend URL\]](https://ase-assessment.vercel.app/)
 - **Backend API:** [\[Your deployed backend URL\]](https://mi-app-7069258062.europe-southwest1.run.app/)
-- **API Documentation:** [\[Swagger UI or documentation URL\]](https://mi-app-7069258062.europe-southwest1.run.app/api-docs/) Must be authenticated
+- **API Documentation:** [\[Swagger UI or documentation URL\]](https://mi-app-7069258062.europe-southwest1.run.app/api-docs/)
 
 ## Project Overview
-[A brief description of your implementation and key features]
+
 
 ## Technology Stack
 ### Frontend

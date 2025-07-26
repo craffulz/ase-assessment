@@ -37,7 +37,7 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-app.use("/api-docs", accessTokenMiddleware, swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(e.static(path.join(__dirname, "public")));

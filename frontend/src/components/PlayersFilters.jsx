@@ -85,7 +85,7 @@ const PlayersFilters = () => {
           />
         </div>
 
-        <div className="col-span-2 flex flex-row items-center sm:gap-3 justify-between sm:p-2 rounded-md bg-secondary-500">
+        <div className="col-span-2 flex flex-col sm:flex sm:flex-row items-center sm:gap-3 justify-between sm:p-2 rounded-md bg-secondary-500">
           <button
             type="submit"
             className="btn-apply px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
