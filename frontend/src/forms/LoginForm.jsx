@@ -77,6 +77,12 @@ const LoginForm = () => {
         onSubmit={handleSubmit(onSubmit, onError)}
         className="flex flex-col gap-y-8"
       >
+       
+        {invalidCredentials && (
+          <small className="text-red-500">
+            This email and passsword combination is incorrect.
+          </small>
+        )}
         <div id="email" className="relative flex flex-col ">
           <label className="text-neutral-100">E-mail</label>
           <input
@@ -120,13 +126,6 @@ const LoginForm = () => {
             <small className="text-red-500">{errors.password.message}</small>
           )}
         </div>
-
-        {invalidCredentials && (
-          <small className="text-red-500">
-            This email and passsword combination is incorrect.
-          </small>
-        )}
-
         <button type="submit" className="btn-primary">
           Log in
         </button>
