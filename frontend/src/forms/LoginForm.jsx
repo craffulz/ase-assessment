@@ -83,7 +83,7 @@ const LoginForm = () => {
             {...register("email")}
             type="text"
             placeholder="Enter e-mail"
-            className="input"
+            className="input text-neutral-100"
           />
           {errors.email?.message && (
             <small className="text-red-500">{errors.email.message}</small>
