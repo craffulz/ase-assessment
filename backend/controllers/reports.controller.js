@@ -85,7 +85,7 @@ const getReports = async (res) => {
   try {
     const reports = await ReportsModel.getAllReports();
 
-    if (reports.length() === 0)
+    if (reports.length === 0)
       return res.status(404).json({ ok: false, msg: "Reports not found" });
 
     return res.status(200).json({ ok: true, reports: reports });
