@@ -32,7 +32,7 @@ const PlayerView = () => {
     console.log(player, data);
 
     try {
-      const response = await fetch(`${URL}/api/players/updatePlayer/${player.id}`, {
+      const response = await fetch(`${URL}/api/players/updatePlayer/:${player.id}`, {
         credentials: "include",
         method: "POST",
         headers: {
