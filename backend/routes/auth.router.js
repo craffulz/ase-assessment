@@ -42,10 +42,8 @@ const router = Router();
  *       500:
  *         description: Internal server error during registration.
  */
-
-
-
 router.post("/register", AuthController.register);
+
 /**
  * @swagger
  * /auth/login:

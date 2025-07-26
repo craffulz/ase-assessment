@@ -1,7 +1,7 @@
 # ASE Athletics - Plataforma de Análisis de Fútbol
 ## Demostración en Vivo
-- **Aplicación Frontend:** [Tu URL de frontend desplegado]
-- **API Backend:** [Tu URL de backend desplegado]
+- **Aplicación Frontend:** [\[Tu URL de frontend desplegado\]](https://ase-assessment.vercel.app/)
+- **API Backend:** [\[Tu URL de backend desplegado\]](https://mi-app-7069258062.europe-southwest1.run.app/)
 - **Documentación de API:** [Swagger UI o URL de documentación]
 ## Resumen del Proyecto
 [Breve descripción de tu implementación y características clave]
@@ -52,7 +52,8 @@ pnpm run db:seed
 # Iniciar servidor de desarrollo
 pnpm run dev
 
-# Servidor corre en http://localhost:8080
+# Servidor corre en 
+http://localhost:8080
 
 # Navegar a frontend
 cd frontend
@@ -63,12 +64,14 @@ pnpm install
 # Configuración de entorno
 cp .env.example .env
 
-# Establecer REACT_APP_API_URL=http://localhost:5000
+# Establecer 
+REACT_APP_API_URL=http://localhost:3000
 
 # Iniciar servidor de desarrollo
 pnpm start
 
-# Aplicación corre en http://localhost:5173
+# Aplicación corre en 
+http://localhost:5173
 
 ### Backend
 - Runtime: Node.js
