@@ -36,7 +36,7 @@ const PiePlayerPosition = ({ data }) => {
           return <Cell key={index} fill={colors[index]} />;
         })}
       </Pie>
-      <Legend />
+     
       <Tooltip content={customTooltip}></Tooltip>
     </PieChart>
   );
