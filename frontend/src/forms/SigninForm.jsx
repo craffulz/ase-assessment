@@ -3,8 +3,10 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { SigninValidator } from "./../validators/auth.validator.js";
+import { API_URL } from "../config/config.js";
 
 const Signin = () => {
+  const URL = API_URL
   const [signed, setSigned] = useState(false);
   const navigateTo = useNavigate();
   const {
@@ -24,7 +26,7 @@ const Signin = () => {
     const { name, email, password } = data;
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const response = await fetch(`${URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

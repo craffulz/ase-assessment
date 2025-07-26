@@ -3,15 +3,17 @@ import { login } from "./../store/user.slice.js";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import LoginForm from "../forms/LoginForm.jsx";
+import { API_URL } from "../config/config.js";
 
 const Login = () => {
+  const URL = API_URL
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const auto_log = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/auth/login", {
+        const response = await fetch(`${URL}/auth/login`, {
           credentials: "include",
           method: "POST",
           headers: {

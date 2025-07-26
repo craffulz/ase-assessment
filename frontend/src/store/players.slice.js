@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { updateToken } from "./user.slice.js";
+import { API_URL } from "../config/config.js";
 
 export const fetchPlayers = createAsyncThunk(
   "players/fetchPlayers",
@@ -7,6 +8,7 @@ export const fetchPlayers = createAsyncThunk(
     { accessToken, page = 1, limit = 1, filters = {}, sort = {} },
     { dispatch }
   ) => {
+    const URL = API_URL;
     try {
       const params = new URLSearchParams({
         page,
@@ -16,16 +18,13 @@ export const fetchPlayers = createAsyncThunk(
         sortOrder: sort.direction,
       });
 
-      const response = await fetch(
-        `http://localhost:3000/api/players/search?${params}`,
-        {
-          credentials: "include",
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${URL}/players/search?${params}`, {
+        credentials: "include",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       const data = await response.json();
 

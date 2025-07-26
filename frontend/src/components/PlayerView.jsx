@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
@@ -5,7 +6,13 @@ import { X } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlayerValidator } from "../validators/player.validator.js";
 import { closePlayerView } from "../store/playerView.slice.js";
+
+import { API_URL } from "../config/config.js";
 const PlayerView = () => {
+  
+
+  const URL = API_URL
+
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
   const [editing, setEditing] = useState(false);
@@ -28,7 +35,7 @@ const PlayerView = () => {
     console.log(player, data);
 
     try {
-      const response = await fetch("http://localhost:3000/api/players/", {
+      const response = await fetch(`${URL}/players/`, {
         credentials: "include",
         method: "POST",
         headers: {

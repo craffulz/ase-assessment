@@ -6,7 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { closeReportForm } from "../store/playerView.slice.js";
 import { X } from "lucide-react";
 import { CheckCheck } from "lucide-react";
+
+import { API_URL } from "../config/config.js";
+
 const ReportForm = () => {
+  const URL = API_URL
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
   const [submittedData, setSubmittedData] = useState(false);
@@ -25,7 +29,7 @@ const ReportForm = () => {
     const report = { ...data };
 
     try {
-      const response = await fetch("http://localhost:3000/api/reports/", {
+      const response = await fetch(`${URL}/api/reports/`, {
         credentials: "include",
         method: "POST",
         headers: {

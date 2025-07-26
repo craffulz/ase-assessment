@@ -12,8 +12,10 @@ import {
 } from "../store/playerView.slice.js";
 
 import { setPlayerView } from "../store/playerView.slice.js";
+import { API_URL } from "../config/config.js";
 
 const PlayerForm = () => {
+  const URL = API_URL;
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.user);
   console.log(accessToken);
@@ -35,7 +37,7 @@ const PlayerForm = () => {
     console.log(player, data);
 
     try {
-      const response = await fetch("http://localhost:3000/api/players/", {
+      const response = await fetch(`${URL}/api/players/`, {
         credentials: "include",
         method: "POST",
         headers: {
@@ -49,11 +51,11 @@ const PlayerForm = () => {
         console.log(await response.json());
         throw new Error("No response");
       }
- 
-      const createdPlayer = await response.json()
-      console.log(createdPlayer)
 
-      dispatch(setPlayerView(createdPlayer))
+      const createdPlayer = await response.json();
+      console.log(createdPlayer);
+
+      dispatch(setPlayerView(createdPlayer));
       dispatch(setAttributesAsk());
       setSubmittedData(true);
 
@@ -78,7 +80,7 @@ const PlayerForm = () => {
           />
         </div>
         {submittedData ? (
-           <div className="flex flex-col p-8 text-green-500 items-center justify-center font-bold text-3xl">
+          <div className="flex flex-col p-8 text-green-500 items-center justify-center font-bold text-3xl">
             <p>Submitted player!</p>
           </div>
         ) : (

@@ -6,10 +6,11 @@ import { LoginValidator } from "../validators/auth.validator.js";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { login } from "./../store/user.slice.js";
+import { API_URL } from "../config/config.js";
 
 const LoginForm = () => {
   console.log("[LoginForm] RENDERS...");
-
+  const URL = API_URL;
   const navigateTo = useNavigate();
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${URL}/auth/login`, {
         credentials: "include",
         method: "POST",
         headers: {
@@ -89,7 +90,10 @@ const LoginForm = () => {
           )}
         </div>
         <div className="flex flex-col gap-y-3 ">
-          <label htmlFor="password" className="relative flex flex-col text-neutral-100">
+          <label
+            htmlFor="password"
+            className="relative flex flex-col text-neutral-100"
+          >
             Password
             <input
               id="password"

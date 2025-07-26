@@ -2,12 +2,16 @@ import React from "react";
 import { LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+
+import { API_URL } from "../../config/config.js";
+
 export const LogoutButton = ({ onClick, width, height }) => {
+  const URL = API_URL
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const handleClick = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/logout", {
+      const response = await fetch(`${URL}/auth/logout`, {
         credentials: "include",
         method: "POST",
         headers: {

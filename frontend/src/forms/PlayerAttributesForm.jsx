@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { X } from "lucide-react";
-import { CheckCheck } from "lucide-react";
 import { closeAttributesForm } from "../store/playerView.slice.js";
+
+import { API_URL } from "../config/config.js";
+
 const PlayerAttributesForm = () => {
+  const URL = API_URL
   const dispatch = useDispatch();
   const [submittedData, setSubmittedData] = useState(false);
   const { player } = useSelector((state) => state.playerView);
@@ -30,7 +33,7 @@ const PlayerAttributesForm = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/playerAttributes/${player_id}`,
+        `${URL}/playerAttributes/${player_id}`,
         {
           credentials: "include",
           method: "POST",

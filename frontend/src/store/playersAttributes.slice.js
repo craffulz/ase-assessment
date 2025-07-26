@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { updateToken } from "./user.slice.js";
+
+import { API_URL } from "../config/config.js";
+const URL = API_URL;
 export const fetchAttributes = createAsyncThunk(
   "dashboard/fetchAttributes",
   async ({ accessToken }, { dispatch }) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/playerAttributes`,
-        {
-          credentials: "include",
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${URL}/playerAttributes`, {
+        credentials: "include",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       if (!response) throw new Error("Error fetching attributes");
 
