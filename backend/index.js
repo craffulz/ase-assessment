@@ -16,6 +16,8 @@ import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
 config();
 
+console.log(process.env.DB_HOST)
+
 const app = e();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,43 +29,47 @@ app.use(e.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["https://ase-assessment.vercel.app/","http://localhost:5173"],
+    origin: ["https://ase-assessment.vercel.app/", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     exposedHeaders: ["Authorization"],
   })
 );
 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: '¡Backend funcionando correctamente!',
+    environment: process.env.NODE_ENV,
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/players", playersRouter);
 app.use("/api/reports", accessTokenMiddleware, reportsRouter);
 app.use("/api/playerAttributes", accessTokenMiddleware, playerAttributesRouter);
 
-const startServer = async () => {
+app.use((err, req, res, next) => {
+  console.error("❌ Error global:", err.stack);
+  res.status(500).json({ error: "Algo salió mal" });
+});
+
+app.listen(process.env.PORT, async () => {
+  console.log("Server listening on port:", process.env.PORT);
+  
   try {
-    db.query("SELECT NOW()", (err) => {
-      if (err) {
-        console.log("ERROR CONNECTING DATABASE", err);
-      } else {
-        console.log(" DATABASE CONNECTION SUCCESS!");
-      }
-    });
-
+    
     await sequelize.authenticate();
-    console.log("DB SEQUEL SUCCESSFULLY CONNECTED");
-
-    // if (process.env.NODE_ENV !== "production") {
-    //   await sequelize.sync({ alter: true });
-    //   console.log("Sync models");
-    // }
-
-    app.listen(process.env.PORT, () => {
-      console.log("Server listeningn on :", process.env.PORT);
-    });
+    console.log("Conexión a DB establecida con Sequelize");
+    
+   
+    const client = await db.connect();
+    await client.query("SELECT 1");
+   client.release();
+    console.log("Conexión a DB establecida con Pool");
   } catch (error) {
-    console.error("Error starting server: ", error);
-    process.exit(1);
+    console.error(" Error de conexión a DB:", error);
+    process.exit(1); 
   }
-};
-
-startServer();
+});
