@@ -79,7 +79,7 @@ const LoginForm = () => {
       >
        
         {invalidCredentials && (
-          <small className="text-red-500">
+          <small className="top-[-8px] text-red-500">
             This email and passsword combination is incorrect.
           </small>
         )}
