@@ -277,20 +277,20 @@ const PlayerView = () => {
           <div className="flex flex-col  justify-end">
             {editing ? (
               <button
-                type="submit"
-                className="btn-primary flex items-center justify-center
-           h-2/3 border-3 border-primary-800"
-              >
-                Submit
-              </button>
-            ) : (
-              <button
                 type="button"
                 onClick={() => setEditing(true)}
                 className="btn-primary flex items-center justify-center
            h-2/3 border-3 border-primary-800"
               >
                 Edit
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+              >
+                Submit
               </button>
             )}
           </div>

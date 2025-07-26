@@ -57,7 +57,7 @@ const LoginForm = () => {
 
       dispatch(login(accessToken));
       //Navigate to the home page
-      navigateTo("/players");
+      navigateTo("/home");
     } catch (error) {
       console.log("Error fetching data: ", error);
     }
