@@ -6,7 +6,7 @@ import { SigninValidator } from "./../validators/auth.validator.js";
 import { API_URL } from "../config/config.js";
 
 const Signin = () => {
-  const URL = API_URL
+  const URL = API_URL;
   const [signed, setSigned] = useState(false);
   const navigateTo = useNavigate();
   const {
@@ -55,7 +55,10 @@ const Signin = () => {
   };
 
   return (
-    <div id="login" className="flex flex-col items-center justify-center text-neutral-100">
+    <div
+      id="login"
+      className="flex flex-col items-center justify-center text-neutral-100"
+    >
       <header className="flex flex-col justify-center items-center">
         <h1 className="">Sign in</h1>
         <h3 className="">ASE Athletics Metrica</h3>
@@ -68,39 +71,47 @@ const Signin = () => {
             onSubmit={handleSubmit(onSubmit, onError)}
             className="flex flex-col gap-y-8 text-neutral-100"
           >
-            <label>Name</label>
-            <input
-              {...register("name")}
-              type="text"
-              name="name"
-              placeholder="Enter name"
-              className="input"
-            />
-            {errors.name?.message && (
-              <small className="text-red-500">{errors.name.message}</small>
-            )}
-            <label>E-mail</label>
-            <input
-              {...register("email")}
-              type="text"
-              name="email"
-              placeholder="Enter e-mail"
-              className="input"
-            />
-            {errors.email?.message && (
-              <small className="text-red-500">{errors.email.message}</small>
-            )}
-            <label htmlFor="password">Password</label>
-            <input
-              {...register("password")}
-              type="text"
-              name="password"
-              placeholder="Enter password"
-              className="input"
-            />
-            {errors.password?.message && (
-              <small className="text-red-500">{errors.password.message}</small>
-            )}
+            <div className="relative">
+              <label>Name</label>
+              <input
+                {...register("name")}
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                className="input"
+              />
+              {errors.name?.message && (
+                <small className="text-red-500">{errors.name.message}</small>
+              )}
+            </div>
+            <div className="relative">
+              <label>E-mail</label>
+              <input
+                {...register("email")}
+                type="text"
+                name="email"
+                placeholder="Enter e-mail"
+                className="input"
+              />
+              {errors.email?.message && (
+                <small className="text-red-500">{errors.email.message}</small>
+              )}
+            </div>
+            <div className="relative">
+              <label htmlFor="password">Password</label>
+              <input
+                {...register("password")}
+                type="text"
+                name="password"
+                placeholder="Enter password"
+                className="input"
+              />
+              {errors.password?.message && (
+                <small className="text-red-500">
+                  {errors.password.message}
+                </small>
+              )}
+            </div>
             <button type="submit" className="btn-primary">
               Sign in
             </button>
