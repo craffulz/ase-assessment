@@ -1,7 +1,13 @@
-import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from "recharts";
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Tooltip,
+  Cell,
+  Legend,
+} from "recharts";
 import { User } from "lucide-react";
 const PiePlayerTeam = ({ data }) => {
-  
   const colors = [
     "#f0f9ff",
     "#e0f2fe",
@@ -32,7 +38,7 @@ const PiePlayerTeam = ({ data }) => {
           return <Cell key={index} fill={colors[value]} />;
         })}
       </Pie>
-
+      <Legend />
       <Tooltip content={customTooltip}></Tooltip>
     </PieChart>
   );
