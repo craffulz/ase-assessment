@@ -84,7 +84,7 @@ const PlayerView = () => {
               name="name"
               placeholder="Name"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.name?.message && (
               <small className="text-red-500">{errors.name.message}</small>
@@ -98,7 +98,7 @@ const PlayerView = () => {
               name="nationality"
               placeholder="Nationality"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.nationality?.message && (
               <small className="text-red-500">
@@ -114,7 +114,7 @@ const PlayerView = () => {
               type="number"
               name="age"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.age?.message && (
               <small className="text-red-500">{errors.age.message}</small>
@@ -129,7 +129,7 @@ const PlayerView = () => {
               name="height"
               placeholder="cms"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.height?.message && (
               <small className="text-red-500">{errors.height.message}</small>
@@ -144,7 +144,7 @@ const PlayerView = () => {
               name="weight"
               placeholder="kgs"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.weight?.message && (
               <small className="text-red-500">{errors.weight.message}</small>
@@ -159,7 +159,7 @@ const PlayerView = () => {
               name="team"
               placeholder="Team"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.team?.message && (
               <small className="text-red-500">{errors.team.message}</small>
@@ -173,7 +173,7 @@ const PlayerView = () => {
               name="position"
               placeholder="Position"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.position?.message && (
               <small className="text-red-500">{errors.position.message}</small>
@@ -187,7 +187,7 @@ const PlayerView = () => {
               type="number"
               name="goals"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.goals?.message && (
               <small className="text-red-500">{errors.goals.message}</small>
@@ -201,7 +201,7 @@ const PlayerView = () => {
               type="number"
               name="assists"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.assists?.message && (
               <small className="text-red-500">{errors.assists.message}</small>
@@ -215,7 +215,7 @@ const PlayerView = () => {
               type="number"
               name="appearances"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.appearances?.message && (
               <small className="text-red-500">
@@ -232,7 +232,7 @@ const PlayerView = () => {
               name="contract_salary"
               placeholder="Salary"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing ? "true" : "false"}
             />
             {errors.contract_salary?.message && (
               <small className="text-red-500">
@@ -249,7 +249,7 @@ const PlayerView = () => {
               name="contract_end"
               placeholder="Contract End"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.contract_end?.message && (
               <small className="text-red-500">
@@ -266,7 +266,7 @@ const PlayerView = () => {
               name="market_value"
               placeholder="Market Value"
               className="input"
-              readOnly={editing ? true : false}
+              readOnly={editing}
             />
             {errors.market_value?.message && (
               <small className="text-red-500">
@@ -277,20 +277,20 @@ const PlayerView = () => {
           <div className="flex flex-col  justify-end">
             {editing ? (
               <button
+                type="submit"
+                className="btn-primary flex items-center justify-center
+           h-2/3 border-3 border-primary-800"
+              >
+                Submit
+              </button>
+            ) : (
+              <button
                 type="button"
                 onClick={() => setEditing(true)}
                 className="btn-primary flex items-center justify-center
            h-2/3 border-3 border-primary-800"
               >
                 Edit
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="btn-primary flex items-center justify-center
-           h-2/3 border-3 border-primary-800"
-              >
-                Submit
               </button>
             )}
           </div>
