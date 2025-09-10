@@ -1,7 +1,7 @@
 import { sequelize } from "../database/connectionSqlite.database.js";
 import { DataTypes } from "sequelize";
 
-const RefreshToken = sequelize.define("RefreshToken", {
+const Scout = sequelize.define("Scout", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -15,25 +15,20 @@ const RefreshToken = sequelize.define("RefreshToken", {
       model: "Auth",
       key: "id",
     },
-    onUpdate: "CASCADE",
     onDelete: "CASCADE",
+    onUpdate: "CASCADE",
   },
-  token: {
-    type: DataTypes.STRING(255),
+  full_name: {
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
-  is_revoked: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
-  ip: { type: DataTypes.STRING(50), allowNull: false },
-  expiresAt: {
-    type: DataTypes.DATE,
+  license_number: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
-
-  timestamps: true,
+  organization: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
-
-export default RefreshToken;
+export default Scout;

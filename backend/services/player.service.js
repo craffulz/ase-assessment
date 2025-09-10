@@ -9,11 +9,11 @@ const getPlayerById = async (playerId) => {
   return await Player.findByPk(playerId);
 };
 
-const updatePlayer = async (updateData, playerId) => {
+const updatePlayer = async (updatedData, playerId) => {
   const player = await Player.findByPk(playerId);
   if (!player) throw new Error("Jugador no encontrado");
 
-  return await player.update(updateData);
+  return await player.update(updatedData);
 };
 
 const deletePlayer = async (playerId) => {

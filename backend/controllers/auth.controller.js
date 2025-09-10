@@ -1,11 +1,11 @@
 import { validationResult } from "express-validator";
-import { AuthModel } from "./../models/auth.model.js";
-import { TokenUtil } from "../utils/token.util.js"; 
-import { RefreshTokenModel } from "../models/refreshToken.model.js";
-import { ScoutsModel } from "../models/scouts.model.js";
+import { AuthService } from "./../services/auth.service.js";
+import { TokenUtil } from "../utils/token.util.js";
+import { RefreshTokenService } from "../services/refreshToken.service.js";
+import { ScoutService } from "../services/scout.service.js";
 const register = async (req, res) => {
   const errors = validationResult(req);
- 
+
   if (!errors.isEmpty())
     return res
       .status(401)
@@ -20,7 +20,7 @@ const register = async (req, res) => {
     if (!hashedPassword) throw new Error("Error hashing password");
     newUser.password_hash = hashedPassword;
 
-    const createdUser = await AuthModel.createUser(newUser);
+    const createdUser = await AuthService.createUser(newUser);
     if (!createdUser) throw new Error("User not created");
 
     const scoutProfile = {
@@ -30,7 +30,7 @@ const register = async (req, res) => {
       organization: "",
     };
 
-    const createdScoutProfile = await ScoutsModel.createScout(scoutProfile);
+    const createdScoutProfile = await ScoutService.createScout(scoutProfile);
     if (!createdScoutProfile) {
       const error = new Error();
       error.name = "Scout profile not created";
@@ -47,7 +47,7 @@ const register = async (req, res) => {
     console.log("[CON] Error registering user", error);
 
     if (error.createdUser || error.createdUser.id) {
-      await AuthModel.deleteUser(error.createdUser.id);
+      await AuthService.deleteUser(error.createdUser.id);
     }
 
     return res.status(500).json({ ok: false, msg: "Server error" });
@@ -70,7 +70,7 @@ const login = async (req, res) => {
     console.log("Login user:  \n", loginUser);
     if (!loginUser) throw new Error("User not provided");
     //checking user is in DB
-    const checkedUser = await AuthModel.getUserByEmail(loginUser.email);
+    const checkedUser = await AuthService.getUserByEmail(loginUser.email);
 
     if (!checkedUser) throw new Error("Incorrect email or password");
     //compare passwords
@@ -99,7 +99,7 @@ const login = async (req, res) => {
       ? xForwardedFor.split(",")[0].trim()
       : req.socket.remoteAddress;
 
-    const inserted_refreshToken = await RefreshTokenModel.insertToken(
+    const inserted_refreshToken = await RefreshTokenService.insertToken(
       refreshToken,
       checkedUser.id,
       clientIP
@@ -114,7 +114,7 @@ const login = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
-    }); 
+    });
 
     console.log("Refresh token cookie set...");
 
@@ -142,7 +142,7 @@ const logout = async (req, res) => {
   try {
     if (!user_id) throw new Error("User ID not provided");
 
-    await RefreshTokenModel.revokeToken(user_id);
+    await RefreshTokenService.revokeToken(user_id);
     res.clearCookie("refresh_token");
     res.status(200).json({ ok: true, msg: "Token revoked" });
   } catch (error) {

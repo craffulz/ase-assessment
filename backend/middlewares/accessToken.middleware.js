@@ -1,4 +1,4 @@
-import { RefreshTokenModel } from "../models/refreshToken.model.js";
+import  RefreshTokenModel  from "../models/refreshToken.model.js";
 import { TokenUtil } from "../utils/token.util.js";
 
 export const accessTokenMiddleware = async (req, res, next) => {

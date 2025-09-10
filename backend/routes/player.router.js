@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PlayerController } from "./../controllers/player.controller.js";
+import { PlayerController } from "../controllers/player.controller.js";
 import { accessTokenMiddleware } from "../middlewares/accessToken.middleware.js";
 const router = Router();
 
@@ -56,7 +56,7 @@ router.get("/", accessTokenMiddleware, PlayerController.getPlayers);
  *         name: page
  *         schema:
  *           type: integer
- *         description: Page number for pagination (default: 1)
+ *         description: "Page number for pagination (default: 1)"
  *       - in: query
  *         name: limit
  *         schema:
@@ -132,7 +132,6 @@ router.get("/search", accessTokenMiddleware, PlayerController.searchPlayers);
  *         description: Server error
  */
 router.post("/", accessTokenMiddleware, PlayerController.createPlayer);
-
 
 /**
  * @swagger

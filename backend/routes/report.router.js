@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { accessTokenMiddleware } from "../middlewares/accessToken.middleware.js";
-import { ReportsController } from "../controllers/reports.controller.js";
+import { ReportsController } from "../controllers/report.controller.js";
 
 const router = Router();
 

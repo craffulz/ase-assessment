@@ -8,12 +8,11 @@ import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { db } from "./database/connection.database.js";
-import { sequelize } from "./database/connection.database.js";
+import { sequelize } from "./database/connectionSqlite.database.js";
 
 import authRouter from "./routes/auth.router.js";
-import playersRouter from "./routes/players.router.js";
-import reportsRouter from "./routes/reports.router.js";
+import playersRouter from "./routes/player.router.js";
+import reportsRouter from "./routes/report.router.js";
 import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
@@ -32,7 +31,7 @@ const options = {
       description: "ASE Football Metrica API Documentation",
     },
   },
-  apis: ["./routes/*.js"], // aquí defines dónde pones tus rutas con comentarios swagger
+  apis: ["./routes/*.js"],
 };
 
 const specs = swaggerJsdoc(options);
@@ -81,11 +80,6 @@ app.listen(process.env.PORT, async () => {
   try {
     await sequelize.authenticate();
     console.log("Conexión a DB establecida con Sequelize");
-
-    const client = await db.connect();
-    await client.query("SELECT 1");
-    client.release();
-    console.log("Conexión a DB establecida con Pool");
   } catch (error) {
     console.error(" Error de conexión a DB:", error);
     process.exit(1);

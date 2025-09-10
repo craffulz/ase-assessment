@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { ReportsModel } from "./../models/reports.model.js";
+import { ReportService } from "../services/report.service.js";
 
 const deleteReport = async (req, res) => {
   const reportId = req.params;
@@ -7,7 +7,7 @@ const deleteReport = async (req, res) => {
     return res.status(401).json({ ok: false, msg: "Id not provided" });
 
   try {
-    const deletedReport = await ReportsModel.deleteReport(reportId);
+    const deletedReport = await ReportService.deleteReport(reportId);
 
     if (!deletedReport) throw new Error("Error deleting report");
 
@@ -37,7 +37,7 @@ const updateReport = async (req, res) => {
     return res.status(401).json({ ok: false, msg: "Data not provided" });
 
   try {
-    const updatedReport = await ReportsModel.updateReport(
+    const updatedReport = await ReportService.updateReport(
       reportUpdate,
       reportId
     );
@@ -66,7 +66,7 @@ const createReport = async (req, res) => {
   const newReport = req.body;
 
   try {
-    const createdReport = await ReportsModel.createReport(newReport);
+    const createdReport = await ReportService.createReport(newReport);
 
     if (!createdReport) throw new Error("Error creating report");
 
@@ -83,7 +83,7 @@ const createReport = async (req, res) => {
 
 const getReports = async (res) => {
   try {
-    const reports = await ReportsModel.getAllReports();
+    const reports = await ReportService.getAllReports();
 
     if (reports.length === 0)
       return res.status(404).json({ ok: false, msg: "Reports not found" });

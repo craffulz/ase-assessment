@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../database/connection.database.js";
+import { sequelize } from "../database/connectionSqlite.database.js";
 
 const Player = sequelize.define(
   "Player",
