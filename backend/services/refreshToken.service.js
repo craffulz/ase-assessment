@@ -1,4 +1,4 @@
-import RefreshToken from "../models/refreshToken.model.js";
+import RefreshToken from "../models/index.js";
 
 const getToken = async (token) => {
   try {

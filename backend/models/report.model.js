@@ -1,4 +1,3 @@
-import { sequelize } from "../database/connectionSqlite.database.js";
 import { DataTypes } from "sequelize";
 
 const Report = sequelize.define("Reports", {
@@ -50,5 +49,7 @@ const Report = sequelize.define("Reports", {
     type: DataTypes.STRING(50),
   },
   timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 });
 export default Report;

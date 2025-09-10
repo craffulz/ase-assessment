@@ -1,4 +1,3 @@
-import { sequelize } from "../database/connectionSqlite.database.js";
 import { DataTypes } from "sequelize";
 
 const RefreshToken = sequelize.define("RefreshToken", {
@@ -34,6 +33,8 @@ const RefreshToken = sequelize.define("RefreshToken", {
   },
 
   timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 });
 
 export default RefreshToken;

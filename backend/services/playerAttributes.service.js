@@ -1,4 +1,4 @@
-import PlayerAttributes from "../models/playerAttributes.model.js";
+import PlayerAttributes from "../models/index.js";
 
 const createPlayerAttributes = async (playerAttributes) => {
   console.log('[service]', playerAttributes)

@@ -1,15 +1,20 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../database/connectionSqlite.database.js";
 
 const PlayerAttributes = sequelize.define(
   "PlayerAttributes",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
     player_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       references: {
-        model: "players",
+        model: "Player",
         key: "id",
       },
       onDelete: "CASCADE",
@@ -34,7 +39,6 @@ const PlayerAttributes = sequelize.define(
     },
   },
   {
-    tableName: "player_attributes",
     timestamps: false,
     underscored: true,
   }

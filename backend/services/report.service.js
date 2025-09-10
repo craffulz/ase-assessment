@@ -1,4 +1,4 @@
-import Report from "../models/report.model.js";
+import Report from "../models/index.js";
 
 const deleteReport = async (reportId) => {
   try {

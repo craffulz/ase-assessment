@@ -1,4 +1,4 @@
-import Scout from "../models/scout.model.js";
+import Scout from "../models/index.js";
 
 const createScout = async (newScout) => {
   console.log(newScout);

@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { sequelize } from "./database/connectionSqlite.database.js";
+import { connectDB, syncModels } from "./database/connectionSqlite.database.js";
 
 import authRouter from "./routes/auth.router.js";
 import playersRouter from "./routes/player.router.js";
@@ -17,8 +17,6 @@ import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
 config();
-
-console.log(process.env.DB_HOST);
 
 const app = e();
 
@@ -55,15 +53,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    message: "¡Backend funcionando correctamente!",
-    environment: process.env.NODE_ENV,
-    timestamp: new Date().toISOString(),
-  });
-});
-
 app.use("/api/auth", authRouter);
 app.use("/api/players", playersRouter);
 app.use("/api/reports", accessTokenMiddleware, reportsRouter);
@@ -74,14 +63,31 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Algo salió mal" });
 });
 
-app.listen(process.env.PORT, async () => {
-  console.log("Server listening on port:", process.env.PORT);
-
+async function startServer() {
   try {
-    await sequelize.authenticate();
-    console.log("Conexión a DB establecida con Sequelize");
+    // 1. Conectar y sincronizar base de datos
+    await connectDB();
+    await syncModels();
+
+    // 2. Iniciar servidor
+    app.listen(process.env.PORT, () => {
+      console.log("Server listening on port:", process.env.PORT);
+      console.log("✅ Database connected and synced");
+      console.log("✅ All routes registered");
+    });
+
+    app.get("/", (req, res) => {
+      res.status(200).json({
+        status: "success",
+        message: "¡Backend funcionando correctamente!",
+        environment: process.env.NODE_ENV,
+        timestamp: new Date().toISOString(),
+      });
+    });
   } catch (error) {
-    console.error(" Error de conexión a DB:", error);
+    console.error("❌ Error starting server:", error);
     process.exit(1);
   }
-});
+}
+
+startServer();

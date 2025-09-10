@@ -1,4 +1,4 @@
-import Player from "../models/player.model.js";
+import Player from "../models/index.js";
 import { Op } from "sequelize";
 
 const createPlayer = async (playerData) => {

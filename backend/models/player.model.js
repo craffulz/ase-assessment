@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/connectionSqlite.database.js";
-
 const Player = sequelize.define(
   "Player",
   {
@@ -58,17 +57,8 @@ const Player = sequelize.define(
     market_value: {
       type: DataTypes.INTEGER,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
-    tableName: "players",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",

@@ -60,9 +60,6 @@ importers:
         specifier: ^0.11.4
         version: 0.11.4
     devDependencies:
-      dev-cli:
-        specifier: ^0.0.0
-        version: 0.0.0
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -678,9 +675,6 @@ packages:
   detect-libc@2.0.4:
     resolution: {integrity: sha512-3UDv+G9CsCKO1WKMGw9fwq/SWJYbI0c5Y7LU1AXYoDdbhE2AHQ6N6Nb34sG8Fj7T5APy8qXDCKuuIHd1BR0tVA==}
     engines: {node: '>=8'}
-
-  dev-cli@0.0.0:
-    resolution: {integrity: sha512-xiRgrf8TppSejSzY9kwbnimazyxdGlvlNpNUCdsdcXOLdjoKVnLkbvkzyyyXL5dqQ+RrLYD8hD8BjzbtgkyjPw==}
 
   dezalgo@1.0.4:
     resolution: {integrity: sha512-rXSP0bf+5n0Qonsb+SVVfNfIsimO4HEtmnIpPHY8Q1UCzKlQrDMfdobr8nJOOsRgWCyMRqeSBQzmWUMq7zvVig==}
@@ -3506,8 +3500,6 @@ snapshots:
   destroy@1.2.0: {}
 
   detect-libc@2.0.4: {}
-
-  dev-cli@0.0.0: {}
 
   dezalgo@1.0.4:
     dependencies:

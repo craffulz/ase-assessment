@@ -1,10 +1,5 @@
 {
-  "updates": [
-    {
-      "id": 2,
-      "market_value": 65000000
-    }
-  ],
+
   "inserts": [
     {
       "name": "Matías Fernández",

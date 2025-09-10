@@ -1,4 +1,3 @@
-import { sequelize } from "../database/connectionSqlite.database.js";
 import { DataTypes } from "sequelize";
 
 const Scout = sequelize.define("Scout", {
@@ -22,13 +21,21 @@ const Scout = sequelize.define("Scout", {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
-  license_number: {
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
+  },
+  license_number: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   organization: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
+  timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 });
 export default Scout;

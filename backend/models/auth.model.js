@@ -1,5 +1,5 @@
-import { sequelize } from "../database/connectionSqlite.database.js";
 import { DataTypes } from "sequelize";
+import { sequelize } from "../database/connectionSqlite.database.js";
 
 const Auth = sequelize.define("Auth", {
   id: {
@@ -11,6 +11,7 @@ const Auth = sequelize.define("Auth", {
   email: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    unique: true,
   },
   password_hash: {
     type: DataTypes.STRING(255),
@@ -21,6 +22,8 @@ const Auth = sequelize.define("Auth", {
     allowNull: false,
   },
   timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 });
 
 export default Auth;
