@@ -1,9 +1,8 @@
 import { playerAttributesData } from "../data/playerAttributes.data.js";
-import PlayerAttributes from "../../models/playerAttributes.model.js";
 
-export const seedPlayerAttributes = async () => {
+export const seedPlayerAttributes = async (playerAttributesModel) => {
   try {
-    await PlayerAttributes.bulkCreate(playerAttributesData, {
+    await playerAttributesModel.bulkCreate(playerAttributesData, {
       validate: true,
       ignoreDuplicates: true,
       returning: true,

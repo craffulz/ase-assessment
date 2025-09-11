@@ -1,4 +1,6 @@
-export default (sequelize, DataTypes) => {
+import { DataTypes } from "sequelize";
+
+export default (sequelize) => {
   const PlayerAttributes = sequelize.define(
     "PlayerAttributes",
     {
@@ -10,7 +12,6 @@ export default (sequelize, DataTypes) => {
       },
       player_id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
         references: {
           model: "Player",
@@ -38,13 +39,14 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
+      tableName: "PlayerAttributes",
       timestamps: false,
       underscored: true,
     }
   );
 
   PlayerAttributes.associate = (models) => {
-    PlayerAttributes.hasOne(models.Player);
+    PlayerAttributes.belongsTo(models.Player);
   };
 
   return PlayerAttributes;

@@ -1,7 +1,7 @@
 export const reportsData = [
   {
     player_id: 5,
-
+    scout_id: 1,
     match_date: "2024-11-22",
     overall_rating: 9,
     strengths:
@@ -12,7 +12,7 @@ export const reportsData = [
   },
   {
     player_id: 10,
-
+    scout_id: 2,
     match_date: "2024-11-18",
     overall_rating: 9,
     strengths:

@@ -1,15 +1,8 @@
 import { reportsData } from "../data/reports.data.js";
-import Report from "../../models/report.model.js";
-import Scout from "../../models/report.model.js";
 
-export const seedReports = async () => {
+export const seedReports = async (reportModel) => {
   try {
-    reportsData.forEach(async (report) => {
-      const scout = await Scout.findOne({ where: { id: report.scout_id } });
-      scout ? (report.scout_id = scout.id) : console.log("No scout found");
-    });
-
-    await Report.bulkCreate(reportsData, {
+    await reportModel.bulkCreate(reportsData, {
       validate: true,
       ignoreDuplicates: true,
       returning: true,

@@ -1,16 +1,29 @@
 import { scoutsData } from "../data/scouts.data.js";
-import Auth from "../../models/scout.model.js";
-import Scout from "../../models/scout.model.js";
-console.log(scoutsData);
 
-export const seedScouts = async () => {
+export const seedScouts = async (scoutModel, authModel) => {
   try {
-    scoutsData.forEach(async (scout) => {
-      const user = await Auth.findOne({ where: { email: scout.email } });
-      user ? (scout.user_id = user.id) : console.log("No user found");
-    });
+    const scoutsToCreate = [];
 
-    await Scout.bulkCreate(scoutsData, {
+    console.log('shno hadaa',authModel)
+
+    for (const scout of scoutsData) {
+      console.log("Procesando scout:", scout.email);
+
+      const user = await authModel.findOne({ where: { email: scout.email } });
+
+      if (user) {
+        scoutsToCreate.push({
+          ...scout,
+          user_id: user.id,
+        });
+      } else {
+        console.log("No user found for email:", scout.email);
+      }
+    }
+
+    console.log("Esto es el con los ids", scoutsToCreate);
+
+    await scoutModel.bulkCreate(scoutsToCreate, {
       validate: true,
       ignoreDuplicates: true,
       returning: true,

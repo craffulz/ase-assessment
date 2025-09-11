@@ -1,4 +1,5 @@
-export default (sequelize, DataTypes) => {
+import { DataTypes } from "sequelize";
+export default (sequelize) => {
   const Player = sequelize.define(
     "Player",
     {
@@ -61,6 +62,7 @@ export default (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
+      tableName: 'Player',
 
       indexes: [
         { fields: ["position"], name: "idx_players_position" },

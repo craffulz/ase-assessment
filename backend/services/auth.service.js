@@ -1,4 +1,4 @@
-import Auth from "../models/index.js";
+import {Auth} from "../models/index.js";
 
 const getUserByEmail = async (userEmail) => {
   try {

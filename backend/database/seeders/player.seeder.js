@@ -1,10 +1,8 @@
 import { playersData } from "../data/players.data.js";
-import Player from "../../models/player.model.js";
-console.log(playersData);
 
-export const seedPlayers = async () => {
+export const seedPlayers = async (playerModel) => {
   try {
-    await Player.bulkCreate(playersData, {
+    await playerModel.bulkCreate(playersData, {
       validate: true,
       ignoreDuplicates: true,
       returning: true,

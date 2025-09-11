@@ -1,9 +1,8 @@
-import Auth from "../../models/auth.model.js";
 import { usersData } from "../data/users.data.js";
 
-export const seedUsers = async () => {
+export const seedUsers = async (authModel) => {
   try {
-    await Auth.bulkCreate(usersData, {
+    authModel.bulkCreate(usersData, {
       validate: true,
       ignoreDuplicates: true,
       returning: true,
