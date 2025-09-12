@@ -14,10 +14,10 @@ const config = {
     logging: console.log,
   },
   test: {
-    dialect: "sqlite",
+    dialect: "sqlite", 
     storage: path.join(__dirname, ".", "storage", "test.sqlite"),
     logging: console.log,
-  },
+  }, 
   production: {
     dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "production.sqlite"),

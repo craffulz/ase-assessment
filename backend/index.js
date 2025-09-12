@@ -17,7 +17,6 @@ import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
 import serverless from "serverless-http";
-import { addAbortListener } from "events";
 
 config();
 
@@ -37,15 +36,31 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.use(e.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());
 app.use(e.json());
 app.use(e.urlencoded({ extended: true }));
 
+let isDBConnected = false;
+app.use(async (req, res, next) => {
+  console.log("Entro al middleware");
+  if (!isDBConnected) {
+    console.log("Entro a la condicion de no conectado");
+    try {
+      await connectDB();
+      isDBConnected = true;
+    } catch (error) {
+      console.log("❌ Error al conectar la base de datos");
+
+      return res
+        .status(500)
+        .json({ ok: false, message: "Database conection failed" });
+    }
+  }
+  next();
+});
+app.use(e.static(path.join(__dirname, "public")));
 app.use(
   cors({
     origin: ["https://ase-assessment.vercel.app", "http://localhost:5173"],
@@ -55,7 +70,7 @@ app.use(
     exposedHeaders: ["Authorization"],
   })
 );
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/auth", authRouter);
 app.use("/api/players", playersRouter);
 app.use("/api/reports", accessTokenMiddleware, reportsRouter);
@@ -73,23 +88,6 @@ app.get("/", (req, res) => {
     environment: process.env.NODE_ENV,
     timestamp: new Date().toISOString(),
   });
-});
-
-let isDBConnected = false;
-app.use(async (req, res, next) => {
-  if (!isDBConnected) {
-    try {
-      await connectDB();
-      isDBConnected = true;
-    } catch (error) {
-      console.log("❌ Error al conectar la base de datos");
-
-      return res
-        .status(500)
-        .json({ ok: false, message: "Database conection failed" });
-    }
-  }
-  next();
 });
 
 export const handler = serverless(app);
