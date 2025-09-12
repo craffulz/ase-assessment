@@ -1,4 +1,3 @@
-
 export default (sequelize, DataTypes) => {
   const Report = sequelize.define(
     "Report",
@@ -63,4 +62,6 @@ export default (sequelize, DataTypes) => {
     Report.belongsTo(models.Scout);
     Report.belongsTo(models.Player);
   };
+
+  return Report;
 };

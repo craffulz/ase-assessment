@@ -47,4 +47,6 @@ export default (sequelize, DataTypes) => {
     Scout.hasMany(models.Report);
     Scout.belongsTo(models.Auth);
   };
+
+  return Scout;
 };
