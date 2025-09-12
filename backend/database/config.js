@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import path from "path";
-
+import Database from "better-sqlite3";
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,13 +14,14 @@ const config = {
     logging: console.log,
   },
   test: {
-    dialect: "sqlite", 
+    dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "test.sqlite"),
     logging: console.log,
-  }, 
+  },
   production: {
     dialect: "sqlite",
-    storage: path.join(__dirname, ".", "storage", "production.sqlite"),
+    storage: "/data/database.sqlite",
+    dialectOptions: { dialectModule: Database },
     logging: console.log,
   },
 };

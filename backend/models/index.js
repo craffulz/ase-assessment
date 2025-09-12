@@ -10,9 +10,12 @@ import ScoutFactory from "./scout.model.js";
 import { Sequelize, DataTypes } from "sequelize";
 import { seedDatabase } from "../database/seeders/index.js";
 
+i;
+
 const sequelize = new Sequelize({
   dialect: dbConfig.dialect,
   storage: dbConfig.storage,
+  dialectOptions: dbConfig.dialectOptions,
   logging: dbConfig.logging,
   pool: {
     max: 5,
