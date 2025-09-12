@@ -1,22 +1,7 @@
-import { Sequelize } from "sequelize";
-import dbConfig from "./config.js";
 import { seedDatabase } from "./seeders/index.js";
-import { createAndAssociate } from "../models/index.js";
 
-export const connectDB = async () => {
+export const connectDB = async (sequelize) => {
   try {
-    const sequelize = new Sequelize({
-      dialect: dbConfig.dialect,
-      storage: dbConfig.storage,
-      logging: dbConfig.logging,
-      pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000,
-      },
-    });
-
     await sequelize.authenticate();
     console.log("Conexion a SQLite establecida correctamente");
 

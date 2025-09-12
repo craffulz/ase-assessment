@@ -8,12 +8,12 @@ import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { connectDB } from "./database/connection.database.js";
+import { connectDB } from "./models/index.js";
 
-//import authRouter from "./routes/auth.router.js";
-//import playersRouter from "./routes/player.router.js";
-//import reportsRouter from "./routes/report.router.js";
-//import playerAttributesRouter from "./routes/playerAttributes.router.js";
+import authRouter from "./routes/auth.router.js";
+import playersRouter from "./routes/player.router.js";
+import reportsRouter from "./routes/report.router.js";
+import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
 config();
@@ -53,10 +53,10 @@ app.use(
   })
 );
 
-//app.use("/api/auth", authRouter);
-//app.use("/api/players", playersRouter);
-//app.use("/api/reports", accessTokenMiddleware, reportsRouter);
-//app.use("/api/playerAttributes", accessTokenMiddleware, playerAttributesRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/players", playersRouter);
+app.use("/api/reports", accessTokenMiddleware, reportsRouter);
+app.use("/api/playerAttributes", accessTokenMiddleware, playerAttributesRouter);
 
 app.use((err, req, res, next) => {
   console.error("❌ Error global:", err.stack);
