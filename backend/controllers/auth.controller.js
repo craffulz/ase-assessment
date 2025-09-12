@@ -24,10 +24,11 @@ const register = async (req, res) => {
     if (!createdUser) throw new Error("User not created");
 
     const scoutProfile = {
-      userId: createdUser.id,
-      fullName: createdUser.name,
-      licenseNumber: "",
+      user_id: createdUser.id,
+      full_name: createdUser.name,
+      license_number: "",
       organization: "",
+      email: createdUser.email,
     };
 
     const createdScoutProfile = await ScoutService.createScout(scoutProfile);
@@ -46,7 +47,7 @@ const register = async (req, res) => {
   } catch (error) {
     console.log("[CON] Error registering user", error);
 
-    if (error.createdUser || error.createdUser.id) {
+    if (error.createdUser || error.createdUser.id) {  
       await AuthService.deleteUser(error.createdUser.id);
     }
 

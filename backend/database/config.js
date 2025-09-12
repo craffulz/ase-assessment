@@ -16,11 +16,12 @@ const config = {
   test: {
     dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "test.sqlite"),
+    logging: console.log,
   },
   production: {
     dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "production.sqlite"),
-    logging: false,
+    logging: console.log,
   },
 };
 

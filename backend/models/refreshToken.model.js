@@ -1,4 +1,3 @@
-
 export default (sequelize, DataTypes) => {
   const RefreshToken = sequelize.define(
     "RefreshToken",
@@ -29,10 +28,6 @@ export default (sequelize, DataTypes) => {
         defaultValue: false,
       },
       ip: { type: DataTypes.STRING(50), allowNull: false },
-      expiresAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
     },
     {
       tableName: "RefreshToken",

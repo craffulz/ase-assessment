@@ -16,6 +16,9 @@ import reportsRouter from "./routes/report.router.js";
 import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
+import serverless from "serverless-http";
+import { addAbortListener } from "events";
+
 config();
 
 const app = e();
@@ -63,28 +66,44 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Algo salió mal" });
 });
 
-async function startServer() {
-  try {
-    // 1. Conectar y sincronizar base de datos
-    await connectDB();
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "success",
+    message: "¡Backend funcionando correctamente!",
+    environment: process.env.NODE_ENV,
+    timestamp: new Date().toISOString(),
+  });
+});
 
-    // 2. Iniciar servidor
+let isDBConnected = false;
+app.use(async (req, res, next) => {
+  if (!isDBConnected) {
+    try {
+      await connectDB();
+      isDBConnected = true;
+    } catch (error) {
+      console.log("❌ Error al conectar la base de datos");
+
+      return res
+        .status(500)
+        .json({ ok: false, message: "Database conection failed" });
+    }
+  }
+  next();
+});
+
+export const handler = serverless(app);
+
+if (process.env.NODE_ENV !== "production") {
+  try {
     app.listen(process.env.PORT, () => {
       console.log("Server listening on port:", process.env.PORT);
-    });
-
-    app.get("/", (req, res) => {
-      res.status(200).json({
-        status: "success",
-        message: "¡Backend funcionando correctamente!",
-        environment: process.env.NODE_ENV,
-        timestamp: new Date().toISOString(),
-      });
     });
   } catch (error) {
     console.error("❌ Error starting server:", error);
     process.exit(1);
   }
 }
+async function startServer() {}
 
 startServer();
