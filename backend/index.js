@@ -16,8 +16,6 @@ import reportsRouter from "./routes/report.router.js";
 import playerAttributesRouter from "./routes/playerAttributes.router.js";
 import { accessTokenMiddleware } from "./middlewares/accessToken.middleware.js";
 
-import serverless from "serverless-http";
-
 config();
 
 const app = e();
@@ -43,23 +41,17 @@ app.use(e.json());
 app.use(e.urlencoded({ extended: true }));
 
 let isDBConnected = false;
-app.use(async (req, res, next) => {
-  console.log("Entro al middleware");
-  if (!isDBConnected) {
-    console.log("Entro a la condicion de no conectado");
-    try {
-      await connectDB();
-      isDBConnected = true;
-    } catch (error) {
-      console.log("❌ Error al conectar la base de datos");
 
-      return res
-        .status(500)
-        .json({ ok: false, message: "Database conection failed" });
-    }
+if (!isDBConnected) {
+  console.log("Entro a la condicion de no conectado");
+  try {
+    await connectDB();
+    isDBConnected = true;
+  } catch (error) {
+    console.log("❌ Error al conectar la base de datos");
   }
-  next();
-});
+}
+
 app.use(e.static(path.join(__dirname, "public")));
 app.use(
   cors({
@@ -90,9 +82,7 @@ app.get("/", (req, res) => {
   });
 });
 
-export const handler = serverless(app);
-
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "development") {
   try {
     app.listen(process.env.PORT, () => {
       console.log("Server listening on port:", process.env.PORT);

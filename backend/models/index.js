@@ -39,14 +39,6 @@ export const connectDB = async () => {
     await sequelize.authenticate();
     console.log("Conexion a SQLite establecida correctamente");
 
-      // Configuración para evitar timeout en Vercel
-    sequelize.connectionManager.initPools();
-    
-    // Manejar desconexiones limpias
-    sequelize.connectionManager.on('release', connection => {
-      console.log('Connection %d released', connection.threadId);
-    });
-
     const tablesExists = await sequelize.getQueryInterface().showAllTables();
     console.log("Tables exists?: ", tablesExists);
 
