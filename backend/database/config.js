@@ -11,11 +11,13 @@ const config = {
   development: {
     dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "development.sqlite"),
+    dialectOptions: { dialectModule: Database },
     logging: console.log,
   },
   test: {
     dialect: "sqlite",
     storage: path.join(__dirname, ".", "storage", "test.sqlite"),
+    dialectOptions: { dialectModule: Database },
     logging: console.log,
   },
   production: {
