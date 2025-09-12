@@ -7,10 +7,14 @@ import RefreshTokenFactory from "./refreshToken.model.js";
 import ReportFactory from "./report.model.js";
 import ScoutFactory from "./scout.model.js";
 
+import { config } from "dotenv";
+
 import { Sequelize, DataTypes } from "sequelize";
 import { seedDatabase } from "../database/seeders/index.js";
 
-const sequelize = new Sequelize({
+config();
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: dbConfig.dialect,
   storage: dbConfig.storage,
   dialectOptions: dbConfig.dialectOptions,

@@ -9,21 +9,21 @@ const __dirname = path.dirname(__filename);
 
 const config = {
   development: {
-    dialect: "sqlite",
+    dialect: "postgres",
     storage: path.join(__dirname, ".", "storage", "development.sqlite"),
-    dialectModule: Database,
+    dialectOptions: { ssl: false },
     logging: console.log,
   },
   test: {
-    dialect: "sqlite",
+    dialect: "postgres",
     storage: path.join(__dirname, ".", "storage", "test.sqlite"),
-    dialectModule: Database,
+    dialectOptions: { ssl: false },
     logging: console.log,
   },
   production: {
-    dialect: "sqlite",
-    storage: "/data/database.sqlite",
-    dialectModule: Database,
+    dialect: "postgres",
+    storage: "./database.sqlite",
+    dialectOptions: { ssl: false },
     logging: console.log,
   },
 };
