@@ -1,2 +1,1 @@
-export const API_URL =
-  "https://mi-app-7069258062.europe-southwest1.run.app";
+export const API_URL = "https://localhost:8080";
