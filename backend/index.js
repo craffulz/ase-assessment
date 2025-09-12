@@ -81,14 +81,11 @@ app.get("/", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
-
-if (process.env.NODE_ENV === "development") {
-  try {
-    app.listen(process.env.PORT, () => {
-      console.log("Server listening on port:", process.env.PORT);
-    });
-  } catch (error) {
-    console.error("❌ Error starting server:", error);
-    process.exit(1);
-  }
+try {
+  app.listen(process.env.PORT, () => {
+    console.log("Server listening on port:", process.env.PORT);
+  });
+} catch (error) {
+  console.error("❌ Error starting server:", error);
+  process.exit(1);
 }
