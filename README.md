@@ -23,8 +23,8 @@
 - Documentation: Swagger
 ### DevOps and Deployment
 - Frontend Hosting: Vercel
-- Backend Hosting: Google Cloud
-- Database Hosting: Google Cloud
+- Backend Hosting: Railway
+- Database Hosting: Railway
 - Version Control: Git with GitHub
 ## Local Development Setup
 ### Prerequisites
