@@ -1,7 +1,7 @@
 # ASE Athletics - Football Analysis Platform
 ## Live Demo
-- **Frontend Application:** [\[Your deployed frontend URL\]](https://ase-assessment.vercel.app/)
-- **Backend API:** [\[Your deployed backend URL\]](https://mi-app-7069258062.europe-southwest1.run.app/)
+- **Frontend Application:** [\[Depoloyed Frontend\]](https://ase-assessment.vercel.app/)
+- **Backend API:** [\[Deployed Backend/\]](https://mi-app-7069258062.europe-southwest1.run.app/)
 - **API Documentation:** [\[Swagger UI or documentation URL\]](https://mi-app-7069258062.europe-southwest1.run.app/api-docs/)
 
 ## Project Overview
@@ -23,8 +23,8 @@
 - Documentation: Swagger
 ### DevOps and Deployment
 - Frontend Hosting: Vercel
-- Backend Hosting: Google Cloud
-- Database Hosting: Google Cloud
+- Backend Hosting: Railway
+- Database Hosting: Railway
 - Version Control: Git with GitHub
 ## Local Development Setup
 ### Prerequisites
