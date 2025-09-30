@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import BarGoalsAssistsXPosi from "../charts/BarGoalsAssistsXPosi.jsx";
 import PieAgeXTeam from "../charts/PieAgeXTeam.jsx";
 
-
 const InteractivePanel = () => {
-
   const { players } = useSelector((state) => state.players);
 
   //get goals, assists per position
@@ -50,9 +48,10 @@ const InteractivePanel = () => {
 
   return (
     <div
+      id="interactive-panel"
       className="flex flex-col col-span-8 p-2 bg-secondary-700 rounded-md gap-2 
-                        md:flex md:flex-row
-                          xl:col-span-4"
+                        lg:flex lg:flex-row
+                          "
     >
       <div className="flex flex-col flex-grow items-center justify-center bg-secondary-900 p-2 rounded-md ">
         <h2 className="text-center text-xl font-bold mb-2 text-neutral-100">

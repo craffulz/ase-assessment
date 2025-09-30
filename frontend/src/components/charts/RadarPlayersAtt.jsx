@@ -64,8 +64,7 @@ const RadarPlayersAtt = () => {
   return (
     <div
       className="flex flex-col col-span-8 p-2 bg-secondary-700 rounded-md gap-2 
-                        md:flex md:flex-row
-                          xl:col-span-4"
+                       "
     >
       <div className="flex flex-col flex-grow items-center justify-center bg-secondary-900 p-2 rounded-md ">
         <h2 className="text-center text-xl font-bold mb-2 text-neutral-100">

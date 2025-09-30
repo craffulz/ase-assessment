@@ -61,7 +61,7 @@ const MarketInsights = () => {
         className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
                     sm:col-span-4
                       
-                        xl:col-span-2"
+                        "
       >
         <h2 className="text-xl font-bold text-center text-neutral-100">
           Most valuable players
@@ -90,8 +90,8 @@ const MarketInsights = () => {
       <div
         className="col-span-8 bg-secondary-900 p-2 rounded-md shadow-md
                         sm:col-span-4
-                         
-                        xl:col-span-2
+                        
+                        
                         "
       >
         <h2 className="text-center text-xl font-bold text-neutral-100">
@@ -114,8 +114,7 @@ const MarketInsights = () => {
       </div>
       <div
         className="flex flex-col col-span-8 p-2 bg-secondary-900 rounded-md
-                        md:flex md:flex-row
-                          xl:col-span-4 xl:row-start-"
+                        lg:flex-row"
       >
         <div className="flex flex-col flex-grow items-center justify-center">
           <h2 className="text-center text-xl font-bold text-neutral-100">
