@@ -2,7 +2,7 @@ import z from "zod";
 
 export const LoginValidator = {
   schema: z.object({
-    email: z.email().min(1, "Must enter a valid email"),
+    email: z.email().min(1, "Must enter a valid email").toLowerCase(),
     password: z.string().min(1, "Must enter a password"),
   }),
 
