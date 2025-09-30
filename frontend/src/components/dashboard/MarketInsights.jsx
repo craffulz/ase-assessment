@@ -60,7 +60,7 @@ const MarketInsights = () => {
         id="table"
         className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
                     sm:col-span-4
-                      md:col-span-3
+                      
                         xl:col-span-2"
       >
         <h2 className="text-xl font-bold text-center text-neutral-100">
@@ -90,7 +90,7 @@ const MarketInsights = () => {
       <div
         className="col-span-8 bg-secondary-900 p-2 rounded-md shadow-md
                         sm:col-span-4
-                        md:col-span-3 
+                         
                         xl:col-span-2
                         "
       >

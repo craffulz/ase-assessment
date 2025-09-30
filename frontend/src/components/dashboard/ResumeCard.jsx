@@ -26,21 +26,24 @@ const ResumeCard = () => {
   return (
     <div
       id="resume-card"
-      className="col-span-8 grid grid-cols-8 text-center gap-3 p-2 rounded-md bg-secondary-700 text-neutral-100"
+      className="col-span-8 grid grid-cols-12 text-center gap-3 p-2 rounded-md bg-secondary-700 text-neutral-100"
     >
       <div
-        className="grid-cols-8 bg-secondary-400 col-span-8 h-full rounded-md
-                        sm:col-span-4 md:col-span-4 
+        className="grid-cols-8 bg-secondary-400 col-span-12 h-full rounded-md
+                        sm:col-span-12 
+                          
+                           lg:col-span-6
       "
       >
         <PlayersFilters />
       </div>
       <div
         id="totalPlayersAverageAge"
-        className="col-span-8 flex flex-row items-center justify-around h-full p-2 gap-x-4 rounded-md bg-secondary-900 font-semibold text-lg
-                    sm:text-2xl  sm:col-span-4 sm:flex sm:flex-col 
-                      md:flex md:flex-col md:text-2xl md:col-span-4  
-                        xl:col-span-1
+        className="col-span-12 flex flex-row items-center justify-around h-full p-2 gap-x-4 rounded-md bg-secondary-900 font-semibold text-lg
+                    sm:text-2xl  sm:col-span-6 sm:flex sm:flex-col 
+                        
+                        lg:col-span-6
+                          xl:col-span-6
        "
       >
         <p className="flex flex-col items-center justify-center">
@@ -67,10 +70,11 @@ const ResumeCard = () => {
 
       <div
         id="table"
-        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
-                    sm:col-span-4
-                      md:col-span-2
-                        xl:col-span-1"
+        className="col-span-12 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                    sm:col-span-6
+                      
+                        lg:col-span-4
+                        "
       >
         <h2 className="text-xl font-bold mb-2 ">Top Goals</h2>
         {/* <div
@@ -102,10 +106,11 @@ const ResumeCard = () => {
       </div>
       <div
         id="table"
-        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
-                            sm:col-span-4
-                              md:col-span-2
-                                xl:col-span-1"
+        className="col-span-12 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                            sm:col-span-6
+                              
+                                lg:col-span-4
+                                  "
       >
         <h2 className="text-xl font-bold mb-2">Top Assists</h2>
         {/* <div id="table titles" className="grid grid-cols-2 py-2">
@@ -134,10 +139,11 @@ const ResumeCard = () => {
       </div>
       <div
         id="table"
-        className="col-span-8 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
-                    sm:col-span-4
-                      md:col-span-2
-                        xl:col-span-1"
+        className="col-span-12 flex flex-col justify-between shadow-md rounded-md text-sm p-2 bg-secondary-900
+                    sm:col-span-6
+                      
+                        lg:col-span-4
+                          "
       >
         <h2 className="text-xl font-bold mb-2">Top Appearances</h2>
         {/* <div id="table titles" className="grid grid-cols-2 py-2">
