@@ -1,5 +1,9 @@
 # ASE Athletics - Football Analysis Platform
 ## Live Demo
+
+User: demo@demo.com
+Pass: Demo1234*
+
 - **Frontend Application:** [\[Depoloyed Frontend\]](https://ase-assessment.vercel.app/)
 - **Backend API:** [\[Deployed Backend/\]](https://mi-app-7069258062.europe-southwest1.run.app/)
 - **API Documentation:** [\[Swagger UI or documentation URL\]](https://mi-app-7069258062.europe-southwest1.run.app/api-docs/)
